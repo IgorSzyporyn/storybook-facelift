@@ -1,4 +1,4 @@
-import * as Parameters from './state-parameters'
+import * as Parameters from './parameters'
 import { ThemeVars } from '@storybook/theming'
 
 declare type ThemeOriginal = {
@@ -15,14 +15,14 @@ declare type Theme = {
 }
 
 declare type Themes = {
-  [key: string]: Theme
+  [key: string]: Theme | undefined
 }
 
 declare type Titles = {
   [key: string]: string
 }
 
-declare type Config = {
+declare type AddonConfig = {
   themes: Themes
   titles: Titles
 }

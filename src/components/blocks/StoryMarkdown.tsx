@@ -1,7 +1,8 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import { useThemedState } from '../../hooks/UseThemedState'
+import { useFaceliftSettings } from '../../hooks/UseFaceliftSettings'
+import { getPreferredColorScheme } from '@storybook/theming/dist/utils'
 
 const useStyles = makeStyles((theme) =>
   createStyles<'root', StoryMarkdownProps & { darkMode: boolean }>({
@@ -47,8 +48,13 @@ type StoryMarkdownProps = {
 } & ReactMarkdown.ReactMarkdownProps
 
 export const StoryMarkdown = ({ noMargin, inheritStyles, ...rest }: StoryMarkdownProps) => {
-  const storybookTheme = useThemedState()
-  const darkMode = storybookTheme.themeVariant === 'dark'
+  const settings = useFaceliftSettings()
+  let darkMode = getPreferredColorScheme() === 'dark'
+
+  if (settings) {
+    darkMode = settings.state.themeVariant === 'dark'
+  }
+
   const classes = useStyles({ noMargin, inheritStyles, darkMode })
 
   return <ReactMarkdown className={classes.root} {...rest} />

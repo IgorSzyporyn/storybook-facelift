@@ -2,7 +2,7 @@ import { ThemeVars } from '@storybook/theming'
 import { Parameters } from '../typings'
 
 type ConvertParameterThemeToConfigThemeProps = {
-  parameters: Parameters.Parameters
+  parameters: Parameters.AddonParameters
   themeConfig: Parameters.Theme
   themeVariant: Parameters.ThemeVariant
   converter: Parameters.ThemeConverter

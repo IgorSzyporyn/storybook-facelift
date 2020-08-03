@@ -5,6 +5,7 @@ import { orange, blue, purple, cyan, red } from '@material-ui/core/colors'
 export const parameters = {
   '@badgers/facelift': {
     includeNative: true,
+    defaultTheme: 'mui5',
     themes: [
       {
         key: 'mui1',

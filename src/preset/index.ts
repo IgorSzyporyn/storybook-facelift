@@ -13,7 +13,5 @@ export function config(entry: any[] = [], { addDecorator = true }: ThemedOptions
     themedConfig.push(require.resolve('./addDecorator'))
   }
 
-  themedConfig.push(require.resolve('./defaultParameters'))
-
   return [...entry, ...themedConfig]
 }

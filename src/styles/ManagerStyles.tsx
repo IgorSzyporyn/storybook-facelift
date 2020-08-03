@@ -1,8 +1,7 @@
-import { useAddonState } from '@storybook/api'
-import { Global, useTheme } from '@storybook/theming'
+import { Global } from '@storybook/theming'
 import React from 'react'
-import { ADDON_ID } from '../constants'
-import { Parameters, Settings } from '../typings'
+import { Parameters } from '../typings'
+import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
 
 type ElevationMap = {
   [key in Parameters.MainElevationTypes]: string
@@ -16,22 +15,23 @@ const elevationMap: ElevationMap = {
 }
 
 export const ManagerStyles = () => {
-  const theme = useTheme()
-  const [settings] = useAddonState<Settings.Settings>(ADDON_ID)
+  const settings = useFaceliftSettings()
 
-  const isReady = settings !== undefined
-
-  if (!isReady) {
+  if (!settings) {
     return null
   }
 
   const { parameters } = settings
-  const { main = {} } = parameters
-  const rootId = `#root`
 
-  const elevation: Parameters.MainElevationTypes =
-    main.elevation !== undefined ? main.elevation : 1
-  const boxShadow = elevationMap[elevation]
+  const rootId = `#root`
+  let boxShadow = 'none'
+
+  if (parameters) {
+    const { main } = parameters
+    const elevation: Parameters.MainElevationTypes =
+      main.elevation !== undefined ? main.elevation : 1
+    boxShadow = elevationMap[elevation]
+  }
 
   return (
     <Global

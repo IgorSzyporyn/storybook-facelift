@@ -1,41 +1,40 @@
 import Brightness2Icon from '@material-ui/icons/Brightness2'
 import WbSunnyIcon from '@material-ui/icons/WbSunny'
-import { useAddonState } from '@storybook/api'
 import { IconButton } from '@storybook/components'
 import React from 'react'
-import { ADDON_ID, ADDON_VARIANT_SELECTOR } from '../constants'
-import { useThemedState } from '../hooks/UseThemedState'
-import { Parameters, Settings } from '../typings'
+import { ADDON_VARIANT_SELECTOR } from '../constants'
+import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
 
 type VariantSelectorProps = {
   onClick: () => void
 }
 
 export const VariantSelector = ({ onClick }: VariantSelectorProps) => {
-  const [settings] = useAddonState<Settings.Settings>(ADDON_ID)
-  const { themeName: name, themeVariant: variant } = useThemedState()
+  const settings = useFaceliftSettings()
 
-  let hasOppositeVariant = false
-  let isDark = false
-  let oppositeVariant: Parameters.ThemeVariantTypes = 'dark'
-
-  if (settings && name && variant) {
-    const { config } = settings
-    const { themes } = config
-    const themeConfig = themes[name]
-
-    isDark = variant === 'dark'
-
-    oppositeVariant = isDark ? 'light' : 'dark'
-
-    hasOppositeVariant = themeConfig[oppositeVariant] !== undefined
+  if (!settings) {
+    return null
   }
+
+  const { config, state } = settings
+  const { themeName, themeVariant } = state
+
+  const themes = config.themes
+  const themeConfig = themes[themeName]
+
+  if (!themeConfig) {
+    return null
+  }
+
+  const isDark = themeVariant === 'dark'
+  const oppositeVariant = isDark ? 'light' : 'dark'
+  const hasOppositeVariant = themeConfig[oppositeVariant] !== undefined
 
   return (
     <IconButton
       key={ADDON_VARIANT_SELECTOR}
       style={{
-        display: !hasOppositeVariant ? 'none' : 'inline-flex'
+        display: !hasOppositeVariant ? 'none' : 'inline-flex',
       }}
       disabled={!hasOppositeVariant}
       title={`Switch to ${oppositeVariant}`}

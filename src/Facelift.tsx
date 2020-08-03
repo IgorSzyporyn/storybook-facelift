@@ -1,26 +1,20 @@
-import { API, useAddonState, useParameter } from '@storybook/api'
+import { API, useAddonState } from '@storybook/api'
 import { DOCS_RENDERED, SET_STORIES, STORY_CHANGED } from '@storybook/core-events'
-import equal from 'fast-deep-equal'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { ThemeSelector } from './components/ThemeSelector'
 import { VariantSelector } from './components/VariantSelector'
-import { AddonEvents, ADDON_EVENT_THEME_CHANGE, ADDON_ID, ADDON_PARAM_KEY } from './constants'
-import { createConfigDefaults, verifyConfig } from './state-config'
-import { createParameterDefaults, updateParameters, verifyParameters } from './state-parameters'
+import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY, ADDON_ID } from './constants'
+import { createConfigDefaults, verifyConfig } from './managers/config'
+import { updateAddonParameters, verifyParameters } from './managers/parameters'
+import { createDefaultSettings } from './managers/settings'
+import { createAddonState } from './managers/state'
 import { ManagerStyles } from './styles/ManagerStyles'
-import { EVENT_NAMES, Parameters } from './typings'
-import { Settings } from './typings/state-settings'
-import { createThemeState } from './utils/create-theme-state'
+import { Parameters, Settings } from './typings'
 
-type ThemeState = {
-  name: string
-  variant: Parameters.ThemeVariantTypes
-}
-
-type SetThemeProps = Partial<ThemeState> & {
-  settings?: Settings
-  themeState?: ThemeState
-  eventName?: EVENT_NAMES
+type SetThemeProps = {
+  themeName?: string
+  themeVariant?: Parameters.ThemeVariantTypes
+  settings: Settings.AddonSettings
 }
 
 type FaceliftProps = {
@@ -28,43 +22,36 @@ type FaceliftProps = {
 }
 
 export function Facelift({ api }: FaceliftProps) {
-  const apiParameters = useParameter<Partial<Parameters.Parameters>>(ADDON_PARAM_KEY)
+  const apiParameters = api.getCurrentParameter<Parameters.ApiParameters | undefined>(
+    ADDON_PARAM_KEY
+  )
 
-  let defaultParameters = createParameterDefaults(apiParameters)
-  let defaultConfig = createConfigDefaults(defaultParameters)
-
-  defaultParameters = verifyParameters(defaultParameters, defaultConfig)
-  defaultConfig = verifyConfig(defaultConfig, defaultParameters)
-
-  const [settings, setSettings] = useAddonState<Settings>(ADDON_ID, {
-    parameters: defaultParameters,
-    config: defaultConfig,
-  })
-
-  const [themeState, setThemeState] = useState<ThemeState>({
-    name: defaultParameters.defaultTheme,
-    variant: defaultParameters.defaultVariant,
-  })
+  const [settings, setSettings] = useAddonState<Settings.AddonSettings | undefined>(ADDON_ID)
 
   const setTheme = useCallback(
-    ({
-      settings: _settings = settings,
-      themeState: _themeState = themeState,
-      ...rest
-    }: SetThemeProps) => {
-      const _state = { ..._themeState, ...rest }
-      const detailedThemeState = createThemeState(_settings, _state)
+    ({ themeName, themeVariant, settings }: SetThemeProps) => {
+      const addonState = createAddonState({
+        parameters: settings.parameters,
+        config: settings.config,
+        options: {
+          themeName: themeName || settings.state.themeName,
+          themeVariant: themeVariant || settings.state.themeVariant,
+        },
+      })
 
-      if (detailedThemeState) {
-        const { theme } = detailedThemeState
+      if (addonState.theme) {
+        const { theme } = addonState
+
         api.setOptions({ theme })
 
-        // Fire the combined event for any change
-        api.getChannel().emit(ADDON_EVENT_THEME_CHANGE, detailedThemeState)
+        api.getChannel().emit(ADDON_EVENT_THEME_CHANGE, {
+          ...settings,
+          state: addonState,
+        })
 
-        setThemeState({
-          name: detailedThemeState.themeName,
-          variant: detailedThemeState.themeVariant,
+        setSettings({
+          ...settings,
+          state: addonState,
         })
       }
     },
@@ -72,81 +59,69 @@ export function Facelift({ api }: FaceliftProps) {
   )
 
   const toggleVariant = () => {
-    setTheme({
-      name: themeState.name,
-      variant: themeState.variant === 'dark' ? 'light' : 'dark',
-      settings,
-      eventName: AddonEvents.STATE_CHANGE_VARIANT,
-    })
+    if (settings) {
+      setTheme({
+        themeVariant: settings.state.themeVariant === 'dark' ? 'light' : 'dark',
+        settings,
+      })
+    }
   }
 
-  const toggleTheme = (name: string) => {
-    setTheme({
-      name,
-      settings,
-      themeState,
-      eventName: AddonEvents.STATE_CHANGE_THEME,
-    })
+  const toggleTheme = (themeName: string) => {
+    if (settings) {
+      setTheme({ themeName, settings })
+    }
   }
 
-  const renderTheme = (eventName: EVENT_NAMES) => {
-    setTheme({ ...themeState, settings, eventName })
+  const renderTheme = () => {
+    if (settings) {
+      setTheme({ settings })
+    }
   }
 
-  const renderer = {
-    STORY_CHANGED: () => renderTheme(STORY_CHANGED),
-    DOCS_RENDERED: () => renderTheme(DOCS_RENDERED),
-    SET_STORIES: () => renderTheme(SET_STORIES),
-  }
+  useEffect(() => {
+    const defaultSettings = createDefaultSettings(apiParameters)
+    setSettings(defaultSettings)
+  }, [])
 
   useEffect(() => {
     const channel = api.getChannel()
 
-    channel.on(STORY_CHANGED, renderer.STORY_CHANGED)
-    channel.on(SET_STORIES, renderer.SET_STORIES)
-    channel.on(DOCS_RENDERED, renderer.DOCS_RENDERED)
+    channel.on(STORY_CHANGED, renderTheme)
+    channel.on(SET_STORIES, renderTheme)
+    channel.on(DOCS_RENDERED, renderTheme)
 
     return () => {
-      channel.removeListener(STORY_CHANGED, renderer.STORY_CHANGED)
-      channel.removeListener(SET_STORIES, renderer.SET_STORIES)
-      channel.removeListener(DOCS_RENDERED, renderer.DOCS_RENDERED)
+      channel.removeListener(STORY_CHANGED, renderTheme)
+      channel.removeListener(SET_STORIES, renderTheme)
+      channel.removeListener(DOCS_RENDERED, renderTheme)
     }
   })
 
   useEffect(() => {
-    let parameters = updateParameters(apiParameters, settings.parameters)
-    let config = createConfigDefaults(parameters)
+    if (apiParameters && settings) {
+      let parameters = updateAddonParameters({ apiParameters, settings })
+      let config = createConfigDefaults(parameters)
 
-    parameters = verifyParameters(parameters, config)
-    config = verifyConfig(config, parameters)
+      parameters = verifyParameters(parameters, config)
+      config = verifyConfig(config, parameters)
 
-    const isEqualParameters = equal(settings.parameters, parameters)
-    const isEqualConfig = equal(settings.config, config)
+      const isEqualParameters = JSON.stringify(settings.parameters) === JSON.stringify(parameters)
+      const isEqualConfig = JSON.stringify(settings.config) === JSON.stringify(config)
 
-    if (!isEqualParameters || !isEqualConfig) {
-      const { _initialized } = parameters
-
-      setSettings({
-        ...settings,
-        parameters: {
-          ...parameters,
-          _initialized: true,
-        },
-        config,
-      })
-
-      setTheme({
-        name: _initialized ? themeState.name : parameters.defaultTheme,
-        variant: _initialized ? themeState.variant : parameters.defaultVariant,
-        settings: { parameters, config },
-        themeState,
-        eventName:
-          _initialized === true
-            ? AddonEvents.PARAMETERS_UPDATED
-            : AddonEvents.PARAMETERS_INITIALIZED,
-      })
+      if (!isEqualParameters || !isEqualConfig) {
+        setTheme({
+          settings: {
+            ...settings,
+            parameters,
+            config,
+          },
+        })
+      }
+    } else {
+      renderTheme()
     }
-  }, [apiParameters, setTheme])
+  }, [apiParameters, setTheme, renderTheme])
 
   return (
     <>

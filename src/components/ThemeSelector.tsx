@@ -1,14 +1,12 @@
 import AdjustSharpIcon from '@material-ui/icons/AdjustSharp'
 import PaletteSharpIcon from '@material-ui/icons/PaletteSharp'
 import RadioButtonUncheckedSharpIcon from '@material-ui/icons/RadioButtonUncheckedSharp'
-import { useAddonState } from '@storybook/api'
 import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components'
 import { styled } from '@storybook/theming'
 import memoize from 'memoizerific'
 import React, { ReactNode } from 'react'
-import { ADDON_ID, ADDON_THEME_SELECTOR, ADDON_THEME_SELECTOR_ICON } from '../constants'
-import { useThemedState } from '../hooks/UseThemedState'
-import { Settings, Config } from '../typings'
+import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
+import { Config } from '../typings'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
@@ -104,18 +102,18 @@ type ThemeSelectorProps = {
 }
 
 export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
-  const [settings] = useAddonState<Settings.Settings>(ADDON_ID)
-  const { themeName: currentKey } = useThemedState()
-  let hasMultipleThemes = false
-  let titles = {}
+  const settings = useFaceliftSettings()
 
-  if (settings && settings.config && settings.config.themes && settings.config.titles) {
-    titles = settings.config.titles
-    hasMultipleThemes = Object.keys(settings.config.themes).length > 1
+  if (!settings) {
+    return null
   }
 
-  return currentKey ? (
-    <div key={ADDON_THEME_SELECTOR} hidden={!hasMultipleThemes}>
+  const titles = settings.config.titles
+  const hasMultipleThemes = Object.keys(settings.config.themes).length > 1
+  const currentTheme = settings.state.themeName
+
+  return currentTheme ? (
+    <div hidden={!hasMultipleThemes}>
       <WithTooltip
         placement="top"
         trigger="click"
@@ -124,7 +122,7 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
         tooltip={({ onHide }: { onHide: () => void }) => (
           <TooltipLinkListWrapper>
             <TooltipLinkList
-              links={createThemeList(titles, currentKey, (key) => {
+              links={createThemeList(titles, currentTheme, (key) => {
                 onChange(key)
                 onHide()
               })}
@@ -132,7 +130,7 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
           </TooltipLinkListWrapper>
         )}
       >
-        <IconButton key={ADDON_THEME_SELECTOR_ICON} title={`Change theme`}>
+        <IconButton title={`Change theme`}>
           <PaletteSharpIcon />
         </IconButton>
       </WithTooltip>

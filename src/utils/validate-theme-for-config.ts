@@ -3,7 +3,7 @@ import { output } from './output'
 
 export const validateThemeForConfig = (
   theme: Parameters.Theme,
-  params: Parameters.Parameters
+  params: Parameters.AddonParameters
 ) => {
   let valid = true
 

@@ -2,7 +2,8 @@ import { create } from 'jss'
 import React, { ReactNode, StrictMode } from 'react'
 import { CssBaseline, NoSsr } from '@material-ui/core'
 import { MuiThemeProvider, StylesProvider, jssPreset, Theme } from '@material-ui/core/styles'
-import { useThemedState } from '../hooks/UseThemedState'
+import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
+import { Parameters } from '../typings'
 
 const jss = create({
   plugins: [...jssPreset().plugins],
@@ -13,12 +14,22 @@ type WithMuiThemeProps = {
 }
 
 export const WithMuiTheme = ({ children }: WithMuiThemeProps) => {
-  const { themeType, themeOriginal } = useThemedState()
-  const isMuiTheme = themeType === 'mui' && themeOriginal !== undefined
+  const settings = useFaceliftSettings()
+  let theme: Theme | false = false
+  let themeOriginal: false | Parameters.ThemeOriginal = false
+  let isMuiTheme = false
 
-  const theme = themeOriginal as Theme
+  if (settings) {
+    const { state } = settings
+    themeOriginal = state.themeOriginal ? state.themeOriginal : false
+    isMuiTheme = state.themeType === 'mui' && themeOriginal !== undefined
+  }
 
-  return isMuiTheme ? (
+  if (themeOriginal && isMuiTheme) {
+    theme = themeOriginal as Theme
+  }
+
+  return theme && isMuiTheme ? (
     <StrictMode>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -28,6 +39,6 @@ export const WithMuiTheme = ({ children }: WithMuiThemeProps) => {
       </MuiThemeProvider>
     </StrictMode>
   ) : (
-    <>{children}</>
+    children
   )
 }

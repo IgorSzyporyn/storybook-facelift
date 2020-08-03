@@ -10,10 +10,8 @@ declare type Story = {
   path?: string
 }
 
-
 // Parameter "docs"
 declare type DocsTypes = 'simple' | 'full'
-
 
 // Parameter "native"
 declare type Native = {
@@ -22,7 +20,6 @@ declare type Native = {
   override?: ThemeVars
 }
 
-
 // Parameter "main"
 declare type MainElevationTypes = 0 | 1 | 2 | 3
 
@@ -30,7 +27,6 @@ declare type Main = {
   elevation?: MainElevationTypes
   shadow?: string
 }
-
 
 // Parameter "theme"
 declare type ThemeVariantTypes = 'light' | 'dark'
@@ -56,7 +52,6 @@ declare type Theme = {
   variants: ThemeVariants
 }
 
-
 // Parameter "themeConverters"
 declare type ThemeConverterProps = {
   theme: MuiTheme | MuiThemeOptions | ThemeVars
@@ -69,28 +64,42 @@ declare type ThemeConverterValues = {
   original: ThemeOriginal
 }
 
-declare type ThemeConverterResult = null | ThemeConverterValues
-
-declare type ThemeConverter = (
-  props: ThemeConverterProps
-) => ThemeConverterResult
-
+declare type ThemeConverter = (props: ThemeConverterProps) => null | ThemeConverterValues
 
 declare type ThemeConverters = {
-  [key: string]: ThemeConverter
+  [key: string]: ThemeConverter | undefined
 }
 
-
-declare type Parameters = {
+declare type AddonParameters = {
   _initialized: boolean
   defaultTheme: string
   defaultVariant: ThemeVariantTypes
-  includeNative: boolean
-  native: false | Native
-  override: false | ThemeVars
-  main: Main
   docs: DocsTypes
-  stories: boolean | Story[]
-  themes: false | Theme[]
+  includeNative: boolean
+  main: Main
+  native?: Native
+  override?: ThemeVars
+  stories?: boolean | Story[]
   themeConverters: ThemeConverters
+  themes?: Theme[]
+}
+
+declare type ApiParameters = {
+  defaultTheme?: string
+  defaultVariant?: ThemeVariantTypes
+  docs?: DocsTypes
+  includeNative?: boolean
+  main?: Main
+  native?: Native
+  override?: ThemeVars
+  stories?: boolean | Story[]
+  themeConverters?: ThemeConverters
+  themes?: Theme[]
+}
+
+declare type DefaultParameters = {
+  defaultTheme: string
+  docs: DocsTypes
+  includeNative: boolean
+  main: Main
 }

@@ -1,15 +1,22 @@
 import { convert, Global, themes } from '@storybook/theming'
 import React from 'react'
-import { useThemedState } from '../hooks/UseThemedState'
+import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
 
 const root = `.sb-show-main`
 const previewRoot = `${root} > #root`
 const docsRoot = `${root} > #docs-root > .sbdocs`
 
 export const PreviewStyles = () => {
-  const { themeVariant: _variant = 'light', theme: _theme } = useThemedState()
+  const settings = useFaceliftSettings()
 
-  const themeVars = _theme || { ...themes[_variant] }
+  if (!settings) {
+    return null
+  }
+
+  const { state } = settings
+  const { themeVariant, theme: _theme } = state
+
+  const themeVars = _theme || { ...themes[themeVariant] }
   const theme = convert(themeVars)
 
   // const { docs } = settings
