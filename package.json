@@ -1,0 +1,83 @@
+{
+  "name": "@badgers/storybook-facelift",
+  "description": "Toggle between light and dark mode in Storybook v6",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "commonjs",
+  "keywords": [
+    "addon",
+    "theming",
+    "react",
+    "storybook"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "author": {
+    "name": "Igor Szyporyn",
+    "email": "igor.szyporyn@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IgorSzyporyn/storybook-with-mui"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc --noEmit false && npm run build:post",
+    "build:post": "npm run copy-typings",
+    "copy-typings": "copyfiles -u 1 \"./src/typings/*.d.ts\" dist",
+    "release": "auto shipit",
+    "test": "npm run test:lint && npm run test:types",
+    "test:types": "tsc --pretty --noEmit",
+    "test:lint": "eslint . --ext ts --ext tsx --ext js",
+    "storybook": "rimraf ./dist && npm run build && start-storybook -p 6006 --no-dll",
+    "storybook:build": "build-storybook"
+  },
+  "dependencies": {
+    "@material-ui/core": "4.11.0",
+    "@material-ui/icons": "4.9.1",
+    "emotion": "^10.0.27",
+    "emotion-server": "^10.0.27",
+    "fast-deep-equal": "^3.1.3",
+    "memoizerific": "^1.11.3",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-markdown": "^4.3.1",
+    "ts-deepmerge": "^1.0.5",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.10.4",
+    "@storybook/addon-essentials": "^6.0.0-rc.19",
+    "@storybook/addons": "^6.0.0-rc.19",
+    "@storybook/api": "6.0.0-rc.19",
+    "@storybook/cli": "^6.0.0-rc.19",
+    "@storybook/components": "6.0.0-rc.19",
+    "@storybook/core": "^6.0.0-rc.19",
+    "@storybook/core-events": "6.0.0-rc.19",
+    "@storybook/react": "^6.0.0-rc.19",
+    "@storybook/theming": "^6.0.0-rc.19",
+    "@types/node": "^13.9.5",
+    "@types/react": "16.9.27",
+    "@types/react-dom": "^16.9.8",
+    "@types/uuid": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "2.25.0",
+    "@typescript-eslint/parser": "2.25.0",
+    "auto": "^9.49.3",
+    "babel-loader": "8.0.5",
+    "copyfiles": "^2.3.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-plugin-jest": "23.18.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.19.0",
+    "prettier": "2.0.2",
+    "rimraf": "^3.0.2",
+    "typescript": "3.9.6"
+  }
+}
