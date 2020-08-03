@@ -2,7 +2,7 @@ import { Parameters } from '../typings'
 import { output } from './output'
 
 export const validateThemeForConfig = (
-  theme: Parameters.ParameterTheme,
+  theme: Parameters.Theme,
   params: Parameters.Parameters
 ) => {
   let valid = true

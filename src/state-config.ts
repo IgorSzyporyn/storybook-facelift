@@ -4,11 +4,11 @@ import { convertParameterThemeToConfigTheme } from './utils/convert-parameter-th
 import { validateThemeForConfig } from './utils/validate-theme-for-config'
 
 export function createConfigDefaults(parameters: Parameters.Parameters) {
-  const titles: Config.ConfigTitles = {
+  const titles: Config.Titles = {
     native: (parameters.native && parameters.native.title) || 'Native Storybook',
   }
 
-  const themes: Config.ConfigThemes = {
+  const themes: Config.Themes = {
     native: {
       type: 'native',
       key: 'native',

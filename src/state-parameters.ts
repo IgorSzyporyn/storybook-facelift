@@ -74,7 +74,7 @@ export function updateParameters(
   return parameters
 }
 
-const getFirstThemeKey = (themes: Config.ConfigThemes) => Object.keys(themes).map((k) => k)[0]
+const getFirstThemeKey = (themes: Config.Themes) => Object.keys(themes).map((k) => k)[0]
 
 export function verifyParameters(
   parametersSource: Parameters.Parameters,

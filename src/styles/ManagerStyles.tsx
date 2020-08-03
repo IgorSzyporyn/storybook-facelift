@@ -5,7 +5,7 @@ import { ADDON_ID } from '../constants'
 import { Parameters, Settings } from '../typings'
 
 type ElevationMap = {
-  [key in Parameters.ParameterMainElevationTypes]: string
+  [key in Parameters.MainElevationTypes]: string
 }
 
 const elevationMap: ElevationMap = {
@@ -29,7 +29,7 @@ export const ManagerStyles = () => {
   const { main = {} } = parameters
   const rootId = `#root`
 
-  const elevation: Parameters.ParameterMainElevationTypes =
+  const elevation: Parameters.MainElevationTypes =
     main.elevation !== undefined ? main.elevation : 1
   const boxShadow = elevationMap[elevation]
 

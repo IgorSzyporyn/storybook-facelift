@@ -1,85 +1,96 @@
 import { Theme as MuiTheme, ThemeOptions as MuiThemeOptions } from '@material-ui/core'
-import { ThemeVars as StorybookThemeVars } from '@storybook/theming'
+import { ThemeVars } from '@storybook/theming'
 
-declare type ParameterStoryTypes = 'palette' | 'typography'
+// PARAMETER "story"
+declare type StoryTypes = 'palette' | 'typography'
 
-declare type ParameterStory = {
-  name: ParameterStoryTypes
+declare type Story = {
+  name: StoryTypes
   show?: boolean
   path?: string
 }
 
-declare type ParameterThemeVariantTypes = 'light' | 'dark'
 
-declare type ParameterThemeTypes = 'native' | 'mui' | 'mui-options'
+// Parameter "docs"
+declare type DocsTypes = 'simple' | 'full'
 
-declare type ParameterThemeTypeWithOverride = {
-  theme: MuiTheme | StorybookThemeVars
-  override?: StorybookThemeVars
+
+// Parameter "native"
+declare type Native = {
+  title?: string
+  variants?: ThemeVariantTypes[]
+  override?: ThemeVars
 }
 
-declare type ParameterThemeOriginal = MuiTheme | StorybookThemeVars
 
-declare type ParameterThemeVariant = ParameterThemeOriginal & ParameterThemeTypeWithOverride
+// Parameter "main"
+declare type MainElevationTypes = 0 | 1 | 2 | 3
 
-declare type ParameterThemeVariants = {
-  [key in ParameterThemeVariantTypes]: ParameterThemeVariant
-}
-
-declare type ParameterTheme = {
-  key: string
-  title: string
-  type: ParameterThemeTypes
-  override?: StorybookThemeVars
-  variants: ParameterThemeVariants
-}
-
-declare type ParameterDocsTypes = 'simple' | 'full'
-
-declare type ParameterThemeConverterProps = {
-  theme: MuiTheme | MuiThemeOptions | StorybookThemeVars
-  override?: StorybookThemeVars
-  variant: ParameterThemeVariantTypes
-}
-
-declare type ParameterThemeConverterValues = {
-  converted: StorybookThemeVars
-  original: ParameterThemeOriginal
-}
-
-declare type ParameterThemeConverterResult = null | ParameterThemeConverterValues
-
-declare type ParameterThemeConverter = (
-  props: ParameterThemeConverterProps
-) => ParameterThemeConverterResult
-
-declare type ParameterMainElevationTypes = 0 | 1 | 2 | 3
-
-declare type ParameterMain = {
-  elevation?: ParameterMainElevationTypes
+declare type Main = {
+  elevation?: MainElevationTypes
   shadow?: string
 }
 
-declare type ParameterNative = {
-  title?: string
-  variants?: ParameterThemeVariantTypes[]
-  override?: StorybookThemeVars
+
+// Parameter "theme"
+declare type ThemeVariantTypes = 'light' | 'dark'
+declare type ThemeTypes = 'native' | 'mui' | 'mui-options'
+declare type ThemeOriginal = MuiTheme | ThemeVars
+
+declare type ThemeTypeWithOverride = {
+  theme: MuiTheme | ThemeVars
+  override?: ThemeVars
 }
 
-declare type ParameterThemeConverters = {
-  [key: string]: ParameterThemeConverter
+declare type ThemeVariant = ThemeOriginal & ThemeTypeWithOverride
+
+declare type ThemeVariants = {
+  [key in ThemeVariantTypes]: ThemeVariant
 }
+
+declare type Theme = {
+  key: string
+  title: string
+  type: ThemeTypes
+  override?: ThemeVars
+  variants: ThemeVariants
+}
+
+
+// Parameter "themeConverters"
+declare type ThemeConverterProps = {
+  theme: MuiTheme | MuiThemeOptions | ThemeVars
+  override?: ThemeVars
+  variant: ThemeVariantTypes
+}
+
+declare type ThemeConverterValues = {
+  converted: ThemeVars
+  original: ThemeOriginal
+}
+
+declare type ThemeConverterResult = null | ThemeConverterValues
+
+declare type ThemeConverter = (
+  props: ThemeConverterProps
+) => ThemeConverterResult
+
+
+declare type ThemeConverters = {
+  [key: string]: ThemeConverter
+}
+
 
 declare type Parameters = {
   _initialized: boolean
   defaultTheme: string
-  defaultVariant: ParameterThemeVariantTypes
+  defaultVariant: ThemeVariantTypes
   includeNative: boolean
-  native: false | ParameterNative
-  override: false | StorybookThemeVars
-  main: ParameterMain
-  docs: ParameterDocsTypes
-  stories: boolean | ParameterStory[]
-  themes: false | ParameterTheme[]
-  themeConverters: ParameterThemeConverters
+  native: false | Native
+  override: false | ThemeVars
+  main: Main
+  docs: DocsTypes
+  stories: boolean | Story[]
+  themes: false | Theme[]
+  themeConverters: ThemeConverters
 }

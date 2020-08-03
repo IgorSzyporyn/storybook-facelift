@@ -1,28 +1,28 @@
 import * as Parameters from './state-parameters'
 import { ThemeVars } from '@storybook/theming'
 
-declare type ConfigThemeOriginal = {
-  light?: Parameters.ParameterThemeOriginal
-  dark?: Parameters.ParameterThemeOriginal
+declare type ThemeOriginal = {
+  light?: Parameters.ThemeOriginal
+  dark?: Parameters.ThemeOriginal
 }
 
-declare type ConfigTheme = {
+declare type Theme = {
   key: string
-  type: Parameters.ParameterThemeTypes
+  type: Parameters.ThemeTypes
   light?: ThemeVars
   dark?: ThemeVars
-  original: ConfigThemeOriginal
+  original: ThemeOriginal
 }
 
-declare type ConfigThemes = {
-  [key: string]: ConfigTheme
+declare type Themes = {
+  [key: string]: Theme
 }
 
-declare type ConfigTitles = {
+declare type Titles = {
   [key: string]: string
 }
 
 declare type Config = {
-  themes: ConfigThemes
-  titles: ConfigTitles
+  themes: Themes
+  titles: Titles
 }

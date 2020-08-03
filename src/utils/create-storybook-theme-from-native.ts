@@ -4,7 +4,7 @@ import { Parameters } from '../typings'
 export function createStorybookThemeFromNative({
   theme: _theme,
   override,
-}: Parameters.ParameterThemeConverterProps) {
+}: Parameters.ThemeConverterProps) {
   if (_theme === undefined) {
     return null
   }

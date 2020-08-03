@@ -3,7 +3,7 @@ import { output } from './output'
 
 type CreateThemeState = {
   name?: string
-  variant?: Parameters.ParameterThemeVariantTypes
+  variant?: Parameters.ThemeVariantTypes
 }
 
 export function createThemeState(settings: Settings.Settings, state: CreateThemeState) {

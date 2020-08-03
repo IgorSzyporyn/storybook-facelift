@@ -7,9 +7,9 @@ import { Parameters } from '../typings'
 export type UseThemedState = {
   theme?: ThemeVars
   themeName?: string
-  themeOriginal?: Parameters.ParameterThemeOriginal
-  themeType?: Parameters.ParameterThemeTypes
-  themeVariant?: Parameters.ParameterThemeVariantTypes
+  themeOriginal?: Parameters.ThemeOriginal
+  themeType?: Parameters.ThemeTypes
+  themeVariant?: Parameters.ThemeVariantTypes
 }
 
 export function useThemedState() {

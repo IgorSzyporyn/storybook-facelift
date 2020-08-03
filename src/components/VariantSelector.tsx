@@ -17,7 +17,7 @@ export const VariantSelector = ({ onClick }: VariantSelectorProps) => {
 
   let hasOppositeVariant = false
   let isDark = false
-  let oppositeVariant: Parameters.ParameterThemeVariantTypes = 'dark'
+  let oppositeVariant: Parameters.ThemeVariantTypes = 'dark'
 
   if (settings && name && variant) {
     const { config } = settings
@@ -34,7 +34,10 @@ export const VariantSelector = ({ onClick }: VariantSelectorProps) => {
   return (
     <IconButton
       key={ADDON_VARIANT_SELECTOR}
-      hidden={!hasOppositeVariant}
+      style={{
+        display: !hasOppositeVariant ? 'none' : 'inline-flex'
+      }}
+      disabled={!hasOppositeVariant}
       title={`Switch to ${oppositeVariant}`}
       onClick={onClick}
     >

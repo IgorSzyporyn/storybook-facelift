@@ -85,7 +85,7 @@ const createThemeSelectorItem = memoize(1000)(
 )
 
 const createThemeList = memoize(10)(
-  (titles: Config.ConfigTitles, currentKey: string, change: (key: string) => void) => {
+  (titles: Config.Titles, currentKey: string, change: (key: string) => void) => {
     const themeSelectorItems: ThemeSelectorItem[] = []
 
     Object.keys(titles).forEach((key) => {
@@ -113,8 +113,6 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
     titles = settings.config.titles
     hasMultipleThemes = Object.keys(settings.config.themes).length > 1
   }
-
-  console.log(hasMultipleThemes)
 
   return currentKey ? (
     <div key={ADDON_THEME_SELECTOR} hidden={!hasMultipleThemes}>

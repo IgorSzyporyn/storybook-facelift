@@ -3,10 +3,10 @@ import { Parameters } from '../typings'
 
 type ConvertParameterThemeToConfigThemeProps = {
   parameters: Parameters.Parameters
-  themeConfig: Parameters.ParameterTheme
-  themeVariant: Parameters.ParameterThemeVariant
-  converter: Parameters.ParameterThemeConverter
-  themeVariantName: Parameters.ParameterThemeVariantTypes
+  themeConfig: Parameters.Theme
+  themeVariant: Parameters.ThemeVariant
+  converter: Parameters.ThemeConverter
+  themeVariantName: Parameters.ThemeVariantTypes
 }
 
 export function convertParameterThemeToConfigTheme({

@@ -14,7 +14,7 @@ import { createThemeState } from './utils/create-theme-state'
 
 type ThemeState = {
   name: string
-  variant: Parameters.ParameterThemeVariantTypes
+  variant: Parameters.ThemeVariantTypes
 }
 
 type SetThemeProps = Partial<ThemeState> & {
@@ -147,8 +147,6 @@ export function Facelift({ api }: FaceliftProps) {
       })
     }
   }, [apiParameters, setTheme])
-
-  console.log(settings.config.themes)
 
   return (
     <>

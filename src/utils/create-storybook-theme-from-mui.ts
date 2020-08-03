@@ -6,7 +6,7 @@ export function createStorybookThemeFromMui({
   theme: _theme,
   override,
   variant,
-}: Parameters.ParameterThemeConverterProps) {
+}: Parameters.ThemeConverterProps) {
   if (_theme === undefined) {
     return null
   }

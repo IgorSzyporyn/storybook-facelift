@@ -7,7 +7,7 @@ export function createStorybookThemeOptionsFromMuiOptions({
   theme: _themeOptions,
   override,
   variant,
-}: Parameters.ParameterThemeConverterProps) {
+}: Parameters.ThemeConverterProps) {
   if (_themeOptions === undefined) {
     return null
   }
