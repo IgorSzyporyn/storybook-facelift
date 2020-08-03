@@ -2,6 +2,7 @@ import { themes as nativeThemes } from '@storybook/theming'
 import { Parameters, Config } from '../typings'
 import { convertParameterThemeToConfigTheme } from '../utils/convert-parameter-theme-to-config-theme'
 import { validateThemeForConfig } from '../utils/validate-theme-for-config'
+import { ConvertParameterThemeToConfigThemeProps } from '../utils/convert-parameter-theme-to-config-theme'
 
 function createNativeTitle(parameters: Parameters.AddonParameters) {
   const title = (parameters.native && parameters.native.title) || 'Native Storybook'
@@ -69,31 +70,34 @@ export function createConfigDefaults(parameters: Parameters.AddonParameters) {
     return config
   }
 
-  themesParam.forEach((themeParam) => {
-    const validTheme = validateThemeForConfig(themeParam, parameters)
+  themesParam.forEach((themeItem) => {
+    const validTheme = validateThemeForConfig(themeItem, parameters)
 
     if (!validTheme) {
       return
     }
 
-    const themeType = themeParam.type
-    const themeKey = themeParam.key
+    const themeType = themeItem.type
+    const themeKey = themeItem.key
 
     const themeConverter = parameters.themeConverters[themeType]
 
-    returnTitles[themeKey] = themeParam.title
-
     if (themeConverter) {
+      const container: {
+        light: Config.Theme | null
+        dark: Config.Theme | null
+      } = { light: null, dark: null }
+
       const light = convertParameterThemeToConfigTheme({
         parameters,
-        themeConfig: themeParam,
-        themeVariant: themeParam.variants.light,
+        themeConfig: themeItem,
+        themeVariant: themeItem.variants.light,
         converter: themeConverter,
         themeVariantName: 'light',
       })
 
-      if (light !== null && light.converted !== null) {
-        returnThemes[themeKey] = {
+      if (light !== null) {
+        container.light = {
           key: themeKey,
           type: themeType,
           light: light.converted,
@@ -103,26 +107,39 @@ export function createConfigDefaults(parameters: Parameters.AddonParameters) {
 
       const dark = convertParameterThemeToConfigTheme({
         parameters,
-        themeConfig: themeParam,
-        themeVariant: themeParam.variants.dark,
+        themeConfig: themeItem,
+        themeVariant: themeItem.variants.dark,
         converter: themeConverter,
         themeVariantName: 'dark',
       })
 
-      if (dark !== null && dark.converted) {
-        let returnTheme = returnThemes[themeKey]
+      if (dark !== null) {
+        container.dark = {
+          key: themeKey,
+          type: themeType,
+          dark: dark.converted,
+          original: { dark: dark.original },
+        }
+      }
 
-        if (!returnTheme) {
-          returnTheme = {
-            key: themeKey,
-            type: themeType,
-            dark: dark.converted,
-            original: { dark: dark.original },
-          }
-        } else {
+      if (light || dark) {
+        const returnTheme: Config.Theme = (returnThemes[themeKey] = {
+          key: themeKey,
+          type: themeType,
+          original: {},
+        })
+
+        if (light) {
+          returnTheme.light = light.converted
+          returnTheme.original.light = light.original
+        }
+
+        if (dark) {
           returnTheme.dark = dark.converted
           returnTheme.original.dark = dark.original
         }
+
+        returnTitles[themeKey] = themeItem.title
       }
     }
   })
