@@ -88,7 +88,7 @@ export const ManagerStyles = () => {
           },
 
           '.sidebar-subheading': {
-            fontWeight: isDark ? 500 : 700,
+            fontWeight: isDark ? 500 : 900,
           },
 
           '.sidebar-expander': {
