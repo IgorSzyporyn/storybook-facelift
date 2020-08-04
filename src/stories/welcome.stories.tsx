@@ -4,9 +4,9 @@ export default {
   title: 'Welcome',
   decorators: [],
   parameters: {
-    '@badgers/storybook-facelift': {
+    '@badgers/facelift': {
       main: {
-        elevation: 2,
+        elevation: 0,
       },
     },
   },

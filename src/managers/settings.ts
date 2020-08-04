@@ -1,4 +1,4 @@
-import { Parameters } from '../typings'
+import { Parameters, Settings } from '../typings'
 import { createConfigDefaults, verifyConfig } from './config'
 import { createAddonParameters, verifyParameters } from './parameters'
 import { createAddonState } from './state'
@@ -12,8 +12,11 @@ export function createDefaultSettings(apiParameters?: Parameters.ApiParameters) 
 
   const defaultState = createAddonState({ parameters: defaultParameters, config: defaultConfig })
 
-  const settings = {
+  const settings: Settings.AddonSettings = {
+    initialized: false,
     parameters: defaultParameters,
+    initialApiParameters: apiParameters,
+    initialAddonParameters: defaultParameters,
     config: defaultConfig,
     state: defaultState,
   }

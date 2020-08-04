@@ -26,6 +26,7 @@ declare type MainElevationTypes = 0 | 1 | 2 | 3
 declare type Main = {
   elevation?: MainElevationTypes
   shadow?: string
+  padding?: string
 }
 
 // Parameter "theme"
@@ -70,15 +71,16 @@ declare type ThemeConverters = {
   [key: string]: ThemeConverter | undefined
 }
 
+declare type Override = Omit<ThemeVars, 'base'>
+
 declare type AddonParameters = {
-  _initialized: boolean
   defaultTheme: string
   defaultVariant: ThemeVariantTypes
   docs: DocsTypes
   includeNative: boolean
   main: Main
   native?: Native
-  override?: ThemeVars
+  override?: Override
   stories?: boolean | Story[]
   themeConverters: ThemeConverters
   themes?: Theme[]
@@ -91,10 +93,16 @@ declare type ApiParameters = {
   includeNative?: boolean
   main?: Main
   native?: Native
-  override?: ThemeVars
+  override?: Override
   stories?: boolean | Story[]
   themeConverters?: ThemeConverters
   themes?: Theme[]
+}
+
+declare type CustomParameters = {
+  docs: DocsTypes
+  main: Main
+  override: Override
 }
 
 declare type DefaultParameters = {

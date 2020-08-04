@@ -5,7 +5,11 @@ export default {
   title: 'Components/SocialMediaIcon',
   component: SocialMediaIcon,
   decorators: [],
-  parameters: {},
+  parameters: {
+    '@badgers/facelift': {
+      docs: 'simple',
+    },
+  },
   includeStories: ['Default'],
 }
 

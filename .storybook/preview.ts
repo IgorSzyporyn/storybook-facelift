@@ -1,11 +1,14 @@
 import { theme as appTheme } from '../theme/theme'
-import { withThemedPreview } from '../dist/decorators/withThemedPreview'
+import { withFaceliftPreview } from '../dist/decorators/withFaceliftPreview'
 import { orange, blue, purple, cyan, red } from '@material-ui/core/colors'
 
 export const parameters = {
   '@badgers/facelift': {
     includeNative: true,
     defaultTheme: 'mui5',
+    main: {
+      padding: '32px 24px',
+    },
     themes: [
       {
         key: 'mui1',
@@ -48,6 +51,9 @@ export const parameters = {
               },
               secondary: {
                 main: cyan['A200'],
+              },
+              background: {
+                paper: '#8b8b8b',
               },
             },
           },
@@ -92,4 +98,4 @@ export const parameters = {
   },
 }
 
-export const decorators = [withThemedPreview]
+export const decorators = [withFaceliftPreview]

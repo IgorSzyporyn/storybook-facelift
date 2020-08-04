@@ -1,3 +1,3 @@
-import { withThemedPreview } from '../index'
+import { withFaceliftPreview } from '../index'
 
-export const decorators = [withThemedPreview]
+export const decorators = [withFaceliftPreview]

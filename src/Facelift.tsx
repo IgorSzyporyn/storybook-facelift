@@ -3,7 +3,7 @@ import { DOCS_RENDERED, SET_STORIES, STORY_CHANGED } from '@storybook/core-event
 import React, { useCallback, useEffect } from 'react'
 import { ThemeSelector } from './components/ThemeSelector'
 import { VariantSelector } from './components/VariantSelector'
-import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY, ADDON_ID } from './constants'
+import { ADDON_EVENT_THEME_CHANGE, ADDON_ID, ADDON_PARAM_KEY } from './constants'
 import { createConfigDefaults, verifyConfig } from './managers/config'
 import { updateAddonParameters, verifyParameters } from './managers/parameters'
 import { createDefaultSettings } from './managers/settings'
@@ -110,13 +110,20 @@ export function Facelift({ api }: FaceliftProps) {
       const isEqualConfig = JSON.stringify(settings.config) === JSON.stringify(config)
 
       if (!isEqualParameters || !isEqualConfig) {
-        setTheme({
-          settings: {
-            ...settings,
-            parameters,
-            config,
-          },
-        })
+        const initializing = !isEqualParameters && !isEqualConfig
+
+        const newSettings: Settings.AddonSettings = {
+          ...settings,
+          parameters,
+          config,
+        }
+
+        if (initializing) {
+          newSettings.initialAddonParameters = parameters
+          newSettings.initialized = initializing
+        }
+
+        setTheme({ settings: newSettings })
       }
     } else {
       renderTheme()

@@ -3,6 +3,9 @@ import * as Config from './config'
 import * as State from './state'
 
 declare type AddonSettings = {
+  initialized: boolean
+  initialApiParameters: Parameters.ApiParameters | undefined
+  initialAddonParameters: Parameters.AddonParameters | undefined
   parameters: Parameters.AddonParameters
   config: Config.AddonConfig
   state: State.AddonState

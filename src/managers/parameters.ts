@@ -3,6 +3,7 @@ import { Config, Parameters, Settings } from '../typings'
 import { createStorybookThemeFromMui } from '../utils/create-storybook-theme-from-mui'
 import { createStorybookThemeOptionsFromMuiOptions } from '../utils/create-storybook-theme-from-mui-options'
 import { createStorybookThemeFromNative } from '../utils/create-storybook-theme-from-native'
+import deepmerge from 'ts-deepmerge'
 
 export const defaultParameters: Parameters.DefaultParameters = {
   defaultTheme: 'native',
@@ -24,7 +25,6 @@ export function createAddonParameters(apiParameters?: Parameters.ApiParameters) 
   themeConverters['mui-options'] = createStorybookThemeOptionsFromMuiOptions
 
   const parameters: Parameters.AddonParameters = {
-    _initialized: false,
     defaultTheme: mergedParameters.defaultTheme,
     defaultVariant: defaultVariant,
     docs: mergedParameters.docs,
@@ -46,23 +46,32 @@ export type updateAddonParametersProps = {
 }
 
 export function updateAddonParameters({ apiParameters, settings }: updateAddonParametersProps) {
-  // @TODO - Protect themes, defaultVariant, defaultTheme, override
   const { parameters: addonParameters } = settings
+  let returnParameters = addonParameters
 
   if (!apiParameters) {
-    return addonParameters
+    return returnParameters
   }
 
-  const parameters: Parameters.AddonParameters = {
-    ...addonParameters,
-    ...apiParameters,
-    themeConverters: {
-      ...addonParameters.themeConverters,
-      ...(apiParameters.themeConverters || {}),
-    },
+  // Initialized means we are being given custom parameters from a story most likely
+  // Only allow certain parameters to be merged on to addon parameters
+  if (settings.initialized && settings.initialAddonParameters) {
+    const { main = {}, docs = 'full', override = {} } = apiParameters
+    const customParameters: Parameters.CustomParameters = { main, docs, override }
+
+    returnParameters = deepmerge(settings.initialAddonParameters, customParameters)
+  } else {
+    returnParameters = {
+      ...addonParameters,
+      ...apiParameters,
+      themeConverters: {
+        ...addonParameters.themeConverters,
+        ...(apiParameters.themeConverters || {}),
+      },
+    }
   }
 
-  return parameters
+  return returnParameters
 }
 
 const getFirstThemeKey = (themes: Config.Themes) => Object.keys(themes).map((k) => k)[0]
