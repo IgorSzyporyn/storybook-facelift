@@ -8,7 +8,10 @@ import deepmerge from 'ts-deepmerge'
 export const defaultParameters: Parameters.DefaultParameters = {
   defaultTheme: 'native',
   includeNative: false,
-  docs: 'full',
+  docs: {
+    type: 'full',
+  },
+  enhanceUi: false,
   main: {
     elevation: 2,
   },
@@ -28,6 +31,7 @@ export function createAddonParameters(apiParameters?: Parameters.ApiParameters) 
     defaultTheme: mergedParameters.defaultTheme,
     defaultVariant: defaultVariant,
     docs: mergedParameters.docs,
+    enhanceUi: mergedParameters.enhanceUi,
     includeNative: mergedParameters.includeNative,
     main: { ...defaultParameters.main, ...mergedParameters.main },
     native: mergedParameters.native,
@@ -56,8 +60,8 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
   // Initialized means we are being given custom parameters from a story most likely
   // Only allow certain parameters to be merged on to addon parameters
   if (settings.initialized && settings.initialAddonParameters) {
-    const { main = {}, docs = 'full', override = {} } = apiParameters
-    const customParameters: Parameters.CustomParameters = { main, docs, override }
+    const { main = {}, docs = {}, override = {}, enhanceUi } = apiParameters
+    const customParameters: Parameters.CustomParameters = { main, docs, override, enhanceUi }
 
     returnParameters = deepmerge(settings.initialAddonParameters, customParameters)
   } else {

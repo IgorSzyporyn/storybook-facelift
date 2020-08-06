@@ -7,7 +7,11 @@ export default {
   decorators: [],
   parameters: {
     '@badgers/facelift': {
-      docs: 'simple',
+      enhanceUi: true,
+      docs: {
+        hidePropertyBorders: true,
+        type: 'full',
+      },
     },
   },
   includeStories: ['Default'],

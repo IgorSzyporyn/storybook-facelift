@@ -36,7 +36,12 @@ export function convertParameterThemeToConfigTheme({
   const _override = Object.keys(variantOverride).length === 0 ? undefined : variantOverride
   const override = _override as ThemeVars | undefined
 
-  const converted = converter({ theme, override, variant })
+  const converted = converter({
+    theme,
+    override,
+    variant,
+    background: themeConfig.background,
+  })
 
   return converted
 }

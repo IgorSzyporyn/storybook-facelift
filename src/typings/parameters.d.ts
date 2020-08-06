@@ -6,18 +6,23 @@ declare type StoryTypes = 'palette' | 'typography'
 
 declare type Story = {
   name: StoryTypes
-  show?: boolean
   path?: string
+  show?: boolean
 }
 
 // Parameter "docs"
 declare type DocsTypes = 'simple' | 'full'
 
+declare type Docs = {
+  hidePropertyBorders?: boolean
+  type?: DocsTypes
+}
+
 // Parameter "native"
 declare type Native = {
+  override?: ThemeVars
   title?: string
   variants?: ThemeVariantTypes[]
-  override?: ThemeVars
 }
 
 // Parameter "main"
@@ -25,8 +30,8 @@ declare type MainElevationTypes = 0 | 1 | 2 | 3
 
 declare type Main = {
   elevation?: MainElevationTypes
-  shadow?: string
   padding?: string
+  shadow?: string
 }
 
 // Parameter "theme"
@@ -35,8 +40,8 @@ declare type ThemeTypes = 'native' | 'mui' | 'mui-options'
 declare type ThemeOriginal = MuiTheme | ThemeVars
 
 declare type ThemeTypeWithOverride = {
-  theme: MuiTheme | ThemeVars
   override?: ThemeVars
+  theme: MuiTheme | ThemeVars
 }
 
 declare type ThemeVariant = ThemeOriginal & ThemeTypeWithOverride
@@ -45,19 +50,28 @@ declare type ThemeVariants = {
   [key in ThemeVariantTypes]: ThemeVariant
 }
 
+declare type ThemeBackgroundsTypes =
+  | 'normal'
+  | 'reverse'
+  | 'equal'
+  | 'equal-reverse'
+  | 'equal-app'
+  | 'equal-content'
+
 declare type Theme = {
   key: string
-  title: string
-  type: ThemeTypes
   override?: ThemeVars
+  title: string
+  background?: ThemeBackgroundsTypes
+  type: ThemeTypes
   variants: ThemeVariants
 }
 
-// Parameter "themeConverters"
 declare type ThemeConverterProps = {
-  theme: MuiTheme | MuiThemeOptions | ThemeVars
   override?: ThemeVars
+  theme: MuiTheme | MuiThemeOptions | ThemeVars
   variant: ThemeVariantTypes
+  background?: ThemeBackgroundsTypes
 }
 
 declare type ThemeConverterValues = {
@@ -76,7 +90,8 @@ declare type Override = Omit<ThemeVars, 'base'>
 declare type AddonParameters = {
   defaultTheme: string
   defaultVariant: ThemeVariantTypes
-  docs: DocsTypes
+  docs: Docs
+  enhanceUi: boolean
   includeNative: boolean
   main: Main
   native?: Native
@@ -89,7 +104,8 @@ declare type AddonParameters = {
 declare type ApiParameters = {
   defaultTheme?: string
   defaultVariant?: ThemeVariantTypes
-  docs?: DocsTypes
+  docs?: Docs
+  enhanceUi?: boolean
   includeNative?: boolean
   main?: Main
   native?: Native
@@ -100,14 +116,16 @@ declare type ApiParameters = {
 }
 
 declare type CustomParameters = {
-  docs: DocsTypes
-  main: Main
-  override: Override
+  docs?: Docs
+  enhanceUi?: boolean
+  main?: Main
+  override?: Override
 }
 
 declare type DefaultParameters = {
   defaultTheme: string
-  docs: DocsTypes
+  docs: Docs
+  enhanceUi: boolean
   includeNative: boolean
   main: Main
 }

@@ -2,11 +2,13 @@ import { ThemeOptions } from '@material-ui/core'
 import { create, themes } from '@storybook/theming'
 import { Parameters } from '../typings'
 import { createMuiTheme } from './create-mui-theme'
+import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
 export function createStorybookThemeOptionsFromMuiOptions({
   theme: _themeOptions,
   override,
   variant,
+  background,
 }: Parameters.ThemeConverterProps) {
   if (_themeOptions === undefined) {
     return null
@@ -21,8 +23,9 @@ export function createStorybookThemeOptionsFromMuiOptions({
   }
 
   const theme = createMuiTheme(themeOptions)
-
   const defaultThemeValues = themes[variant]
+
+  const { appBg, appContentBg } = getMuiBackgroundKeys(background)
 
   const themeValue = {
     ...defaultThemeValues,
@@ -31,9 +34,9 @@ export function createStorybookThemeOptionsFromMuiOptions({
     colorSecondary: theme.palette.secondary.main,
 
     // UI
-    appBg: theme.palette.background.paper,
-    appContentBg: theme.palette.background.default,
-    appBorderColor: theme.palette.background.paper,
+    appBg: theme.palette.background[appBg],
+    appContentBg: theme.palette.background[appContentBg],
+    // appBorderColor: theme.palette.background.paper,
     appBorderRadius: theme.shape.borderRadius,
 
     // Typography
@@ -47,7 +50,7 @@ export function createStorybookThemeOptionsFromMuiOptions({
     // Toolbar default and active colors
     barTextColor: theme.palette.text.secondary,
     barSelectedColor: theme.palette.secondary.main,
-    barBg: theme.palette.background.default,
+    barBg: theme.palette.background[appContentBg],
 
     // Form color
     inputBg: theme.palette.background.paper,
@@ -56,6 +59,8 @@ export function createStorybookThemeOptionsFromMuiOptions({
     inputBorderRadius: theme.shape.borderRadius,
 
     ...(override || {}),
+
+    base: variant,
   }
 
   const themeVars = create(themeValue)

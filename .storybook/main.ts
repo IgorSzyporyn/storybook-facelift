@@ -8,6 +8,7 @@ module.exports = {
         backgrounds: false,
       },
     },
+    '@storybook/addon-a11y',
     '../dist/register',
   ],
   typescript: {
