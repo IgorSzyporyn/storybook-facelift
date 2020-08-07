@@ -162,7 +162,7 @@ themeConverters?: Parameters.ThemeConverters
   >
   > - Provide a valid css string for `padding` and you can set the padding used in the Canvas panel.
 
-### **docs** | type: `Parameters.Docs` | default: `{ type: full }`
+### **docs** | type: `Parameters.Docs` | default: `{ type: "full" }`
 
 - Configure settings for use in the Docs panel
   > **type** | type: `"full" | "simple"` | default: `"full"`
