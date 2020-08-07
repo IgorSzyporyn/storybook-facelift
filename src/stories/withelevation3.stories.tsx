@@ -6,7 +6,7 @@ export default {
   parameters: {
     '@badgers/facelift': {
       enhanceUi: true,
-      main: {
+      ui: {
         elevation: 3,
       },
     },

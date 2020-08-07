@@ -41,7 +41,5 @@ export function removeScrollStyles({
 
   styles = deepmerge(_styles, styles)
 
-  console.log(styles)
-
   return styles
 }

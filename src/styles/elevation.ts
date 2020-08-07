@@ -1,7 +1,7 @@
 import { Parameters } from '../typings'
 
 export type ElevationMap = {
-  [key in Parameters.MainElevationTypes]: string
+  [key in Parameters.UIElevationTypes]: string
 }
 
 export const elevationMap: ElevationMap = {

@@ -23,21 +23,22 @@ declare type Native = {
   override?: ThemeVars
   title?: string
   variants?: ThemeVariantTypes[]
+  background?: ThemeBackgroundsTypes
 }
 
 // Parameter "main"
-declare type MainElevationTypes = 0 | 1 | 2 | 3
+declare type UIElevationTypes = 0 | 1 | 2 | 3
 
-declare type Main = {
-  elevation?: MainElevationTypes
+declare type UI = {
+  elevation?: UIElevationTypes
   padding?: string
   shadow?: string
 }
 
 // Parameter "theme"
 declare type ThemeVariantTypes = 'light' | 'dark'
-declare type ThemeTypes = 'native' | 'mui' | 'mui-options'
-declare type ThemeOriginal = MuiTheme | ThemeVars
+declare type ThemeTypes = 'native' | 'mui'
+declare type ThemeOriginal = MuiThemeOptions | ThemeVars
 
 declare type ThemeTypeWithOverride = {
   override?: ThemeVars
@@ -65,11 +66,12 @@ declare type Theme = {
   background?: ThemeBackgroundsTypes
   type: ThemeTypes
   variants: ThemeVariants
+  previewOnly?: boolean
 }
 
 declare type ThemeConverterProps = {
   override?: ThemeVars
-  theme: MuiTheme | MuiThemeOptions | ThemeVars
+  theme: MuiThemeOptions | ThemeVars
   variant: ThemeVariantTypes
   background?: ThemeBackgroundsTypes
 }
@@ -77,6 +79,7 @@ declare type ThemeConverterProps = {
 declare type ThemeConverterValues = {
   converted: ThemeVars
   original: ThemeOriginal
+  instanciated: MuiTheme | ThemeVars
 }
 
 declare type ThemeConverter = (props: ThemeConverterProps) => null | ThemeConverterValues
@@ -88,44 +91,48 @@ declare type ThemeConverters = {
 declare type Override = Omit<ThemeVars, 'base'>
 
 declare type AddonParameters = {
+  autoThemeStory?: boolean
   defaultTheme: string
   defaultVariant: ThemeVariantTypes
   docs: Docs
   enhanceUi: boolean
   includeNative: boolean
-  main: Main
   native?: Native
   override?: Override
   stories?: boolean | Story[]
   themeConverters: ThemeConverters
   themes?: Theme[]
+  ui: UI
 }
 
 declare type ApiParameters = {
+  autoThemeStory?: boolean
   defaultTheme?: string
   defaultVariant?: ThemeVariantTypes
   docs?: Docs
   enhanceUi?: boolean
   includeNative?: boolean
-  main?: Main
   native?: Native
   override?: Override
   stories?: boolean | Story[]
   themeConverters?: ThemeConverters
   themes?: Theme[]
+  ui?: UI
 }
 
 declare type CustomParameters = {
+  autoThemeStory?: boolean
   docs?: Docs
   enhanceUi?: boolean
-  main?: Main
+  ui?: UI
   override?: Override
 }
 
 declare type DefaultParameters = {
+  autoThemeStory: boolean
   defaultTheme: string
   docs: Docs
   enhanceUi: boolean
   includeNative: boolean
-  main: Main
+  ui: UI
 }

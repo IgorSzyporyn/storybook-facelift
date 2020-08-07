@@ -57,6 +57,7 @@
     "@emotion/core": "^10.0.28",
     "@storybook/addon-a11y": "^6.0.0-rc.19",
     "@storybook/addon-essentials": "^6.0.0-rc.19",
+    "@storybook/addon-knobs": "^6.0.0-rc.19",
     "@storybook/addons": "^6.0.0-rc.19",
     "@storybook/api": "6.0.0-rc.19",
     "@storybook/cli": "^6.0.0-rc.19",

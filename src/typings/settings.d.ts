@@ -4,7 +4,6 @@ import * as State from './state'
 
 declare type AddonSettings = {
   initialized: boolean
-  initialApiParameters: Parameters.ApiParameters | undefined
   initialAddonParameters: Parameters.AddonParameters | undefined
   parameters: Parameters.AddonParameters
   config: Config.AddonConfig

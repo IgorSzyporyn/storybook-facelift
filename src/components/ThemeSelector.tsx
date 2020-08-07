@@ -16,38 +16,6 @@ const UncheckedIcon = styled(RadioButtonUncheckedSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
 }))
 
-const TooltipLinkListWrapper = styled.div(({ theme }) => ({
-  background: theme.background.app,
-  borderRadius: theme.appBorderRadius,
-  boxShadow: `0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)`,
-
-  '& > div': {
-    borderRadius: theme.appBorderRadius,
-
-    '& > a': {
-      display: 'flex',
-      alignItems: 'center',
-      padding: '10px 20px',
-
-      '& > span:first-of-type': {
-        display: 'flex',
-        alignItems: 'center',
-        height: '28px',
-
-        '& > svg': {
-          height: '19px',
-          width: '19px',
-        },
-      },
-
-      '& > span:last-of-type': {
-        lineHeight: '28px',
-        height: '28px',
-      },
-    },
-  },
-}))
-
 type ThemeSelectorItem = {
   id: string
   title: string
@@ -60,6 +28,14 @@ type ThemeSelectorItem = {
   active?: boolean
   disabled?: boolean
   href?: string
+}
+
+type ThemeSelectorIconColors = {
+  primary: string
+  secondary: string
+  app: string
+  content: string
+  border: string
 }
 
 const createThemeSelectorItem = memoize(1000)(
@@ -117,17 +93,14 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
       <WithTooltip
         placement="top"
         trigger="click"
-        hasChrome={false}
         closeOnClick
         tooltip={({ onHide }: { onHide: () => void }) => (
-          <TooltipLinkListWrapper>
-            <TooltipLinkList
-              links={createThemeList(titles, currentTheme, (key) => {
-                onChange(key)
-                onHide()
-              })}
-            />
-          </TooltipLinkListWrapper>
+          <TooltipLinkList
+            links={createThemeList(titles, currentTheme, (key) => {
+              onChange(key)
+              onHide()
+            })}
+          />
         )}
       >
         <IconButton title={`Change theme`}>

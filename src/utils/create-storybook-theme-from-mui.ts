@@ -1,59 +1,69 @@
+import { ThemeOptions } from '@material-ui/core'
 import { create, themes } from '@storybook/theming'
 import { Parameters } from '../typings'
-import { Theme } from '@material-ui/core'
+import { createMuiTheme } from './create-mui-theme'
 import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
-export function createStorybookThemeFromMui({
-  theme: _theme,
+export function createStorybookThemeOptionsFromMui({
+  theme: _original,
   override,
   variant,
   background,
 }: Parameters.ThemeConverterProps) {
-  if (_theme === undefined) {
+  if (_original === undefined) {
     return null
   }
 
-  const theme = _theme as Theme
+  const original = _original as ThemeOptions
+
+  if (!original.palette) {
+    original.palette = { type: variant }
+  } else if (!original.palette.type) {
+    original.palette.type = variant
+  }
+
+  const instanciated = createMuiTheme(original)
   const defaultThemeValues = themes[variant]
+
   const { appBg, appContentBg } = getMuiBackgroundKeys(background)
 
   const themeValue = {
     ...defaultThemeValues,
 
-    colorPrimary: theme.palette.primary.main,
-    colorSecondary: theme.palette.secondary.main,
+    colorPrimary: instanciated.palette.primary.main,
+    colorSecondary: instanciated.palette.secondary.main,
 
     // UI
-    appBg: theme.palette.background[appBg],
-    appContentBg: theme.palette.background[appContentBg],
-    // appBorderColor: theme.palette.text.primary,
-    appBorderRadius: theme.shape.borderRadius,
+    appBg: instanciated.palette.background[appBg],
+    appContentBg: instanciated.palette.background[appContentBg],
+    // appBorderColor: theme.palette.background.paper,
+    appBorderRadius: instanciated.shape.borderRadius,
 
     // Typography
-    fontBase: theme.typography.fontFamily,
+    fontBase: instanciated.typography.fontFamily,
     fontCode: 'monospace',
 
     // Text colors
-    textColor: theme.palette.text.primary,
-    textInverseColor: theme.palette.text.secondary,
+    textColor: instanciated.palette.text.primary,
+    textInverseColor: instanciated.palette.text.secondary,
 
     // Toolbar default and active colors
-    barTextColor: theme.palette.text.secondary,
-    barSelectedColor: theme.palette.secondary.main,
-    barBg: theme.palette.background[appContentBg],
+    barTextColor: instanciated.palette.text.secondary,
+    barSelectedColor: instanciated.palette.secondary.main,
+    barBg: instanciated.palette.background[appContentBg],
 
     // Form color
-    inputBg: theme.palette.background.paper,
-    inputBorder: theme.palette.secondary.main,
-    inputTextColor: theme.palette.text.primary,
-    inputBorderRadius: theme.shape.borderRadius,
+    // inputBg: instanciated.palette.background.paper,
+    // inputBorder: instanciated.palette.secondary.main,
+    // inputTextColor: instanciated.palette.text.primary,
+    inputBorderRadius: instanciated.shape.borderRadius,
 
     ...(override || {}),
 
     base: variant,
   }
 
-  const themeVars = create(themeValue)
+  const converted = create(themeValue)
 
-  return { converted: themeVars, original: theme }
+  return { converted, original, instanciated }
 }

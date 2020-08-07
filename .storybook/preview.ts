@@ -1,6 +1,5 @@
-import { theme as appTheme } from '../theme/theme'
 import { withFaceliftPreview } from '../dist/decorators/withFaceliftPreview'
-import { orange, blue, purple, cyan, red } from '@material-ui/core/colors'
+import { orange, blue, purple, cyan, red, pink } from '@material-ui/core/colors'
 
 export const parameters = {
   '@badgers/facelift': {
@@ -9,121 +8,59 @@ export const parameters = {
     main: {
       padding: '32px 32px',
     },
+    /*
     docs: {
       type: 'simple',
       hidePropertyBorders: true,
     },
+    */
     themes: [
       {
         key: 'mui1',
-        title: 'App Theme (Material UI)',
+        title: 'Material UI - 1',
         type: 'mui',
-        override: {
-          brandTitle: 'mui 1',
-        },
         variants: {
-          dark: appTheme.dark,
+          dark: {
+            palette: {
+              primary: {
+                main: pink['A200'],
+              },
+              secondary: {
+                main: blue['A200'],
+              },
+            },
+          },
+          light: {
+            palette: {
+              primary: {
+                main: pink['500'],
+              },
+              secondary: {
+                main: blue['500'],
+              },
+            },
+          },
         },
       },
       {
         key: 'mui2',
-        title: 'Light & Dark with titles',
+        title: 'Material UI - 2',
         type: 'mui',
-        override: {
-          brandTitle: 'mui 2',
-        },
         variants: {
-          light: appTheme.light,
-          dark: {
-            theme: appTheme.dark,
-            override: {
-              brandTitle: 'mui 2 - Dark',
-            },
-          },
-        },
-      },
-      {
-        key: 'mui3',
-        title: 'Light & Dark with reverse backgrounds',
-        type: 'mui',
-        background: 'reverse',
-        variants: {
-          light: appTheme.light,
-          dark: {
-            theme: appTheme.dark,
-            override: {
-              brandTitle: 'mui 2 - Dark',
-            },
-          },
-        },
-      },
-      {
-        key: 'mui4',
-        title: 'Light & Dark with equal backgrounds',
-        type: 'mui',
-        background: 'equal',
-        variants: {
-          light: appTheme.light,
-          dark: {
-            theme: appTheme.dark,
-            override: {
-              brandTitle: 'mui 2 - Dark',
-            },
-          },
-        },
-      },
-      {
-        key: 'mui5',
-        title: 'Dark only - cyan & weird background',
-        type: 'mui-options',
-        variants: {
-          dark: {
+          light: {
             palette: {
-              type: 'dark',
               primary: {
-                main: red['A200'],
+                main: blue['500'],
               },
               secondary: {
-                main: cyan['A200'],
-              },
-              background: {
-                paper: '#8b8b8b',
+                main: orange['500'],
               },
             },
           },
-        },
-      },
-      {
-        key: 'mui6',
-        title: 'Dark only - cyan & weird background',
-        type: 'mui-options',
-        background: 'reverse',
-        variants: {
-          dark: {
-            palette: {
-              type: 'dark',
-              primary: {
-                main: red['A200'],
-              },
-              secondary: {
-                main: cyan['A200'],
-              },
-              background: {
-                paper: '#8b8b8b',
-              },
-            },
-          },
-        },
-      },
-      {
-        key: 'mui7',
-        title: 'Dark only with orange and purple',
-        type: 'mui-options',
-        variants: {
           dark: {
             palette: {
               primary: {
-                main: purple['A200'],
+                main: blue['A200'],
               },
               secondary: {
                 main: orange['A200'],
@@ -133,9 +70,9 @@ export const parameters = {
         },
       },
       {
-        key: 'mui8',
-        title: 'Light only with blue and orange',
-        type: 'mui-options',
+        key: 'mui3',
+        title: 'Material UI - 3',
+        type: 'mui',
         variants: {
           light: {
             palette: {
@@ -143,7 +80,39 @@ export const parameters = {
                 main: orange['500'],
               },
               secondary: {
-                main: blue['500'],
+                main: purple['500'],
+              },
+            },
+          },
+          dark: {
+            palette: {
+              primary: {
+                main: orange['A200'],
+              },
+              secondary: {
+                main: purple['A200'],
+              },
+            },
+          },
+        },
+      },
+      {
+        key: 'mui4',
+        title: 'Material UI - 4',
+        type: 'mui',
+        previewOnly: true,
+        variants: {
+          dark: {
+            palette: {
+              type: 'dark',
+              primary: {
+                main: red['A200'],
+              },
+              secondary: {
+                main: cyan['A200'],
+              },
+              background: {
+                paper: '#8b8b8b',
               },
             },
           },

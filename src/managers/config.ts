@@ -139,7 +139,9 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
           returnTheme.original.dark = dark.original
         }
 
-        returnTitles[themeKey] = themeItem.title
+        if (!themeItem.previewOnly) {
+          returnTitles[themeKey] = themeItem.title
+        }
       }
     }
   })

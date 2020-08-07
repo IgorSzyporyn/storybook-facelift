@@ -3,7 +3,7 @@ import SocialMediaIcon from './SocialMediaIcon'
 import { withKnobs, select } from '@storybook/addon-knobs'
 
 export default {
-  title: 'Components/SocialMediaIcon',
+  title: 'Components/SocialMediaIconAutoThemed',
   component: SocialMediaIcon,
   decorators: [withKnobs],
   parameters: {
@@ -13,6 +13,7 @@ export default {
     },
     '@badgers/facelift': {
       enhanceUi: true,
+      autoThemeStory: true,
     },
   },
   includeStories: ['Default'],

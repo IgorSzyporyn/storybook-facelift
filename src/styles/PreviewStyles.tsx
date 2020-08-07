@@ -34,7 +34,7 @@ export const PreviewStyles = () => {
   const theme = convert(themeVars)
 
   const { parameters } = settings
-  const { docs, main } = parameters
+  const { docs, ui } = parameters
 
   const isDark = themeVariant === 'dark'
 
@@ -67,7 +67,7 @@ export const PreviewStyles = () => {
         },
         [`${previewRoot}`]: {
           color: theme.color.defaultText,
-          padding: main.padding ? `${main.padding} !important` : '1rem',
+          padding: ui.padding ? `${ui.padding} !important` : '1rem',
         },
         [`${docsRoot}`]: {
           backgroundColor: theme.background.content,

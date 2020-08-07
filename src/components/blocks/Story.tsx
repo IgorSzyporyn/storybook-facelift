@@ -3,7 +3,6 @@ import React, { ReactNode } from 'react'
 // import { useGlobalStyles } from '../utils/create-global-styles'
 import { StoryMarkdown } from './StoryMarkdown'
 import { StoryParagraph } from './StoryParagraph'
-import { WithMuiTheme } from '../WithMuiTheme'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

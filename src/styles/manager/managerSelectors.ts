@@ -18,3 +18,5 @@ export const menuSubitem = `${sidebarMenu} > div > section > div > .sidebar-item
 
 export const menuItemIconSelected = `${menuItemSelected} .sidebar-svg-icon`
 export const menuItemTitleSelected = `${menuItemSelected} .sidebar-svg-icon + span`
+
+export const modalMenu = `body > script + div:last-child`

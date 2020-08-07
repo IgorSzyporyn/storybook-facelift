@@ -15,7 +15,6 @@ export function createDefaultSettings(apiParameters?: Parameters.ApiParameters) 
   const settings: Settings.AddonSettings = {
     initialized: false,
     parameters: defaultParameters,
-    initialApiParameters: apiParameters,
     initialAddonParameters: defaultParameters,
     config: defaultConfig,
     state: defaultState,

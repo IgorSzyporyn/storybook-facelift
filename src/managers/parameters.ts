@@ -1,18 +1,18 @@
 import { getPreferredColorScheme } from '@storybook/theming/dist/utils'
-import { Config, Parameters, Settings } from '../typings'
-import { createStorybookThemeFromMui } from '../utils/create-storybook-theme-from-mui'
-import { createStorybookThemeOptionsFromMuiOptions } from '../utils/create-storybook-theme-from-mui-options'
-import { createStorybookThemeFromNative } from '../utils/create-storybook-theme-from-native'
 import deepmerge from 'ts-deepmerge'
+import { Config, Parameters, Settings } from '../typings'
+import { createStorybookThemeOptionsFromMui } from '../utils/create-storybook-theme-from-mui'
+import { createStorybookThemeFromNative } from '../utils/create-storybook-theme-from-native'
 
 export const defaultParameters: Parameters.DefaultParameters = {
   defaultTheme: 'native',
+  autoThemeStory: false,
   includeNative: false,
   docs: {
     type: 'full',
   },
   enhanceUi: false,
-  main: {
+  ui: {
     elevation: 2,
   },
 }
@@ -23,17 +23,17 @@ export function createAddonParameters(apiParameters?: Parameters.ApiParameters) 
   const defaultVariant = mergedParameters.defaultVariant || getPreferredColorScheme()
   const themeConverters = mergedParameters.themeConverters || {}
 
-  themeConverters.mui = createStorybookThemeFromMui
+  themeConverters.mui = createStorybookThemeOptionsFromMui
   themeConverters.native = createStorybookThemeFromNative
-  themeConverters['mui-options'] = createStorybookThemeOptionsFromMuiOptions
 
   const parameters: Parameters.AddonParameters = {
+    autoThemeStory: mergedParameters.autoThemeStory,
     defaultTheme: mergedParameters.defaultTheme,
     defaultVariant: defaultVariant,
     docs: mergedParameters.docs,
     enhanceUi: mergedParameters.enhanceUi,
     includeNative: mergedParameters.includeNative,
-    main: { ...defaultParameters.main, ...mergedParameters.main },
+    ui: { ...defaultParameters.ui, ...mergedParameters.ui },
     native: mergedParameters.native,
     override: mergedParameters.override,
     stories: mergedParameters.stories,
@@ -60,8 +60,14 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
   // Initialized means we are being given custom parameters from a story most likely
   // Only allow certain parameters to be merged on to addon parameters
   if (settings.initialized && settings.initialAddonParameters) {
-    const { main = {}, docs = {}, override = {}, enhanceUi } = apiParameters
-    const customParameters: Parameters.CustomParameters = { main, docs, override, enhanceUi }
+    const { ui = {}, docs = {}, override = {}, enhanceUi, autoThemeStory } = apiParameters
+    const customParameters: Parameters.CustomParameters = {
+      ui,
+      docs,
+      override,
+      enhanceUi,
+      autoThemeStory,
+    }
 
     returnParameters = deepmerge(settings.initialAddonParameters, customParameters)
   } else {

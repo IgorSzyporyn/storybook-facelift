@@ -16,6 +16,7 @@ import {
   menuSubitem,
   sidebarForm,
   sidebarHeading,
+  modalMenu,
 } from './managerSelectors'
 
 function getHeaderColors(theme: Theme, isDark: boolean) {
@@ -61,6 +62,22 @@ function getMenuItemColorSelected(theme: Theme) {
   return color
 }
 
+function getMenuSubitemIconColor(theme: Theme) {
+  let color = theme.color.primary
+
+  const contrastRatio = getContrastRatio(color, theme.background.app)
+
+  if (contrastRatio < 2.62) {
+    color = bestContrastColor({
+      color1: theme.color.primary,
+      background: theme.background.app,
+      ratio: 4,
+    })
+  }
+
+  return color
+}
+
 function getMenuItemColor(theme: Theme) {
   let color = theme.color.defaultText
 
@@ -77,8 +94,8 @@ function getMenuItemColor(theme: Theme) {
   return color
 }
 
-function getMainShadow(main: Parameters.Main) {
-  const elevation: Parameters.MainElevationTypes = main.elevation !== undefined ? main.elevation : 1
+function getMainShadow(ui: Parameters.UI) {
+  const elevation: Parameters.UIElevationTypes = ui.elevation !== undefined ? ui.elevation : 1
   const shadow = elevationMap[elevation]
 
   return shadow
@@ -113,17 +130,18 @@ export function createManagerStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: ThemeVars,
   themeVariant: Parameters.ThemeVariantTypes,
-  main: Parameters.Main
+  ui: Parameters.UI
 ) {
   const isDark = themeVariant === 'dark'
   const theme = convert(themeVars)
 
-  const mainShadow = getMainShadow(main)
+  const mainShadow = getMainShadow(ui)
 
   const menuHeaderColor = getMenuHeaderColor(theme, isDark)
   const menuIconColor = getMenuIconColor(theme.color.secondary, theme)
   const menuItemColor = getMenuItemColor(theme)
   const menuItemColorSelected = getMenuItemColorSelected(theme)
+  const menuSubitemIconColor = getMenuSubitemIconColor(theme)
 
   const headerColors = getHeaderColors(theme, isDark)
 
@@ -243,7 +261,7 @@ export function createManagerStyles(
 
   styles[`${menuSubitem}`] = {
     '& .sidebar-svg-icon': {
-      color: theme.color.primary,
+      color: menuSubitemIconColor,
     },
   }
 
@@ -267,7 +285,7 @@ export function createManagerStyles(
 
       '& #storybook-panel-root': {
         '& > #panel-tab-content > div:last-of-type': {
-          backgroundColor: 'transparent',
+          backgroundColor: theme.background.content,
           overflow: 'hidden',
           borderTopLeftRadius: theme.appBorderRadius,
 
@@ -283,7 +301,53 @@ export function createManagerStyles(
             minWidth: '95px',
             textAlign: 'center',
             display: 'inline-block',
+
+            '&:not(:last-of-type)': {
+              borderRight: `1px solid ${setColorOpacity(headerColors.border, 0.15)}`,
+              marginRight: '1px',
+            },
           },
+        },
+      },
+    },
+  }
+
+  styles[`${modalMenu}`] = {
+    background: theme.background.app,
+    borderRadius: theme.appBorderRadius,
+    boxShadow: `0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)`,
+
+    '& > div:first-of-type': {
+      display: 'none',
+    },
+
+    '& > div:last-of-type': {
+      borderRadius: theme.appBorderRadius,
+      maxHeight: '628px',
+
+      '& > a': {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '7px 14px',
+
+        '& > span': {
+          display: 'flex',
+          alignItems: 'center',
+          height: '22px',
+          margin: '0 4px',
+
+          '& > svg': {
+            height: '16px',
+            width: '16px',
+          },
+        },
+
+        '& > span:first-of-type': {
+          marginLeft: 0,
+        },
+
+        '& > span:last-of-type': {
+          marginRight: 0,
         },
       },
     },

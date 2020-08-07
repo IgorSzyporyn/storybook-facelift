@@ -22,5 +22,5 @@ export function createStorybookThemeFromNative({
   themeVars.appContentBg = appContentBg
   themeVars.barBg = appContentBg
 
-  return { converted: themeVars, original: theme }
+  return { converted: themeVars, original: theme, instanciated: themeVars }
 }

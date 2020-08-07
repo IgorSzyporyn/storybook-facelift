@@ -40,22 +40,21 @@ export function Facelift({ api }: FaceliftProps) {
       })
 
       if (addonState.theme) {
-        const { theme } = addonState
+        const _addonStateClone = { ...addonState }
+        const _settingsClone = { ...settings }
+        const { theme } = _addonStateClone
+
+        const _settings = {
+          ..._settingsClone,
+          state: _addonStateClone,
+        }
 
         api.setOptions({ theme })
-
-        api.getChannel().emit(ADDON_EVENT_THEME_CHANGE, {
-          ...settings,
-          state: addonState,
-        })
-
-        setSettings({
-          ...settings,
-          state: addonState,
-        })
+        setSettings(_settings)
+        api.getChannel().emit(ADDON_EVENT_THEME_CHANGE, _settings)
       }
     },
-    [api]
+    [api, setSettings]
   )
 
   const toggleVariant = () => {
@@ -96,7 +95,7 @@ export function Facelift({ api }: FaceliftProps) {
       channel.removeListener(SET_STORIES, renderTheme)
       channel.removeListener(DOCS_RENDERED, renderTheme)
     }
-  })
+  }, [api, renderTheme, setTheme])
 
   useEffect(() => {
     if (apiParameters && settings) {

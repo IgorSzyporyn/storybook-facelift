@@ -15,13 +15,13 @@ export const ManagerStyles = () => {
     state: { themeVariant, theme },
   } = settings
 
-  const { main, enhanceUi } = parameters
+  const { ui, enhanceUi } = parameters
 
   const themeVars = theme || { ...themes[themeVariant] }
   const styles = {}
 
   if (enhanceUi) {
-    createManagerStyles(styles, themeVars, themeVariant, main)
+    createManagerStyles(styles, themeVars, themeVariant, ui)
   }
 
   return <Global styles={styles} />
