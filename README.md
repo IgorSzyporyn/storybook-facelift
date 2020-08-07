@@ -109,39 +109,39 @@ themeConverters?: Parameters.ThemeConverters
 
 - Easy way to set the title, logo or url for the whole application.
 - Note that these settings can be overriden in turn by themes.
-  > **brandTitle** | type: `string`
+  > #### **brandTitle** | type: `string`
   >
   > - Set title of storybook globally.
   >
-  > **brandImage** | type: `string`
+  > #### **brandImage** | type: `string`
   >
   > - Set logo of storybook globally.
   >
-  > **brandUrl** | type: `string`
+  > #### **brandUrl** | type: `string`
   >
   > - Set url of title or logo of storybook globally.
 
 ### **native** | type: `Parameters.Native` | default: `undefined`
 
 - Configure the native theme if included.
-  > **title** | type: `string`
+  > #### **title** | type: `string`
   >
   > - Name to display in theme picker menu
   > - If no value set, then "Native Theme" is used.
   >
-  > **variants** | type: `Array<"light" | "dark">`
+  > #### **variants** | type: `Array<"light" | "dark">`
   >
   > - Array with either `"light"` or `"dark"` (or both - but that equals to omission) to select specifically which variants to load for native theme.
   > - If no value set, then both are selected.
   >
-  > **background** | type: `"normal" | "reverse" | "equal" | "equal-reverse"`
+  > #### **background** | type: `"normal" | "reverse" | "equal" | "equal-reverse"`
   >
   > - Allows you to choose how to apply the theme colors for app (appBg) and content (appContentBg) in theme.
   > - Applying `"reverse"` will use content background color on app, and app background color on content.
   > - Applying `"equal"` will use app background color both places, and `"equal-reverse"` will use content background color both places.
   > - If no value is set, then `"normal"` will be used.
   >
-  > **override** | types: `Parameters.StorybookThemeOverride`
+  > #### **override** | types: `Parameters.StorybookThemeOverride`
   >
   > - Set the title, logo or url for the native theme only.
   > - See [Parameters.StorybookThemeOverride]() for properties
@@ -150,65 +150,65 @@ themeConverters?: Parameters.ThemeConverters
 
 - Configure UI based settings
 - Note that this requires `enhanceUi` to be set to `true`
-  > **elevation** | type: `0 | 1 | 2 | 3`
+  > #### **elevation** | type: `0 | 1 | 2 | 3`
   >
   > - Set the elevation level of the content panel - 0 is no elevation at all.
   >
-  > **shadow** | type: `string`
+  > #### **shadow** | type: `string`
   >
   > - Should you wish to provide your own shadown for the content panel, then add a valid `box-shadow` value here.
   >
-  > **padding** | type: `string`
+  > #### **padding** | type: `string`
   >
   > - Provide a valid css string for `padding` and you can set the padding used in the Canvas panel.
 
 ### **docs** | type: `Parameters.Docs` | default: `{ type: "full" }`
 
 - Configure settings for use in the Docs panel
-  > **type** | type: `"full" | "simple"` | default: `"full"`
+  > #### **type** | type: `"full" | "simple"` | default: `"full"`
   >
   > - Setting this property to `"simple"` will remove all other elements in Docs panel apart from the documentation of properties.
   >
-  > **hidePropertyBorders** | type: `boolean` | default: `undefined`
+  > #### **hidePropertyBorders** | type: `boolean` | default: `undefined`
   >
   > - If set to `true` then borders between properties in documentation panel will be hidden.
 
 ### **themes** | type: `Array<Parameters.Theme>` | default: `undefined`
 
 - Provide an array of theme configuration objects to be used as themes for Storybook.
-  > **key** | type: `string`
+  > #### **key** | type: `string`
   >
   > - Note this value is **_required_**.
   > - Unique key to identify this theme configuration.
   >
-  > **type** | type: `"native" | "mui" | "?"`
+  > #### **type** | type: `"native" | "mui" | "?"`
   >
   > - Note this value is **_required_**.
   > - Used to indentify the converter to use in order to compile a Storybook theme.
   > - Only `"native"` and `"mui"` are supported by the addon, so if you wish to use a custom made type, you have to ensure that a corresponding converter function is added in **themeConverters** - and ensure that the `"type"` value is used as the key of the converter function.
   >
-  > **title** | type: `string`
+  > #### **title** | type: `string`
   >
   > - Note this value is **_required_**.
   > - The name to show in the theme menu picker.
   >
-  > **previewOnly** | type: `boolean`
+  > #### **previewOnly** | type: `boolean`
   >
   > - If set to `true`, this theme will not be added to the list of themes shown in the theme picker menu.
   >
-  > **background** | type: `"normal" | "reverse" | "equal" | "equal-reverse"`
+  > #### **background** | type: `"normal" | "reverse" | "equal" | "equal-reverse"`
   >
   > - Allows you to choose how to apply the theme colors for app (appBg) and content (appContentBg) in theme.
   > - Applying `"reverse"` will use content background color on app, and app background color on content.
   > - Applying `"equal"` will use app background color both places, and `"equal-reverse"` will use content background color both places.
   > - If no value is set, then `"normal"` will be used.
   >
-  > **override** | types: `Parameters.StorybookThemeOverride` | default: `undefined`
+  > #### **override** | types: `Parameters.StorybookThemeOverride` | default: `undefined`
   >
   > - Set the title, logo or url for this theme only.
   > - See [Parameters.StorybookThemeOverride]() for properties.
   >
-  > **variants** | type: `ThemeVariants`
+  > #### **variants** | type: `ThemeVariants`
   >
   > - Note this value is **_required_**.
   > - Contains a `light` and/or a `dark` property with the theme options configuration for each.
