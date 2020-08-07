@@ -109,6 +109,7 @@ themeConverters?: Parameters.ThemeConverters
 
 - Easy way to set the title, logo or url for the whole application.
 - Note that these settings can be overriden in turn by themes.
+
   > #### **brandTitle** | type: `string`
   >
   > - Set title of storybook globally.
@@ -124,6 +125,7 @@ themeConverters?: Parameters.ThemeConverters
 ### **native** | type: `Parameters.Native` | default: `undefined`
 
 - Configure the native theme if included.
+
   > #### **title** | type: `string`
   >
   > - Name to display in theme picker menu
@@ -150,6 +152,7 @@ themeConverters?: Parameters.ThemeConverters
 
 - Configure UI based settings
 - Note that this requires `enhanceUi` to be set to `true`
+
   > #### **elevation** | type: `0 | 1 | 2 | 3`
   >
   > - Set the elevation level of the content panel - 0 is no elevation at all.
@@ -165,6 +168,7 @@ themeConverters?: Parameters.ThemeConverters
 ### **docs** | type: `Parameters.Docs` | default: `{ type: "full" }`
 
 - Configure settings for use in the Docs panel
+
   > #### **type** | type: `"full" | "simple"` | default: `"full"`
   >
   > - Setting this property to `"simple"` will remove all other elements in Docs panel apart from the documentation of properties.
@@ -176,6 +180,7 @@ themeConverters?: Parameters.ThemeConverters
 ### **themes** | type: `Array<Parameters.Theme>` | default: `undefined`
 
 - Provide an array of theme configuration objects to be used as themes for Storybook.
+
   > #### **key** | type: `string`
   >
   > - Note this value is **_required_**.
