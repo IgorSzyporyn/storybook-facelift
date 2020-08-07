@@ -159,7 +159,7 @@ themeConverters?: Parameters.ThemeConverters
   >
   > #### **shadow** | type: `string`
   >
-  > - Should you wish to provide your own shadown for the content panel, then add a valid `box-shadow` value here.
+  > - Should you wish to provide your own shadow for the content panel, then add a valid `box-shadow` value here.
   >
   > #### **padding** | type: `string`
   >
@@ -169,11 +169,11 @@ themeConverters?: Parameters.ThemeConverters
 
 - Configure settings for use in the Docs panel
 
-  > #### **type** | type: `"full" | "simple"` | default: `"full"`
+  > #### **type** | type: `"full" | "simple"`
   >
   > - Setting this property to `"simple"` will remove all other elements in Docs panel apart from the documentation of properties.
   >
-  > #### **hidePropertyBorders** | type: `boolean` | default: `undefined`
+  > #### **hidePropertyBorders** | type: `boolean`
   >
   > - If set to `true` then borders between properties in documentation panel will be hidden.
 
