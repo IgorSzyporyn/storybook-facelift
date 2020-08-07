@@ -79,7 +79,7 @@ themeConverters?: Parameters.ThemeConverters
 
 - Fix a lot of minor CSS errors
 - Ensure UI contrast ratio (mostly text and with approximation towards Storybooks initial intent - _text for selected stories in menu have a lower tolerance for contrast ratio than 4.5 (will in fact allow > 2.62) to try to keep it white as intended by Storybook for instance)_.
-- Pimp up some UI elements such as buttons for for panels, overlay menus etc..
+- Pimp up some UI elements such as menu icons, buttons for for panels, overlay menus etc..
 
 ### **defaultTheme** | type: `string` | default: `undefined`
 
