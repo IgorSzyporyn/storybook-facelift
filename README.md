@@ -2,6 +2,10 @@
 
 **Enhanced UI and full theme integration for Storybook 6.0**
 
+## DISLAIMER: THIS IS NOT RELEASED YET, SO NPM REPO DOES NOT EXIST
+
+## TO RUN LOCALLY YOU HAVE TO TYPE "NPM RUN STORYBOOK"
+
 ## Installation
 
 `npm i @badgers/storybook-facelift`
