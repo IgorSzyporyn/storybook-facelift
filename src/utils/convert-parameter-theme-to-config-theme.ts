@@ -1,4 +1,4 @@
-import { ThemeVars } from '@storybook/theming'
+import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 import { Parameters } from '../typings'
 
 export type ConvertParameterThemeToConfigThemeProps = {
@@ -20,21 +20,14 @@ export function convertParameterThemeToConfigTheme({
     return null
   }
 
-  const isPlain = themeVariant && !themeVariant.theme && !themeVariant.override
-  const theme = !isPlain ? themeVariant.theme : themeVariant
-  const variantOverride: {} = !isPlain
-    ? {
-        ...(parameters.override || {}),
-        ...(themeConfig.override || {}),
-        ...(themeVariant.override || {}),
-      }
-    : {
-        ...(parameters.override || {}),
-        ...(themeConfig.override || {}),
-      }
+  const theme = themeVariant
+  const variantOverride: {} = {
+    ...(parameters.override || {}),
+    ...(themeConfig.override || {}),
+  }
 
   const _override = Object.keys(variantOverride).length === 0 ? undefined : variantOverride
-  const override = _override as ThemeVars | undefined
+  const override = _override as StorybookThemeOptions | undefined
 
   const converted = converter({
     theme,

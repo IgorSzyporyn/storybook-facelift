@@ -1,5 +1,9 @@
 import { getContrastRatio } from '@material-ui/core'
-import { convert, Theme, ThemeVars } from '@storybook/theming'
+import {
+  convert,
+  Theme as StorybookTheme,
+  ThemeVars as StorybookThemeOptions,
+} from '@storybook/theming'
 import { Parameters } from '../../typings'
 import { bestContrastColor } from '../../utils/best-contrast-color'
 import { setColorOpacity } from '../../utils/color'
@@ -19,7 +23,7 @@ import {
   modalMenu,
 } from './managerSelectors'
 
-function getHeaderColors(theme: Theme, isDark: boolean) {
+function getHeaderColors(theme: StorybookTheme, isDark: boolean) {
   let baseColor = theme.color.defaultText
 
   const contrastRatio = getContrastRatio(baseColor, theme.background.app)
@@ -45,7 +49,7 @@ function getHeaderColors(theme: Theme, isDark: boolean) {
   }
 }
 
-function getMenuItemColorSelected(theme: Theme) {
+function getMenuItemColorSelected(theme: StorybookTheme) {
   let color = '#ffffff'
 
   const contrastRatio = getContrastRatio(color, theme.color.secondary)
@@ -62,7 +66,7 @@ function getMenuItemColorSelected(theme: Theme) {
   return color
 }
 
-function getMenuSubitemIconColor(theme: Theme) {
+function getMenuSubitemIconColor(theme: StorybookTheme) {
   let color = theme.color.primary
 
   const contrastRatio = getContrastRatio(color, theme.background.app)
@@ -78,7 +82,7 @@ function getMenuSubitemIconColor(theme: Theme) {
   return color
 }
 
-function getMenuItemColor(theme: Theme) {
+function getMenuItemColor(theme: StorybookTheme) {
   let color = theme.color.defaultText
 
   const contrastRatio = getContrastRatio(color, theme.background.app)
@@ -101,7 +105,7 @@ function getMainShadow(ui: Parameters.UI) {
   return shadow
 }
 
-function getMenuHeaderColor(theme: Theme, isDark: boolean) {
+function getMenuHeaderColor(theme: StorybookTheme, isDark: boolean) {
   const color = bestContrastColor({
     color1: isDark ? '#ffffff' : '#000000',
     background: theme.background.app,
@@ -111,7 +115,7 @@ function getMenuHeaderColor(theme: Theme, isDark: boolean) {
   return color
 }
 
-function getMenuIconColor(_color: string, theme: Theme) {
+function getMenuIconColor(_color: string, theme: StorybookTheme) {
   let color = _color
   const contrastRatio = getContrastRatio(color, theme.background.app)
 
@@ -128,7 +132,7 @@ function getMenuIconColor(_color: string, theme: Theme) {
 
 export function createManagerStyles(
   styles: { [key: string]: Record<string, any> },
-  themeVars: ThemeVars,
+  themeVars: StorybookThemeOptions,
   themeVariant: Parameters.ThemeVariantTypes,
   ui: Parameters.UI
 ) {
@@ -333,7 +337,6 @@ export function createManagerStyles(
         '& > span': {
           display: 'flex',
           alignItems: 'center',
-          height: '22px',
           margin: '0 4px',
 
           '& > svg': {

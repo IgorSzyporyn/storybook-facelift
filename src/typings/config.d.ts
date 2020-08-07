@@ -1,5 +1,5 @@
 import * as Parameters from './parameters'
-import { ThemeVars } from '@storybook/theming'
+import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 
 declare type ThemeOriginal = {
   light?: Parameters.ThemeOriginal
@@ -9,8 +9,8 @@ declare type ThemeOriginal = {
 declare type Theme = {
   key: string
   type: Parameters.ThemeTypes
-  light?: ThemeVars
-  dark?: ThemeVars
+  light?: StorybookThemeOptions
+  dark?: StorybookThemeOptions
   original: ThemeOriginal
 }
 

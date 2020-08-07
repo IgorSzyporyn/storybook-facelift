@@ -1,8 +1,8 @@
 import { Parameters } from '../typings'
-import { ThemeVars } from '@storybook/theming'
+import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 
 export function getNativeBackgroundColors(
-  theme: ThemeVars,
+  theme: StorybookThemeOptions,
   background?: Parameters.ThemeBackgroundsTypes
 ) {
   let appBg = theme.appBg

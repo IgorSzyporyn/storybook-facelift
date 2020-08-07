@@ -1,4 +1,4 @@
-import { create, ThemeVars } from '@storybook/theming'
+import { create, ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 import { Parameters } from '../typings'
 import { getNativeBackgroundColors } from './get-native-background-colors'
 
@@ -12,7 +12,7 @@ export function createStorybookThemeFromNative({
     return null
   }
 
-  const theme = { ..._theme, ...(override || {}) } as ThemeVars
+  const theme = { ..._theme, ...(override || {}) } as StorybookThemeOptions
   const themeVars = create(theme)
 
   themeVars.base = variant
@@ -22,5 +22,5 @@ export function createStorybookThemeFromNative({
   themeVars.appContentBg = appContentBg
   themeVars.barBg = appContentBg
 
-  return { converted: themeVars, original: theme, instanciated: themeVars }
+  return { converted: themeVars, original: theme }
 }

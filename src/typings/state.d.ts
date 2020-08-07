@@ -1,8 +1,8 @@
 import * as Parameters from './parameters'
-import { ThemeVars } from '@storybook/theming'
+import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 
 declare type AddonState = {
-  theme?: ThemeVars
+  theme?: StorybookThemeOptions
   themeOriginal?: Parameters.ThemeOriginal
   themeType?: Parameters.ThemeTypes
   themeName: string
