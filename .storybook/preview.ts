@@ -118,6 +118,24 @@ export const parameters = {
           },
         },
       },
+      {
+        key: 'mui5',
+        title: 'Material UI - 5 - Reverse background, light only',
+        type: 'mui',
+        background: 'reverse',
+        variants: {
+          dark: {
+            palette: {
+              primary: {
+                main: orange['A200'],
+              },
+              secondary: {
+                main: purple['A200'],
+              },
+            },
+          },
+        },
+      },
     ],
   },
 }
