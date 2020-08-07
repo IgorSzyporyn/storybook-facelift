@@ -120,7 +120,7 @@ export const parameters = {
       },
       {
         key: 'mui5',
-        title: 'Material UI - 5 - Reverse background, light only',
+        title: 'Material UI - 5 - Reverse background, dark only',
         type: 'mui',
         background: 'reverse',
         variants: {
