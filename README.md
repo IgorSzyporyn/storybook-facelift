@@ -208,7 +208,7 @@ themeConverters?: Parameters.ThemeConverters
   > - Applying `"equal"` will use app background color both places, and `"equal-reverse"` will use content background color both places.
   > - If no value is set, then `"normal"` will be used.
   >
-  > #### **override** | types: `Parameters.StorybookThemeOverride` | default: `undefined`
+  > #### **override** | types: `Parameters.StorybookThemeOverride`
   >
   > - Set the title, logo or url for this theme only.
   > - See [Parameters.StorybookThemeOverride]() for properties.
