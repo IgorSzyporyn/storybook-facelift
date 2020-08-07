@@ -5,7 +5,7 @@ export const parameters = {
   '@badgers/facelift': {
     includeNative: true,
     defaultTheme: 'mui2',
-    main: {
+    ui: {
       padding: '32px 32px',
     },
     /*
