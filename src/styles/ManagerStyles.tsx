@@ -1,7 +1,7 @@
-import { Global, themes } from '@storybook/theming'
+import { Global, themes, Theme as StorybookTheme } from '@storybook/theming'
 import React from 'react'
 import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
-import { createManagerStyles } from './manager/managerStyles'
+import { enhanceManagerStyles } from './manager/managerStyles'
 
 export const ManagerStyles = () => {
   const settings = useFaceliftSettings()
@@ -21,8 +21,8 @@ export const ManagerStyles = () => {
   const styles = {}
 
   if (enhanceUi) {
-    createManagerStyles(styles, themeVars, themeVariant, ui)
+    enhanceManagerStyles(styles, themeVars, themeVariant, ui)
   }
 
-  return <Global styles={styles} />
+  return <Global<StorybookTheme> styles={styles} />
 }

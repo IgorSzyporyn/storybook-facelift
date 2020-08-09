@@ -1,5 +1,5 @@
 export const ADDON_ID = '@badgers/storybook-facelift'
-export const ADDON_PARAM_KEY = '@badgers/facelift'
+export const ADDON_PARAM_KEY = '@badgers/storybook-facelift'
 export const ADDON_EVENT_THEME_CHANGE = `${ADDON_ID}/theme-change`
 export const ADDON_EVENT_DOCS_RENDER = `${ADDON_ID}/docs-render`
 export const ADDON_THEME_SELECTOR_ICON = `${ADDON_ID}-theme-selector-icon`

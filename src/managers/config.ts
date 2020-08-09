@@ -1,4 +1,4 @@
-import { themes as nativeThemes } from '@storybook/theming'
+import { themes as nativeThemes, convert } from '@storybook/theming'
 import { Parameters, Config } from '../typings'
 import { convertParameterThemeToConfigTheme } from '../utils/convert-parameter-theme-to-config-theme'
 import { validateThemeForConfig } from '../utils/validate-theme-for-config'
@@ -34,6 +34,10 @@ function createNativeTheme(parameters: Parameters.AddonParameters) {
         ...(parameters.override || {}),
         ...((parameters.native && parameters.native.override) || {}),
       },
+    },
+    instanciated: {
+      light: convert(nativeThemes.light),
+      dark: convert(nativeThemes.dark),
     },
   }
 
@@ -102,6 +106,7 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
           type: themeType,
           light: light.converted,
           original: { light: light.original },
+          instanciated: { light: light.instanciated },
         }
       }
 
@@ -119,6 +124,7 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
           type: themeType,
           dark: dark.converted,
           original: { dark: dark.original },
+          instanciated: { light: dark.instanciated },
         }
       }
 
@@ -127,16 +133,19 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
           key: themeKey,
           type: themeType,
           original: {},
+          instanciated: {},
         })
 
         if (light) {
           returnTheme.light = light.converted
           returnTheme.original.light = light.original
+          returnTheme.instanciated.light = light.instanciated
         }
 
         if (dark) {
           returnTheme.dark = dark.converted
           returnTheme.original.dark = dark.original
+          returnTheme.instanciated.dark = dark.instanciated
         }
 
         if (!themeItem.previewOnly) {

@@ -3,22 +3,10 @@ import SocialMediaIcon from './SocialMediaIcon'
 import { withKnobs, select } from '@storybook/addon-knobs'
 
 export default {
-  title: 'Components/SocialMediaIconAutoThemed',
+  title: 'Components/SocialMediaIconNoEnhancement',
   component: SocialMediaIcon,
   decorators: [withKnobs],
-  parameters: {
-    options: {
-      showPanel: true,
-      selectedPanel: 'storybook/knobs/panel',
-    },
-    '@badgers/storybook-facelift': {
-      enhanceUi: true,
-      autoThemeStory: true,
-      docs: {
-        hideDefaults: true,
-      },
-    },
-  },
+  parameters: {},
   includeStories: ['Default'],
 }
 

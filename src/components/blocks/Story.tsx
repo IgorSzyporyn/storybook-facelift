@@ -1,8 +1,10 @@
-import { Box, BoxProps, makeStyles, Paper, Theme, Typography, useTheme } from '@material-ui/core'
+import { Box, BoxProps, makeStyles, Paper, Theme, Typography } from '@material-ui/core'
 import React, { ReactNode } from 'react'
 // import { useGlobalStyles } from '../utils/create-global-styles'
 import { StoryMarkdown } from './StoryMarkdown'
 import { StoryParagraph } from './StoryParagraph'
+import { useFaceliftSettings } from '../../hooks/UseFaceliftSettings'
+import { Parameters, Config } from 'typings'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -16,12 +18,11 @@ type StoryProps = {
   description?: ReactNode
   markdown?: boolean
   subtitle?: string
-  themed?: boolean
   title?: string
-  render?: (theme: Theme) => ReactNode
+  render?: (theme: Config.ThemeInstanciatedType, themeType: Parameters.ThemeTypes) => ReactNode
 } & BoxProps
 
-const InnerComponent = ({
+export const Story = ({
   children,
   description,
   markdown,
@@ -30,7 +31,20 @@ const InnerComponent = ({
   render,
   ...rest
 }: StoryProps) => {
-  const theme = useTheme()
+  const settings = useFaceliftSettings()
+
+  if (!settings) {
+    return null
+  }
+
+  const {
+    state: { themeInstanciated: theme, themeType },
+  } = settings
+
+  if (!theme || !themeType) {
+    return null
+  }
+
   const classes = useStyles()
   const hasHeading = title || subtitle || description
 
@@ -58,7 +72,7 @@ const InnerComponent = ({
             ))}
         </Box>
       )}
-      <main>{render ? render(theme) : children}</main>
+      <main>{render ? render(theme, themeType) : children}</main>
     </Box>
   )
 
@@ -66,19 +80,11 @@ const InnerComponent = ({
     Inner = (
       <Box className={classes.root} p={[2, 3, 4]} {...rest} component="div">
         <Paper variant="outlined">
-          <Box p={[3, 4, 5]}>{render ? render(theme) : children}</Box>
+          <Box p={[3, 4, 5]}>{render ? render(theme, themeType) : children}</Box>
         </Paper>
       </Box>
     )
   }
 
   return Inner
-}
-
-export const Story = ({ themed, ...rest }: StoryProps) => {
-  if (themed) {
-    return <InnerComponent {...rest} />
-  } else {
-    return <InnerComponent {...rest} />
-  }
 }

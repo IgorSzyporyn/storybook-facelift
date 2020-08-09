@@ -1,9 +1,17 @@
 import * as Parameters from './parameters'
-import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
+import { Theme as MuiTheme } from '@material-ui/core'
+import { ThemeVars as StorybookThemeOptions, Theme as StorybookTheme } from '@storybook/theming'
+
+declare type ThemeInstanciatedType = StorybookTheme | MuiTheme
 
 declare type ThemeOriginal = {
   light?: Parameters.ThemeOriginal
   dark?: Parameters.ThemeOriginal
+}
+
+declare type ThemeInstanciated = {
+  light?: ThemeInstanciatedType
+  dark?: ThemeInstanciatedType
 }
 
 declare type Theme = {
@@ -12,6 +20,7 @@ declare type Theme = {
   light?: StorybookThemeOptions
   dark?: StorybookThemeOptions
   original: ThemeOriginal
+  instanciated: ThemeInstanciated
 }
 
 declare type Themes = {

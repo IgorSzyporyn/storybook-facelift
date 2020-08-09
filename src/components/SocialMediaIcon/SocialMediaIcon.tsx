@@ -24,7 +24,9 @@ const iconMap: IconMap = {
 
 type SocialMediaIconProps = {
   icon?: SocialMediaIconTypes
-  context?: IconColorType
+  context?: 'primary' | 'secondary' | 'success' | 'error' | 'action' | 'info' | 'disabled'
+  boolean?: boolean
+  number?: number
 } & CleanSvgIconProps
 
 export type IconProps = Omit<SocialMediaIconProps, 'icon'>

@@ -20,6 +20,7 @@ export function createAddonState({
 
   const root = themes[_themeName]
   const original = root && root.original
+  const instanciated = root && root.instanciated
 
   if (!root) {
     output(`Trying to set invalid theme "${_themeName}" (theme does not exist)`, 'error')
@@ -30,6 +31,7 @@ export function createAddonState({
   let theme = root && root[themeVariant]
   const themeType = root && root.type
   let themeOriginal = original && original[themeVariant]
+  let themeInstanciated = instanciated && instanciated[themeVariant]
 
   if (root && !theme) {
     const oppositeVariant = themeVariant === 'dark' ? 'light' : 'dark'
@@ -41,6 +43,7 @@ export function createAddonState({
       output(`Trying to set invalid theme "${themeName}" (no variants)`, 'error')
     } else {
       themeOriginal = original && original[oppositeVariant]
+      themeInstanciated = instanciated && instanciated[oppositeVariant]
     }
   }
 
@@ -50,6 +53,7 @@ export function createAddonState({
     themeOriginal,
     themeType,
     themeVariant,
+    themeInstanciated,
   }
 
   return addonState

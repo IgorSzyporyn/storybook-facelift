@@ -1,5 +1,6 @@
 import { ThemeOptions as MuiThemeOptions } from '@material-ui/core'
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
+import { Config } from 'typings'
 
 // Type for allowed override configurations
 declare type StorybookThemeOverride = Pick<
@@ -11,12 +12,21 @@ declare type StorybookThemeOverride = Pick<
 
 // PARAMETER "STORY"
 
-declare type StoryTypes = 'palette' | 'typography'
+declare type StoryEntryTypes = 'palette' | 'typography'
 
 declare type Story = {
-  name: StoryTypes
+  title?: string
   path?: string
   show?: boolean
+}
+
+declare type StoryEntries = {
+  [key in StoryEntryTypes]: Story | false
+}
+
+declare type Stories = {
+  title?: string
+  entries?: StoryEntries
 }
 
 // PARAMETER "DOCS"
@@ -27,6 +37,10 @@ declare type DocsTypes = 'simple' | 'full'
 declare type Docs = {
   // Set to true (default false) to hide the borders where type info is shown
   hidePropertyBorders?: boolean
+  // Set to true (default false) to hide description values in docs table (@NEW)
+  hideDescription?: boolean
+  // Set to true (default false) to hide default values in docs table (@NEW)
+  hideDefaults?: boolean
   // Set to either full or simple - full is default, and simple will ONLY show type info
   // and not any stories etc..
   type?: DocsTypes
@@ -125,6 +139,7 @@ declare type ThemeConverterProps = {
 declare type ThemeConverterResponse = {
   converted: StorybookThemeOptions
   original: ThemeOriginal
+  instanciated: Config.ThemeInstanciatedType
 }
 
 // The type for the converter function itself
@@ -160,7 +175,7 @@ declare type AddonParameters = {
   override?: StorybookThemeOverride
   // Configure what available stories in the toolbox should be used
   // Note only MUI themes have toolbox stories for now
-  stories?: boolean | Story[]
+  stories?: boolean | Stories
   // Converters functions used to convert themes in parameters into Storybook themes
   // Note: "native" & "mui" are protected
   themeConverters: ThemeConverters
@@ -179,7 +194,7 @@ declare type ApiParameters = {
   includeNative?: boolean
   native?: Native
   override?: StorybookThemeOverride
-  stories?: boolean | Story[]
+  stories?: boolean | Stories
   themeConverters?: ThemeConverters
   themes?: Theme[]
   ui?: UI

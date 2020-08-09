@@ -4,7 +4,7 @@ import { ADDON_EVENT_THEME_CHANGE } from '../constants'
 import { Settings } from '../typings'
 
 export function useFaceliftSettings() {
-  const [addonSettings, setAddonSettings] = useState<Settings.AddonSettings>()
+  const [addonSettings, setAddonSettings] = useState<Settings.AddonSettings | null>(null)
 
   useEffect(() => {
     const chan = addons.getChannel()

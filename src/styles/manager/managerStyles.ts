@@ -130,7 +130,7 @@ function getMenuIconColor(_color: string, theme: StorybookTheme) {
   return color
 }
 
-export function createManagerStyles(
+export function enhanceManagerStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: StorybookThemeOptions,
   themeVariant: Parameters.ThemeVariantTypes,
@@ -294,7 +294,7 @@ export function createManagerStyles(
           borderTopLeftRadius: theme.appBorderRadius,
 
           '& button': {
-            backgroundColor: theme.color.primary,
+            backgroundColor: theme.color.secondary,
             color: theme.color.lightest,
             borderRadius: 0,
             fontWeight: 500,

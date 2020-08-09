@@ -1,15 +1,16 @@
-import { API, useAddonState } from '@storybook/api'
-import { DOCS_RENDERED, SET_STORIES, STORY_CHANGED } from '@storybook/core-events'
-import React, { useCallback, useEffect } from 'react'
+import { API } from '@storybook/api'
+import { DOCS_RENDERED, STORY_CHANGED } from '@storybook/core-events'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ThemeSelector } from './components/ThemeSelector'
 import { VariantSelector } from './components/VariantSelector'
-import { ADDON_EVENT_THEME_CHANGE, ADDON_ID, ADDON_PARAM_KEY } from './constants'
+import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
 import { createConfigDefaults, verifyConfig } from './managers/config'
 import { updateAddonParameters, verifyParameters } from './managers/parameters'
 import { createDefaultSettings } from './managers/settings'
 import { createAddonState } from './managers/state'
 import { ManagerStyles } from './styles/ManagerStyles'
 import { Parameters, Settings } from './typings'
+// import { addStories } from './managers/stories'
 
 type SetThemeProps = {
   themeName?: string
@@ -26,22 +27,22 @@ export function Facelift({ api }: FaceliftProps) {
     ADDON_PARAM_KEY
   )
 
-  const [settings, setSettings] = useAddonState<Settings.AddonSettings | undefined>(ADDON_ID)
+  const [settings, setSettings] = useState<Settings.AddonSettings | null>(null)
 
   const setTheme = useCallback(
-    ({ themeName, themeVariant, settings }: SetThemeProps) => {
+    ({ themeName, themeVariant, settings: __settings }: SetThemeProps) => {
       const addonState = createAddonState({
-        parameters: settings.parameters,
-        config: settings.config,
+        parameters: __settings.parameters,
+        config: __settings.config,
         options: {
-          themeName: themeName || settings.state.themeName,
-          themeVariant: themeVariant || settings.state.themeVariant,
+          themeName: themeName || __settings.state.themeName,
+          themeVariant: themeVariant || __settings.state.themeVariant,
         },
       })
 
       if (addonState.theme) {
         const _addonStateClone = { ...addonState }
-        const _settingsClone = { ...settings }
+        const _settingsClone = { ...__settings }
         const { theme } = _addonStateClone
 
         const _settings = {
@@ -50,8 +51,9 @@ export function Facelift({ api }: FaceliftProps) {
         }
 
         api.setOptions({ theme })
-        setSettings(_settings)
         api.getChannel().emit(ADDON_EVENT_THEME_CHANGE, _settings)
+
+        setSettings(_settings)
       }
     },
     [api, setSettings]
@@ -79,23 +81,23 @@ export function Facelift({ api }: FaceliftProps) {
   }
 
   useEffect(() => {
-    const defaultSettings = createDefaultSettings(apiParameters)
-    setSettings(defaultSettings)
+    const addonsSettings = createDefaultSettings(apiParameters)
+    setSettings(addonsSettings)
   }, [])
 
   useEffect(() => {
     const channel = api.getChannel()
 
     channel.on(STORY_CHANGED, renderTheme)
-    channel.on(SET_STORIES, renderTheme)
+    // channel.on(SET_STORIES, renderTheme)
     channel.on(DOCS_RENDERED, renderTheme)
 
     return () => {
       channel.removeListener(STORY_CHANGED, renderTheme)
-      channel.removeListener(SET_STORIES, renderTheme)
+      // channel.removeListener(SET_STORIES, renderTheme)
       channel.removeListener(DOCS_RENDERED, renderTheme)
     }
-  }, [api, renderTheme, setTheme])
+  }, [api, renderTheme])
 
   useEffect(() => {
     if (apiParameters && settings) {
@@ -109,7 +111,7 @@ export function Facelift({ api }: FaceliftProps) {
       const isEqualConfig = JSON.stringify(settings.config) === JSON.stringify(config)
 
       if (!isEqualParameters || !isEqualConfig) {
-        const initializing = !isEqualParameters && !isEqualConfig
+        const initializing = isEqualParameters === false && isEqualConfig === false
 
         const newSettings: Settings.AddonSettings = {
           ...settings,
@@ -118,6 +120,12 @@ export function Facelift({ api }: FaceliftProps) {
         }
 
         if (initializing) {
+          /* @TODO - Add stores dynamically with color palette shown etc.. if theme is supported
+            if (newSettings.parameters.stories) {
+              addStories(newSettings.parameters.stories)
+            }
+          */
+
           newSettings.initialAddonParameters = parameters
           newSettings.initialized = initializing
         }
