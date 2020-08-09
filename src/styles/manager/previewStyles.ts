@@ -167,7 +167,7 @@ export function enhancePreviewStyles(
 
       '&:first-of-type': {
         width: 'auto',
-        minWidth: '130px',
+        minWidth: '160px',
         paddingLeft: docsTablePaddingOuter,
         paddingRight: docsTablePaddingInner,
       },
@@ -189,7 +189,7 @@ export function enhancePreviewStyles(
       },
       '&:nth-of-type(4)': {
         width: 'auto',
-        minWidth: '225px',
+        minWidth: '251px',
         paddingLeft: docsTablePaddingInner,
         paddingRight: docsTablePaddingOuter,
       },
@@ -276,7 +276,7 @@ export function enhancePreviewStyles(
 
     // Container for description text
     '& > div:first-of-type': {
-      marginTop: '7px',
+      marginTop: '4px',
     },
 
     // Container for properties
@@ -324,6 +324,7 @@ export function enhancePreviewStyles(
     },
     '& textarea': {
       ...inputStyles,
+      minWidth: '251px',
     },
     '& select': {
       ...inputStyles,
