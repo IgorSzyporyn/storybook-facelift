@@ -135,7 +135,7 @@ export function Facelift({ api }: FaceliftProps) {
     } else {
       renderTheme()
     }
-  }, [apiParameters, setTheme, renderTheme])
+  }, [apiParameters, setTheme])
 
   return (
     <>

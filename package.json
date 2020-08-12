@@ -1,6 +1,6 @@
 {
-  "name": "@badgers/storybook-facelift",
-  "description": "Toggle between light and dark mode in Storybook v6",
+  "name": "storybook-facelift",
+  "description": "Theme control and UI enhancement for Storybook v6",
   "version": "0.0.1",
   "license": "MIT",
   "type": "commonjs",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/IgorSzyporyn/storybook-with-mui"
+    "url": "https://github.com/IgorSzyporyn/storybook-facelift"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -35,7 +35,8 @@
     "test": "npm run test:lint && npm run test:types",
     "test:types": "tsc --pretty --noEmit",
     "test:lint": "eslint . --ext ts --ext tsx --ext js",
-    "storybook": "rimraf ./dist && npm run build && start-storybook -p 6006 --no-dll",
+    "clean-dist": "rimraf dist",
+    "storybook": "npm run clean-dist && npm run build && start-storybook -p 6006 --no-dll",
     "storybook:build": "build-storybook"
   },
   "dependencies": {
@@ -43,9 +44,7 @@
     "@material-ui/icons": "4.9.1",
     "emotion": "^10.0.27",
     "emotion-server": "^10.0.27",
-    "fast-deep-equal": "^3.1.3",
     "memoizerific": "^1.11.3",
-    "pick-a-good-color": "^1.1.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-markdown": "^4.3.1",
@@ -55,17 +54,17 @@
   "devDependencies": {
     "@babel/preset-react": "^7.10.4",
     "@emotion/core": "^10.0.28",
-    "@storybook/addon-a11y": "next",
-    "@storybook/addon-essentials": "next",
-    "@storybook/addon-knobs": "next",
-    "@storybook/addons": "next",
-    "@storybook/api": "next",
-    "@storybook/cli": "next",
-    "@storybook/components": "next",
-    "@storybook/core": "next",
-    "@storybook/core-events": "next",
-    "@storybook/react": "next",
-    "@storybook/theming": "next",
+    "@storybook/addon-a11y": "^6.0.3",
+    "@storybook/addon-essentials": "^6.0.3",
+    "@storybook/addon-knobs": "^6.0.3",
+    "@storybook/addons": "^6.0.3",
+    "@storybook/api": "^6.0.3",
+    "@storybook/cli": "^6.0.3",
+    "@storybook/components": "^6.0.3",
+    "@storybook/core": "^6.0.3",
+    "@storybook/core-events": "^6.0.3",
+    "@storybook/react": "^6.0.3",
+    "@storybook/theming": "^6.0.3",
     "@types/node": "^13.9.5",
     "@types/react": "16.9.27",
     "@types/react-dom": "^16.9.8",

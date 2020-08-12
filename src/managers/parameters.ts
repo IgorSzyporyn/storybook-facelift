@@ -98,6 +98,8 @@ export function verifyParameters(
 
   const themeMatches = themes[defaultTheme] !== undefined
 
+  console.log(themeMatches)
+
   // Theme did not match - probably due to missing defaultTheme and no native theme
   if (!themeMatches) {
     // Just pick the first one in line as the new default theme

@@ -2,7 +2,7 @@ import { withFaceliftPreview } from '../dist/decorators/withFaceliftPreview'
 import { orange, blue, purple, cyan, red, pink } from '@material-ui/core/colors'
 
 export const parameters = {
-  '@badgers/storybook-facelift': {
+  'storybook-facelift': {
     includeNative: true,
     defaultTheme: 'mui2',
     ui: {

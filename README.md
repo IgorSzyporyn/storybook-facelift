@@ -8,7 +8,7 @@
 
 ## Installation
 
-`npm i @badgers/storybook-facelift`
+`npm i storybook-facelift`
 
 ## Usage
 
@@ -19,7 +19,7 @@ module.exports = {
   ...
   addons: [
     ...
-    '@badgers/storybook-facelift'
+    'storybook-facelift'
   ]
 }
 ```
@@ -27,7 +27,7 @@ module.exports = {
 And then configure it in `preview.js`
 
 ```js
-import { withFacelift } from '@badgers/storybook-facelift'
+import { withFacelift } from 'storybook-facelift'
 
 export const decorators = [withFacelift]
 ```
@@ -39,10 +39,10 @@ The addon and options available are meant to be as gracefull and unobtrusive as 
 To get the most of the addon you may want to configure it through the options.
 
 ```js
-import { withFacelift } from '@badgers/storybook-facelift'
+import { withFacelift } from 'storybook-facelift'
 
 export const parameters = {
-  '@badgers/storybook-facelift': {
+  'storybook-facelift': {
     enhanceUi: true,
   },
 }

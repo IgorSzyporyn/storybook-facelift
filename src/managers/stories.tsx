@@ -1,6 +1,6 @@
 import deepmerge from 'ts-deepmerge'
 import { Parameters } from '../typings'
-import { createPaletteStory } from '../stories/design/palette'
+// import { createPaletteStory } from '../stories/design/palette'
 
 const defaults: AddStoriesConfig = {
   title: 'Theme',
@@ -57,7 +57,7 @@ export function addStories(_config: Parameters.Stories | true) {
       if (entry !== false && entry.show) {
         switch (entryType) {
           case 'palette':
-            createPaletteStory(entry)
+            // createPaletteStory(entry)
             break
           case 'typography':
             break

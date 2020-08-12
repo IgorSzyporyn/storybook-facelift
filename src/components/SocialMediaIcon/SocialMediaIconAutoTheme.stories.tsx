@@ -11,7 +11,7 @@ export default {
       showPanel: true,
       selectedPanel: 'storybook/knobs/panel',
     },
-    '@badgers/storybook-facelift': {
+    'storybook-facelift': {
       enhanceUi: true,
       autoThemeStory: true,
       docs: {

@@ -376,15 +376,15 @@ export function enhancePreviewStyles(
 
     // Panel Bodies (preview and source)
     '& > .os-host ~ div': {
-      backgroundColor: background.docsPreview,
-      color: theme.color.defaultText,
+      // backgroundColor: background.docsPreview,
+      // color: theme.color.defaultText,
 
       '& div': {
         // Main content area
         '&:first-of-type': {},
         // Show code button area
         '&:last-child': {
-          backgroundColor: 'transparent',
+          // backgroundColor: 'transparent',
           overflow: 'hidden',
           borderTopLeftRadius: theme.appBorderRadius,
 
@@ -405,10 +405,10 @@ export function enhancePreviewStyles(
       },
     },
 
-    // Panel Source only
-    '& > .os-host + div + div': {
-      backgroundColor: '#272727',
-      borderTopLeftRadius: 0,
+    // The Code in "show code"
+    '& .os-host > .os-padding > .os-viewport > .os-content > pre > code': {
+      fontFamily: theme.typography.fonts.mono,
+      // color: theme.color.defaultText,
     },
   }
 
