@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core/styles'
 import { create, Jss } from 'jss'
 import React, { ReactNode, useEffect, useState } from 'react'
-import { useFaceliftSettings } from '../../hooks/UseFaceliftSettings'
-import { PreviewStyles } from '../../styles/PreviewStyles'
-import { Parameters } from '../../typings'
+import { useFaceliftSettings } from '../index'
+import { PreviewStyles } from '../styles/PreviewStyles'
+import { Parameters } from '../typings'
 
 type WithThemedPreviewProps = {
   children: ReactNode
