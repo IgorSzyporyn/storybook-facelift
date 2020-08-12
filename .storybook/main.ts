@@ -10,7 +10,7 @@ module.exports = {
     },
     '@storybook/addon-a11y',
     '@storybook/addon-knobs',
-    '../dist/register',
+    'storybook-facelift',
   ],
   typescript: {
     check: true,

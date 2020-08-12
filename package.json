@@ -1,7 +1,7 @@
 {
   "name": "storybook-facelift",
   "description": "Theme control and UI enhancement for Storybook v6",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
@@ -52,7 +52,6 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.10.4",
     "@emotion/core": "^10.0.28",
     "@storybook/addon-a11y": "^6.0.3",
     "@storybook/addon-essentials": "^6.0.3",
