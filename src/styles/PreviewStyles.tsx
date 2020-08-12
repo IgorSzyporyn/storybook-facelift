@@ -24,5 +24,5 @@ export const PreviewStyles = () => {
     enhancePreviewStyles(styles, themeVars, themeVariant, ui, docs)
   }
 
-  return <Global<StorybookTheme> styles={styles} />
+  return enhanceUi ? <Global<StorybookTheme> styles={styles} /> : null
 }

@@ -24,5 +24,5 @@ export const ManagerStyles = () => {
     enhanceManagerStyles(styles, themeVars, themeVariant, ui)
   }
 
-  return <Global<StorybookTheme> styles={styles} />
+  return enhanceUi ? <Global<StorybookTheme> styles={styles} /> : null
 }
