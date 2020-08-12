@@ -64,7 +64,7 @@ Which will produce an UI wise enhanced version of Storybook with a dark/light to
 
 ## Options
 
-All options in `facelift` are optional - you can get away with a zero config (well... zero-options) initialization of the addon.
+All options in `storybook-facelift` are optional - you can get away with a zero config (well... zero-options) initialization of the addon.
 
 But to get the most of the addon you will more than likely want to add a few.
 
