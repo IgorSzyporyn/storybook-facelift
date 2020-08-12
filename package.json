@@ -1,7 +1,7 @@
 {
   "name": "storybook-facelift",
   "description": "Theme control and UI enhancement for Storybook v6",
-  "version": "6.0.10",
+  "version": "6.0.11",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
@@ -25,6 +25,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/IgorSzyporyn/storybook-facelift"
+  },
+  "bugs": {
+    "url": "https://github.com/IgorSzyporyn/storybook-facelift/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "dev": "tsc --watch",

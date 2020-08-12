@@ -8,20 +8,31 @@ import { Parameters } from '../../typings'
 import { bestContrastColor } from '../../utils/best-contrast-color'
 import { setColorOpacity } from '../../utils/color'
 import { elevationMap } from '../elevation'
-import {
-  mainRoot,
-  menuHeader,
-  menuIcon,
-  menuItem,
-  menuItemExpander,
-  menuItemIconSelected,
-  menuItemTitle,
-  menuItemTitleSelected,
-  menuSubitem,
-  sidebarForm,
-  sidebarHeading,
-  modalMenu,
-} from './managerSelectors'
+import { createButtonStyles } from '../../utils/create-button-styles'
+
+export const rootId = `#root`
+
+export const mainRoot = `${rootId} > div > div:last-of-type > div`
+
+export const sidebarHeading = `${rootId} .sidebar-header`
+export const sidebarForm = `${sidebarHeading} + form`
+export const sidebarMenu = `${sidebarForm} + div`
+
+export const menuHeader = `${sidebarMenu} .sidebar-subheading`
+export const menuItem = `${sidebarMenu} .sidebar-item`
+export const menuItemSelected = `${sidebarMenu} .sidebar-item.selected`
+
+export const menuItemExpander = `${menuItem} .sidebar-expander`
+export const menuIcon = `${menuItem} .sidebar-svg-icon`
+export const menuItemIcon = `${menuItem} .sidebar-expander + .sidebar-svg-icon`
+export const menuItemTitle = `${menuItem} .sidebar-expander + .sidebar-svg-icon + span`
+export const menuSubitem = `${sidebarMenu} > div > section > div > .sidebar-item`
+
+export const menuItemIconSelected = `${menuItemSelected} .sidebar-svg-icon`
+export const menuItemTitleSelected = `${menuItemSelected} .sidebar-svg-icon + span`
+
+export const modalMenu = `body > div:last-child`
+
 
 function getHeaderColors(theme: StorybookTheme, isDark: boolean) {
   let baseColor = theme.color.defaultText
@@ -59,7 +70,7 @@ function getMenuItemColorSelected(theme: StorybookTheme) {
       color1: '#ffffff',
       color2: '#000000',
       background: theme.color.secondary,
-      ratio: 4,
+      ratio: 7,
     })
   }
 
@@ -148,6 +159,8 @@ export function enhanceManagerStyles(
   const menuSubitemIconColor = getMenuSubitemIconColor(theme)
 
   const headerColors = getHeaderColors(theme, isDark)
+
+  const buttonStyles = createButtonStyles(theme)
 
   styles[`${sidebarHeading}`] = {
     display: 'flex',
@@ -293,21 +306,14 @@ export function enhanceManagerStyles(
           overflow: 'hidden',
           borderTopLeftRadius: theme.appBorderRadius,
 
-          '& button': {
-            backgroundColor: theme.color.secondary,
-            color: theme.color.lightest,
+
+
+          '& > button': {
+            ...buttonStyles,
             borderRadius: 0,
-            fontWeight: 500,
-            lineHeight: '26px',
-            height: '28px',
-            border: '0 none',
-            padding: '0 15px',
-            minWidth: '95px',
-            textAlign: 'center',
-            display: 'inline-block',
 
             '&:not(:last-of-type)': {
-              borderRight: `1px solid ${setColorOpacity(headerColors.border, 0.15)}`,
+              borderRight: `1px solid ${setColorOpacity(headerColors.border, 0.25)}`,
               marginRight: '1px',
             },
           },

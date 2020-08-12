@@ -57,7 +57,7 @@ export function Facelift({ api }: FaceliftProps) {
         setSettings(_settings)
       }
     },
-    [api, setSettings]
+    [api]
   )
 
   const toggleVariant = () => {

@@ -34,30 +34,18 @@ module.exports = {
 }
 ```
 
-And then configure it in `preview.js`
-
-```js
-import { withFacelift } from 'storybook-facelift'
-
-export const decorators = [withFacelift]
-```
-
-This will give you the (close to) zero-config version of the addon which is simply Storybook as-is, but with a light/dark theme variant toggler.
+This will give you the zero-config version of the addon which is simply Storybook as-is, but with a light/dark theme variant toggler.
 
 The addon and options available are meant to be as gracefull and unobtrusive as possible, and therefore most features of `storybook-facelift` are not enabled as default.
 
-To get the most of the addon you may want to configure it through the options.
+To get the most of the addon you may want to configure it through the options in `preview.js`.
 
 ```js
-import { withFacelift } from 'storybook-facelift'
-
 export const parameters = {
   facelift: {
     enhanceUi: true,
   },
 }
-
-export const decorators = [withFacelift]
 ```
 
 Which will produce an UI wise enhanced version of Storybook with a dark/light toggler.
