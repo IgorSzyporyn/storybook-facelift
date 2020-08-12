@@ -1,10 +1,20 @@
 # Storybook Facelift
 
-**Enhanced UI and full theme integration for Storybook 6.0**
+**Theme integration and Enhanced UI for Storybook 6.0**
 
-## DISLAIMER: THIS IS NOT RELEASED YET, SO NPM REPO DOES NOT EXIST
+At its core Storybook Facelift simply lets you easily add and select multiple themes for storybook - in either light or dark variants, or both.
 
-## TO RUN LOCALLY YOU HAVE TO TYPE "NPM RUN STORYBOOK"
+Storybook Facelift also lets you easily integrate themes from other theming frameworks by either allowing theme converter functions in configuration, or by using the built in converters (currently only [Material UI](https://material-ui.com/) is supported).
+
+Storybook Facelift also offers a wide variety of easy config options to control how Storybook behaves - note that in order to be able to control many of these features, the configuration option `enhanceUi` to be set.
+
+With the `enhanceUi` option set you also get theme color contrast safety for readability no matter how much your theme clashes with Storybook's theming.
+
+[@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) is also supported by `enhanceUi` and will theme according to your chosen theme and theme variant.
+
+Apart from that Storybook Facelift also offers control over what is presented in the @storybook/addon-docs panel - with the option to hide all other elements than the property table, control the visibility state of "defaults" and "description" column in the property table - and if borders should be shown or not.
+
+Storybook Facelift also supports Material UI, with the option `autoThemeStory` your story will automatically inherit the theme selected - if this theme is of the `mui` type.
 
 ## Installation
 
