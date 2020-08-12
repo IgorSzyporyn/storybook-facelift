@@ -1,2 +1,2 @@
-export * from './decorators/withFaceliftPreview'
+export * from './decorators/withFacelift'
 export * from './hooks/UseFaceliftSettings'

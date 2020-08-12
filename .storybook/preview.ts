@@ -1,4 +1,4 @@
-import { withFaceliftPreview } from '../dist/decorators/withFaceliftPreview'
+import { withFacelift } from '../dist/decorators/withFacelift'
 import { orange, blue, purple, cyan, red, pink } from '@material-ui/core/colors'
 
 export const parameters = {
@@ -143,4 +143,4 @@ export const parameters = {
   },
 }
 
-export const decorators = [withFaceliftPreview]
+export const decorators = [withFacelift]

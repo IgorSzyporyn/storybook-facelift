@@ -3,8 +3,8 @@ import React from 'react'
 import { ADDON_PARAM_KEY } from '../constants'
 import { WithFaceliftPreview } from './components/WithFaceliftPreview'
 
-export const withFaceliftPreview = makeDecorator({
-  name: 'withFaceliftPreview',
+export const withFacelift = makeDecorator({
+  name: 'withFacelift',
   parameterName: ADDON_PARAM_KEY,
   skipIfNoParametersOrOptions: false,
   wrapper: (storyFn, context) => {
