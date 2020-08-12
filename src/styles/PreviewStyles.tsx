@@ -1,6 +1,6 @@
 import { Global, themes, Theme as StorybookTheme } from '@storybook/theming'
 import React from 'react'
-import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
+import { useFaceliftSettings } from '../index'
 import { enhancePreviewStyles } from './manager/previewStyles'
 
 export const PreviewStyles = () => {

@@ -3,7 +3,7 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import { IconButton } from '@storybook/components'
 import React from 'react'
 import { ADDON_VARIANT_SELECTOR } from '../constants'
-import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
+import { useFaceliftSettings } from '../index'
 
 type VariantSelectorProps = {
   onClick: () => void

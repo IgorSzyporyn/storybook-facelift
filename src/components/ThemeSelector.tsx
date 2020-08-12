@@ -5,7 +5,7 @@ import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components'
 import { styled } from '@storybook/theming'
 import memoize from 'memoizerific'
 import React, { ReactNode } from 'react'
-import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
+import { useFaceliftSettings } from '../index'
 import { Config } from '../typings'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({

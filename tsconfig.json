@@ -8,7 +8,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true,
@@ -31,8 +31,7 @@
     "**/*.spec.ts",
     "**/__tests__",
     "**/*.test.ts",
-    "**/*.stories.tsx",
-    "theme"
+    "**/*.stories.tsx"
   ],
   "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
 }

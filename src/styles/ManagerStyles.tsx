@@ -1,6 +1,6 @@
 import { Global, themes, Theme as StorybookTheme } from '@storybook/theming'
 import React from 'react'
-import { useFaceliftSettings } from '../hooks/UseFaceliftSettings'
+import { useFaceliftSettings } from '../index'
 import { enhanceManagerStyles } from './manager/managerStyles'
 
 export const ManagerStyles = () => {
