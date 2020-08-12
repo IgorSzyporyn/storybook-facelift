@@ -180,6 +180,14 @@ themeConverters?: Parameters.ThemeConverters
   > #### **hidePropertyBorders** | `boolean`
   >
   > - If set to `true` then borders between properties in documentation panel will be hidden.
+  >
+  > #### **hideDescription** | `boolean`
+  >
+  > - If set to `true` then description column in documentation panel will be hidden.
+  >
+  > #### **hideDefaults** | `boolean`
+  >
+  > - If set to `true` then defaults column in documentation panel will be hidden.
 
 ### **themes** | `Array<Parameters.Theme>` | default: `undefined`
 
