@@ -57,8 +57,6 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
     return returnParameters
   }
 
-  debugger
-
   // Initialized means we are being given custom parameters from a story most likely
   // Only allow certain parameters to be merged on to addon parameters
   if (settings.initialized && settings.initialAddonParameters) {
