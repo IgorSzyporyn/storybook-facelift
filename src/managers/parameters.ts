@@ -51,11 +51,13 @@ export type updateAddonParametersProps = {
 
 export function updateAddonParameters({ apiParameters, settings }: updateAddonParametersProps) {
   const { parameters: addonParameters } = settings
-  let returnParameters = addonParameters
+  let returnParameters = { ...addonParameters }
 
   if (!apiParameters) {
     return returnParameters
   }
+
+  debugger
 
   // Initialized means we are being given custom parameters from a story most likely
   // Only allow certain parameters to be merged on to addon parameters
@@ -97,8 +99,6 @@ export function verifyParameters(
   const { themes } = config
 
   const themeMatches = themes[defaultTheme] !== undefined
-
-  console.log(themeMatches)
 
   // Theme did not match - probably due to missing defaultTheme and no native theme
   if (!themeMatches) {

@@ -126,7 +126,17 @@ export function Facelift({ api }: FaceliftProps) {
             }
           */
 
+          const state = createAddonState({
+            parameters: newSettings.parameters,
+            config: newSettings.config,
+            options: {
+              themeName: newSettings.parameters.defaultTheme,
+              themeVariant: newSettings.parameters.defaultVariant,
+            },
+          })
+
           newSettings.initialAddonParameters = parameters
+          newSettings.state = state
           newSettings.initialized = initializing
         }
 
