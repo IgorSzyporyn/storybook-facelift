@@ -1,7 +1,7 @@
 {
   "name": "storybook-facelift",
   "description": "Theme control and UI enhancement for Storybook v6",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
@@ -37,7 +37,6 @@
     "test:lint": "eslint . --ext ts --ext tsx --ext js"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.28",
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
     "@storybook/addons": "^6.0.3",
