@@ -12,18 +12,22 @@ import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
 import { Parameters } from '../typings'
 
-function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
-  docsRoot?.removeAttribute('hidden')
+  
+  if (docsRoot) {
+    docsRoot.style.opacity = '1'
+    docsRoot.style.visibility = 'visible'
+  }
 }
 
 function hideDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
-  docsRoot?.setAttribute('hidden', 'true')
+
+  if (docsRoot) {
+    docsRoot.style.opacity = '0'
+    docsRoot.style.visibility = 'hidden'
+  }
 }
 
 type WithThemedPreviewProps = {
@@ -38,7 +42,6 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
 
   useEffect(() => {
     setShowChildren(true)
-    
     setTimeout(showDocsRoot, 0)
   }, [settings])
 

@@ -35,6 +35,10 @@ export function enhancePreviewStyles(
   const colors = createPreviewColors(theme, { docs: _docs, isDark })
   const { color, background } = colors
 
+  styles[`section`] = {
+    color: theme.color.defaultText
+  }
+
   styles[`${root}`] = {
     backgroundColor: background.root,
     padding: '0 !important',
@@ -49,6 +53,10 @@ export function enhancePreviewStyles(
 
   styles[`${docs}`] = {
     background: background.docs,
+
+    '& .sbdocs-preview': {
+      color: color.docs,
+    }
   }
 
   styles[`${docsTitle}`] = {
