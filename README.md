@@ -175,6 +175,10 @@ themeConverters?: Parameters.ThemeConverters
   >
   > - Setting this property to `"simple"` will remove all other elements in Docs panel apart from the documentation of properties.
   >
+  > #### **hideStories** | `boolean`
+  >
+  > - If set to `true` then sibling stories shown below property table will be hidden.
+  >
   > #### **hidePropertyBorders** | `boolean`
   >
   > - If set to `true` then borders between properties in documentation panel will be hidden.

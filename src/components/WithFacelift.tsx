@@ -12,6 +12,20 @@ import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
 import { Parameters } from '../typings'
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function showDocsRoot() {
+  const docsRoot = document.getElementById('docs-root')
+  docsRoot?.removeAttribute('hidden')
+}
+
+function hideDocsRoot() {
+  const docsRoot = document.getElementById('docs-root')
+  docsRoot?.setAttribute('hidden', 'true')
+}
+
 type WithThemedPreviewProps = {
   children: ReactNode
 }
@@ -20,10 +34,12 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   const settings = useFaceliftSettings()
   const [showChildren, setShowChildren] = useState(false)
 
+  hideDocsRoot()
+
   useEffect(() => {
-    if (settings) {
-      setShowChildren(true)
-    }
+    setShowChildren(true)
+    
+    setTimeout(showDocsRoot, 0)
   }, [settings])
 
   let theme: Theme | false = false

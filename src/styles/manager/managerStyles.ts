@@ -9,6 +9,7 @@ import { bestContrastColor } from '../../utils/best-contrast-color'
 import { setColorOpacity } from '../../utils/color'
 import { elevationMap } from '../elevation'
 import { createButtonStyles } from '../../utils/create-button-styles'
+import { createDocsTableStyles } from '../../utils/create-docs-table-styles'
 
 export const rootId = `#root`
 
@@ -145,7 +146,8 @@ export function enhanceManagerStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: StorybookThemeOptions,
   themeVariant: Parameters.ThemeVariantTypes,
-  ui: Parameters.UI
+  ui: Parameters.UI,
+  docs: Parameters.Docs
 ) {
   const isDark = themeVariant === 'dark'
   const theme = convert(themeVars)
@@ -161,6 +163,7 @@ export function enhanceManagerStyles(
   const headerColors = getHeaderColors(theme, isDark)
 
   const buttonStyles = createButtonStyles(theme)
+  const docsTableStyles = createDocsTableStyles(theme, { docs, isDark, isToolPanel: true })
 
   styles[`${sidebarHeading}`] = {
     display: 'flex',
@@ -306,7 +309,9 @@ export function enhanceManagerStyles(
           overflow: 'hidden',
           borderTopLeftRadius: theme.appBorderRadius,
 
-
+          '& .docblock-argstable': {
+            ...docsTableStyles
+          },
 
           '& > button': {
             ...buttonStyles,

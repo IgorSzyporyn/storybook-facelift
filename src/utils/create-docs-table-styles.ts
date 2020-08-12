@@ -9,9 +9,10 @@ import { createPreviewColors } from './create-preview-colors'
 type CreateDocsTableStylesOptions = {
   docs: Parameters.Docs
   isDark: boolean
+  isToolPanel?: boolean
 }
 
-export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark }: CreateDocsTableStylesOptions) {
+export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isToolPanel }: CreateDocsTableStylesOptions) {
 
   const docsTableHead = `& .docblock-argstable-head`
   const docsTableBody = `& .docblock-argstable-body`
@@ -20,7 +21,7 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark }: C
   const docsTableBodyRowCellTitle = `${docsTableBodyRowCell}:first-of-type`
   const docsTableBodyRowCellDescription = `${docsTableBodyRowCell}:nth-of-type(2)`
   const docsTableBodyRowCellDefault = `${docsTableBodyRowCell}:nth-of-type(3)`
-  const docsTableBodyRowCellControl = `${docsTableBodyRowCell}:nth-of-type(4)`
+  const docsTableBodyRowCellControl = `${docsTableBodyRowCell}:nth-of-type(${isToolPanel ? '2' : '4'})`
 
   const docsTablePaddingOuter = 20
   const docsTablePaddingInner = 15
@@ -47,14 +48,14 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark }: C
         paddingRight: docsTablePaddingInner,
       },
       '&:nth-of-type(2)': {
-        width: 'auto',
-        display: docs.hideDescription ? 'none' : 'table-cell',
+        width: isToolPanel ? '50%' : 'auto',
+        display: !isToolPanel && docs.hideDescription ? 'none' : 'table-cell',
         paddingLeft: docsTablePaddingInner,
-        paddingRight: docsTablePaddingInner,
+        paddingRight: isToolPanel ? docsTablePaddingOuter : docsTablePaddingInner,
       },
       '&:nth-of-type(3)': {
         width: 'auto',
-        display: docs.hideDefaults ? 'none' : 'table-cell',
+        display: !isToolPanel && docs.hideDefaults ? 'none' : 'table-cell',
         paddingLeft: docsTablePaddingInner,
         paddingRight: docsTablePaddingInner,
 
@@ -78,7 +79,7 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark }: C
   styles[`${docsTableBody}`] = {
     color: color.docs,
     borderRadius: border.radius,
-    boxShadow: elevationMap[1],
+    boxShadow: isToolPanel ? 'none' : elevationMap[1],
   }
 
   // Fix border radius problems and set themes borderRadius
@@ -91,13 +92,13 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark }: C
       },
       '&:nth-of-type(2)': {
         width: 'auto',
-        display: docs.hideDescription ? 'none' : 'table-cell',
+        display: !isToolPanel && docs.hideDescription ? 'none' : 'table-cell',
         paddingLeft: docsTablePaddingInner,
-        paddingRight: docsTablePaddingInner,
+        paddingRight: isToolPanel ? docsTablePaddingOuter : docsTablePaddingInner,
       },
       '&:nth-of-type(3)': {
         width: 'auto',
-        display: docs.hideDefaults ? 'none' : 'table-cell',
+        display: !isToolPanel && docs.hideDefaults ? 'none' : 'table-cell',
         paddingLeft: docsTablePaddingInner,
         paddingRight: docsTablePaddingInner,
 
@@ -189,7 +190,27 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark }: C
     },
   }
 
-  styles[`${docsTableBodyRowCellDefault}`] = {}
+  styles[`${docsTableBodyRowCellDefault}`] = {
+    '& > div': {
+      paddingTop: '4px',
+    },
+
+    '& > div > span': {
+      ...(isDark
+        ? {
+            backgroundColor: lighten(background.docs, 0.1),
+            color: color.docsLight,
+            borderColor: color.docsLight,
+          }
+        : {}),
+      lineHeight: '16px',
+      paddingTop: '4px',
+      paddingLeft: '6px',
+      paddingRight: '6px',
+      marginRight: '6px',
+      marginBottom: '6px',
+    }
+  }
 
   styles[`${docsTableBodyRowCellControl}`] = {
     '& input': {

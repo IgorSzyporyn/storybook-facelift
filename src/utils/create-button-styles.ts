@@ -25,7 +25,7 @@ export function createButtonStyles(theme: StorybookTheme, minimal?: boolean) {
   }
 
   if (!minimal) {
-    styles.lineHeight = '26px'
+    styles.lineHeight = '27px'
     styles.height = '28px'
     styles.padding = '0 15px'
     styles.minWidth = '95px'

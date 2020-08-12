@@ -16,6 +16,9 @@ const docsUndertext = `${docs} .sbdocs-h3`
 const docsText = `${docs} .sbdocs-title + div > p`
 const docsTable = `${docs} .docblock-argstable`
 
+const story = `${docsSubtitle}#stories ~ div`
+const storyPreview = `${story} > .sbdocs-preview`
+
 export function enhancePreviewStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: ThemeVars,
@@ -53,12 +56,15 @@ export function enhancePreviewStyles(
   }
 
   styles[`${docsSubtitle}`] = {
+    display: _docs.hideStories || _docs.type === 'simple' ? 'none': 'inherit',
     color: color.docs,
-    borderBottomColor: color.docsLight
+    borderBottomColor: color.docsLight,
+    marginBottom: '32px'
   }
 
   styles[`${docsUndertext}`] = {
     color: color.docs,
+    display: _docs.hideStories || _docs.type === 'simple' ? 'none': 'inherit',
   }
 
   styles[`${docsText}`] = {
@@ -67,6 +73,28 @@ export function enhancePreviewStyles(
 
   styles[`${docsTable}`] = {
     ...docsTableStyles
+  }
+
+  styles[`${storyPreview}`] = {
+    backgroundColor: background.docsPreview,
+    display: _docs.hideStories || _docs.type === 'simple' ? 'none': 'inherit',
+    boxShadow: elevationMap[1],
+    border: '0 none',
+
+    '& > div': {
+      // Inner with story
+      '& > div:first-of-type': {},
+      // Utility area with button
+      '& > div:last-of-type': {
+        overflow: 'hidden',
+        borderTopLeftRadius: theme.appBorderRadius,
+
+        '& button': {
+          ...buttonStyles,
+          borderRadius: 0
+        },
+      },
+    },
   }
 
   styles[`${docsPreview}`] = {
@@ -89,7 +117,23 @@ export function enhancePreviewStyles(
     },
 
     // Panel
-    '& > div:last-of-type': {
+    '& > div:nth-of-type(2)': {
+      // Inner with story
+      '& > div:first-of-type': {},
+      // Utility area with button
+      '& > div:last-of-type': {
+        overflow: 'hidden',
+        borderTopLeftRadius: theme.appBorderRadius,
+
+        '& button': {
+          ...buttonStyles,
+          borderRadius: 0
+        },
+      },
+    },
+
+    // Code
+    '& > div:nth-of-type(3)': {
       // Inner with story
       '& > div:first-of-type': {},
       // Utility area with button

@@ -41,6 +41,8 @@ declare type Docs = {
   hideDescription?: boolean
   // Set to true (default false) to hide default values in docs table (@NEW)
   hideDefaults?: boolean
+  // Set to true to hide the sibling stories shown below property table
+  hideStories?: boolean
   // Set to either full or simple - full is default, and simple will ONLY show type info
   // and not any stories etc..
   type?: DocsTypes
