@@ -16,7 +16,7 @@ type WithThemedPreviewProps = {
   children: ReactNode
 }
 
-export const WithFaceliftPreview = ({ children }: WithThemedPreviewProps) => {
+export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   const settings = useFaceliftSettings()
   const [showChildren, setShowChildren] = useState(false)
 

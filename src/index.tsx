@@ -1,10 +1,10 @@
 import addons, { makeDecorator } from '@storybook/addons'
 import React, { useEffect, useState } from 'react'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
-import { WithFaceliftPreview } from './components/WithFaceliftPreview'
+import { WithFacelift } from './components/WithFacelift'
 import { Settings } from './typings'
 
-export function useFaceliftSettings() {
+export const useFaceliftSettings = () => {
   const [addonSettings, setAddonSettings] = useState<Settings.AddonSettings | null>(null)
 
   useEffect(() => {
@@ -21,6 +21,8 @@ export const withFacelift = makeDecorator({
   parameterName: ADDON_PARAM_KEY,
   skipIfNoParametersOrOptions: false,
   wrapper: (storyFn, context) => {
-    return <WithFaceliftPreview>{storyFn(context)}</WithFaceliftPreview>
+    return <WithFacelift>{storyFn(context)}</WithFacelift>
   },
 })
+
+export * from './constants'

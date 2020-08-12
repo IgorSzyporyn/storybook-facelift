@@ -1,7 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": ["@storybook/eslint-config-storybook"],
   "env": {
     "es6": true,
     "browser": true
@@ -13,6 +12,46 @@
       "version": "16.13.1"
     }
   },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "scripts/**", "**/__testfixtures__/**", "**/*.test.*"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": ["**/__testfixtures__/**"],
+      "rules": {
+        "react/forbid-prop-types": "off",
+        "react/no-unused-prop-types": "off",
+        "react/require-default-props": "off"
+      }
+    },
+    { "files": "**/.storybook/config.js", "rules": { "global-require": "off" } },
+    { "files": "cypress/**", "rules": { "jest/expect-expect": "off" } },
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["**/*.tsx", "**/*.ts"],
+      "rules": {
+        "react/prop-types": "off", // we should use types
+        "no-dupe-class-members": "off" // this is called overloads in typescript
+      }
+    },
+    {
+      "files": ["**/*.d.ts"],
+      "rules": {
+        "vars-on-top": "off",
+        "no-var": "off", // this is how typescript works
+        "spaced-comment": "off"
+      }
+    }
+  ],
   "rules": {
     "react/react-in-jsx-scope": 0,
     "react/display-name": 0,

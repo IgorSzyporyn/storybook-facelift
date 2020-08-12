@@ -7,7 +7,8 @@ addons.register(ADDON_ID, (api) => {
   addons.add(ADDON_ID, {
     title: 'Storybook Facelift',
     type: types.TOOL,
-    match: ({ viewMode }) => viewMode === 'story' || viewMode === 'docs',
-    render: () => <Facelift api={api} />,
+    render: () => {
+      return <Facelift api={api} />
+    },
   })
 })

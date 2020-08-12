@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { API } from '@storybook/api'
 import { DOCS_RENDERED, STORY_CHANGED } from '@storybook/core-events'
 import React, { useCallback, useEffect, useState } from 'react'
