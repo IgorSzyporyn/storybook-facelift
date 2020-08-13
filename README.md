@@ -2,6 +2,28 @@
   <p align="center">
     <img src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/logo-large.png" />
   </p>
+  <p align="center">
+    <a href="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-1.png" target="_blank">
+    <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-1.png" />
+    </a>
+    <a href="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-2.png" target="_blank">
+    <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-2.png" />
+    </a>
+    <a href="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-3.png" target="_blank">
+    <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-3.png" />
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-4.png" target="_blank">
+    <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-4.png" />
+    </a>
+    <a href="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-5.png" target="_blank">
+    <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-5.png" />
+    </a>
+    <a href="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-6.png" target="_blank">
+    <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-6.png" />
+    </a>
+  </p>
 </div>
 
 # Storybook Facelift 
