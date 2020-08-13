@@ -64,8 +64,7 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
         },
       },
       '&:nth-of-type(4)': {
-        width: 'auto',
-        minWidth: '251px',
+        width: '251px',
         paddingLeft: docsTablePaddingInner,
         paddingRight: docsTablePaddingOuter,
       },
