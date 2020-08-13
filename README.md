@@ -1,6 +1,6 @@
 <div>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/logo-medium.png" />
+    <img src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/logo-large.png" />
   </p>
 </div>
 
