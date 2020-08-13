@@ -1,3 +1,9 @@
+<div>
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/logo-medium.png" />
+  </p>
+</div>
+
 # Storybook Facelift
 
 **Theme integration and Enhanced UI for Storybook 6.0**
