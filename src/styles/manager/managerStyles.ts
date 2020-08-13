@@ -344,6 +344,7 @@ export function enhanceManagerStyles(
         display: 'flex',
         alignItems: 'center',
         padding: '7px 14px',
+        lineHeight: '20px',
 
         '& > span': {
           display: 'flex',

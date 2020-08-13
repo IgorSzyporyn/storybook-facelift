@@ -10,10 +10,12 @@ import { Config } from '../typings'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
+  height: '19px !important'
 }))
 
 const UncheckedIcon = styled(RadioButtonUncheckedSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
+  height: '19px !important'
 }))
 
 type ThemeSelectorItem = {
@@ -28,14 +30,6 @@ type ThemeSelectorItem = {
   active?: boolean
   disabled?: boolean
   href?: string
-}
-
-type ThemeSelectorIconColors = {
-  primary: string
-  secondary: string
-  app: string
-  content: string
-  border: string
 }
 
 const createThemeSelectorItem = memoize(1000)(

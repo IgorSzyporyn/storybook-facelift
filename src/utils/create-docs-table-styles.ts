@@ -129,7 +129,7 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
 
   styles[`${docsTableBodyRowCell}`] = {
     color: color.docs,
-    background: background.docsTable,
+    background: isToolPanel ? 'transparent' : background.docsTable,
     width: 'auto',
     paddingTop: `${(docsTableBodyRowHeight - docsTableBodyRowInputHeight) / 2}px`,
     paddingBottom: `${(docsTableBodyRowHeight - docsTableBodyRowInputHeight) / 2}px`,
