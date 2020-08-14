@@ -1,7 +1,7 @@
 {
   "name": "storybook-facelift",
   "description": "Theme control and UI enhancement for Storybook v6",
-  "version": "6.0.17",
+  "version": "6.0.18",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
