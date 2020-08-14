@@ -26,11 +26,9 @@
   </p>
 </div>
 
-# Storybook Facelift 
-
 **Theme integration and Enhanced UI for Storybook 6.0**
 
-***NOTE:*** *Since this is first release, update often and PLEASE [submit issues](https://github.com/IgorSzyporyn/storybook-facelift/issues)*
+**_NOTE:_** _Since this is first release, update often and PLEASE [submit issues](https://github.com/IgorSzyporyn/storybook-facelift/issues)_
 
 At its core Storybook Facelift simply lets you easily add and select multiple themes for storybook - in either light or dark variants, or both.
 
