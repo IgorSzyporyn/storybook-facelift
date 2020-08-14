@@ -3,10 +3,7 @@
 ##### New Features
 
 *  added example images for readme ([19866142](https://github.com/IgorSzyporyn/storybook-facelift/commit/1986614231016d068d457d6ae1eac002b31b6260))
-*  bumping version number for publish ([77dba051](https://github.com/IgorSzyporyn/storybook-facelift/commit/77dba0516bba09ae2ce679a78f0998a7d942b348))
 *  splitting out styles into functions ([e1a32ae9](https://github.com/IgorSzyporyn/storybook-facelift/commit/e1a32ae9585c1673c511ada584e4c613bc82cbe2))
-*  almost done ([c1022335](https://github.com/IgorSzyporyn/storybook-facelift/commit/c102233522edfc42301c1562bb34540a922336c5))
-*  almost stable for release ([6511c833](https://github.com/IgorSzyporyn/storybook-facelift/commit/6511c833c597d251ccc809483a512899a118ab7c))
 *  automated colors for selected menu items based on contrast ratio ([d8d3868e](https://github.com/IgorSzyporyn/storybook-facelift/commit/d8d3868ef10851ed432d367342ec32806fd2f2a1))
 *  initialized ([7de869f8](https://github.com/IgorSzyporyn/storybook-facelift/commit/7de869f8226f1e32de754a5b3498e135498a6263))
 
