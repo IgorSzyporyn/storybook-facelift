@@ -34,7 +34,6 @@ export const menuItemTitleSelected = `${menuItemSelected} .sidebar-svg-icon + sp
 
 export const modalMenu = `body > div:last-child`
 
-
 function getHeaderColors(theme: StorybookTheme, isDark: boolean) {
   let baseColor = theme.color.defaultText
 
@@ -306,11 +305,10 @@ export function enhanceManagerStyles(
       '& #storybook-panel-root': {
         '& > #panel-tab-content > div:last-of-type': {
           backgroundColor: theme.background.content,
-          overflow: 'hidden',
           borderTopLeftRadius: theme.appBorderRadius,
 
           '& .docblock-argstable': {
-            ...docsTableStyles
+            ...docsTableStyles,
           },
 
           '& > button': {
