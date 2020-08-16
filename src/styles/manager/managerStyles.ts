@@ -1,4 +1,4 @@
-import { getContrastRatio } from '@material-ui/core'
+import { getContrastRatio, Hidden } from '@material-ui/core'
 import {
   convert,
   Theme as StorybookTheme,
@@ -306,6 +306,7 @@ export function enhanceManagerStyles(
         '& > #panel-tab-content > div:last-of-type': {
           backgroundColor: theme.background.content,
           borderTopLeftRadius: theme.appBorderRadius,
+          overflow: 'Hidden',
 
           '& .docblock-argstable': {
             ...docsTableStyles,
