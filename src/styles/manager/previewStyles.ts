@@ -9,6 +9,7 @@ import { elevationMap } from '../elevation'
 const root = `.sb-show-main`
 const preview = `${root} > #root`
 const docs = `${root} > #docs-root > .sbdocs`
+const docsEmptyBlock = `${docs} .docbloc-emptyblock`
 const docsPreview = `${docs} .sbdocs-preview`
 const docsTitle = `${docs} .sbdocs-title`
 const docsSubtitle = `${docs} .sbdocs-h2`
@@ -56,6 +57,12 @@ export function enhancePreviewStyles(
 
     '& .sbdocs-preview': {
       color: color.docs,
+    },
+
+    '& .docblock-emptyblock ': {
+      color: color.root,
+      backgroundColor: background.docsTable,
+      border: '0 none'
     }
   }
 
@@ -78,7 +85,7 @@ export function enhancePreviewStyles(
   styles[`${docsText}`] = {
     color: color.docs,
   }
-
+  
   styles[`${docsTable}`] = {
     ...docsTableStyles
   }
@@ -130,7 +137,7 @@ export function enhancePreviewStyles(
       '& > div:first-of-type': {},
       // Utility area with button
       '& > div:last-of-type': {
-        overflow: 'hidden',
+        overflow: 'hidden', 
         borderTopLeftRadius: theme.appBorderRadius,
 
         '& button': {
