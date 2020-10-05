@@ -26,6 +26,7 @@ export function convertParameterThemeToConfigTheme({
     ...(themeConfig.override || {}),
   }
 
+  // eslint-disable-next-line no-underscore-dangle
   const _override = Object.keys(variantOverride).length === 0 ? undefined : variantOverride
   const override = _override as StorybookThemeOptions | undefined
 

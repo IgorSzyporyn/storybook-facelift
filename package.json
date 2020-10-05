@@ -41,6 +41,7 @@
     "test": "npm run test:lint && npm run test:types",
     "test:types": "tsc --pretty --noEmit",
     "test:lint": "eslint . --ext ts --ext tsx --ext js",
+    "test:lint-fix": "eslint . --ext ts --ext tsx --ext js --fix",
     "github:release": "cross-env git push origin && git push origin --tags",
     "github:commit-changelog": "git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\"",
     "changelog:major": "npm run changelog:clean && changelog -M && npm run github:commit-changelog",

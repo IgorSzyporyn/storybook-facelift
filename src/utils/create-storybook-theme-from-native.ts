@@ -25,5 +25,5 @@ export function createStorybookThemeFromNative({
   theme = create(theme)
   const instanciated = convert(theme)
 
-  return { converted: theme, original: themeVars, instanciated: instanciated }
+  return { converted: theme, original: themeVars, instanciated }
 }

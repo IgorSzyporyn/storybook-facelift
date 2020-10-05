@@ -123,6 +123,9 @@ declare type Theme = {
   // This theme is for the toolbox preview mode only and will make the theme not show in theme picker
   // Note: Only supported for Material UI themes for now
   previewOnly?: boolean
+  // This is for typography - use responsive font sizes or not
+  // Note: Default is false
+  resposiveFontSizes?: boolean
 }
 
 // PARAMETER "CONVERTERS"
@@ -135,6 +138,7 @@ declare type ThemeConverterProps = {
   theme: MuiThemeOptions | StorybookThemeOptions
   variant: ThemeVariantTypes
   background?: ThemeBackgroundsTypes
+  responsiveFontSizes?: boolean
 }
 
 // Values the converter function can return

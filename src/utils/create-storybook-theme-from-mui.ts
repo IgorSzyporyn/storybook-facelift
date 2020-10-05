@@ -4,12 +4,12 @@ import { Parameters } from '../typings'
 import { createMuiTheme } from './create-mui-theme'
 import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
-export function createStorybookThemeOptionsFromMui({
-  theme: _original,
-  override,
-  variant,
-  background,
-}: Parameters.ThemeConverterProps) {
+export function createStorybookThemeOptionsFromMui(converterProps: Parameters.ThemeConverterProps) {
+  // @TODO - Do not destructure the argument given
+  // Then remove this proxy object
+  const { theme: _original, override, variant, background } = converterProps
+
+  // Bail out early
   if (_original === undefined) {
     return null
   }
@@ -22,7 +22,7 @@ export function createStorybookThemeOptionsFromMui({
     original.palette.type = variant
   }
 
-  const instanciated = createMuiTheme(original)
+  const instanciated = createMuiTheme(original, converterProps)
   const defaultThemeValues = themes[variant]
 
   const { appBg, appContentBg } = getMuiBackgroundKeys(background)

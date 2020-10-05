@@ -29,7 +29,7 @@ export function createAddonParameters(apiParameters?: Parameters.ApiParameters) 
   const parameters: Parameters.AddonParameters = {
     autoThemeStory: mergedParameters.autoThemeStory,
     defaultTheme: mergedParameters.defaultTheme,
-    defaultVariant: defaultVariant,
+    defaultVariant,
     docs: mergedParameters.docs,
     enhanceUi: mergedParameters.enhanceUi,
     includeNative: mergedParameters.includeNative,
@@ -37,7 +37,7 @@ export function createAddonParameters(apiParameters?: Parameters.ApiParameters) 
     native: mergedParameters.native,
     override: mergedParameters.override,
     stories: mergedParameters.stories,
-    themeConverters: themeConverters,
+    themeConverters,
     themes: mergedParameters.themes,
   }
 

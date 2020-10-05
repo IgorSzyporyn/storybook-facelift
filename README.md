@@ -255,6 +255,11 @@ themeConverters?: Parameters.ThemeConverters
   > - Set the title, logo or url for this theme only.
   > - See [Parameters.StorybookThemeOverride]() for properties.
   >
+  > #### **responsiveFontSizes** | types: `boolean`
+  >
+  > - Set if this theme should be using responsive font sizes from Material UI
+  > - Note: This naturally ONLY works with a "mui" type theme
+  >
   > #### **variants** | `ThemeVariants`
   >
   > - Note this value is **_required_**.
