@@ -2,7 +2,7 @@ interface ThemedOptions {
   addDecorator?: boolean
 }
 
-export function managerEntries(entry: any[] = [], options: any) {
+export function managerEntries(entry: any[] = []) {
   return [...entry, require.resolve('../register')]
 }
 

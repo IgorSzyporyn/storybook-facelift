@@ -74,6 +74,7 @@
       {
         "allow": ["warn", "error"]
       }
-    ]
+    ],
+    "no-underscore-dangle": 0
   }
 }

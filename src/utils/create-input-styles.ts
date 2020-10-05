@@ -1,4 +1,4 @@
-import {  Theme as StorybookTheme } from '@storybook/theming'
+import { Theme as StorybookTheme } from '@storybook/theming'
 
 export function createInputStyles(theme: StorybookTheme) {
   return {

@@ -14,7 +14,7 @@ import { Parameters } from '../typings'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
-  
+
   if (docsRoot) {
     docsRoot.style.opacity = '1'
     docsRoot.style.visibility = 'visible'

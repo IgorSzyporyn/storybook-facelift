@@ -1,6 +1,6 @@
 import { ThemeOptions as MuiThemeOptions } from '@material-ui/core'
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { Config } from 'typings'
+import { Config } from './config'
 
 // Type for allowed override configurations
 declare type StorybookThemeOverride = Pick<

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { convert, ThemeVars } from '@storybook/theming'
 import { Parameters } from '../../typings'
 import { createButtonStyles } from '../../utils/create-button-styles'
@@ -9,7 +10,7 @@ import { elevationMap } from '../elevation'
 const root = `.sb-show-main`
 const preview = `${root} > #root`
 const docs = `${root} > #docs-root > .sbdocs`
-const docsEmptyBlock = `${docs} .docbloc-emptyblock`
+// const docsEmptyBlock = `${docs} .docbloc-emptyblock`
 const docsPreview = `${docs} .sbdocs-preview`
 const docsTitle = `${docs} .sbdocs-title`
 const docsSubtitle = `${docs} .sbdocs-h2`
@@ -31,13 +32,13 @@ export function enhancePreviewStyles(
   const isDark = themeVariant === 'dark'
 
   const buttonStyles = createButtonStyles(theme)
-  const docsTableStyles = createDocsTableStyles(theme, {docs: _docs, isDark})
+  const docsTableStyles = createDocsTableStyles(theme, { docs: _docs, isDark })
 
   const colors = createPreviewColors(theme, { docs: _docs, isDark })
   const { color, background } = colors
 
-  styles[`section`] = {
-    color: theme.color.defaultText
+  styles.section = {
+    color: theme.color.defaultText,
   }
 
   styles[`${root}`] = {
@@ -62,8 +63,8 @@ export function enhancePreviewStyles(
     '& .docblock-emptyblock ': {
       color: color.root,
       backgroundColor: background.docsTable,
-      border: '0 none'
-    }
+      border: '0 none',
+    },
   }
 
   styles[`${docsTitle}`] = {
@@ -71,28 +72,28 @@ export function enhancePreviewStyles(
   }
 
   styles[`${docsSubtitle}`] = {
-    display: _docs.hideStories || _docs.type === 'simple' ? 'none': 'inherit',
+    display: _docs.hideStories || _docs.type === 'simple' ? 'none' : 'inherit',
     color: color.docs,
     borderBottomColor: color.docsLight,
-    marginBottom: '32px'
+    marginBottom: '32px',
   }
 
   styles[`${docsUndertext}`] = {
     color: color.docs,
-    display: _docs.hideStories || _docs.type === 'simple' ? 'none': 'inherit',
+    display: _docs.hideStories || _docs.type === 'simple' ? 'none' : 'inherit',
   }
 
   styles[`${docsText}`] = {
     color: color.docs,
   }
-  
+
   styles[`${docsTable}`] = {
-    ...docsTableStyles
+    ...docsTableStyles,
   }
 
   styles[`${storyPreview}`] = {
     backgroundColor: background.docsPreview,
-    display: _docs.hideStories || _docs.type === 'simple' ? 'none': 'inherit',
+    display: _docs.hideStories || _docs.type === 'simple' ? 'none' : 'inherit',
     boxShadow: elevationMap[1],
     border: '0 none',
 
@@ -106,7 +107,7 @@ export function enhancePreviewStyles(
 
         '& button': {
           ...buttonStyles,
-          borderRadius: 0
+          borderRadius: 0,
         },
       },
     },
@@ -137,12 +138,12 @@ export function enhancePreviewStyles(
       '& > div:first-of-type': {},
       // Utility area with button
       '& > div:last-of-type': {
-        overflow: 'hidden', 
+        overflow: 'hidden',
         borderTopLeftRadius: theme.appBorderRadius,
 
         '& button': {
           ...buttonStyles,
-          borderRadius: 0
+          borderRadius: 0,
         },
       },
     },
@@ -158,14 +159,14 @@ export function enhancePreviewStyles(
 
         '& button': {
           ...buttonStyles,
-          borderRadius: 0
+          borderRadius: 0,
         },
       },
     },
 
     // The Code in "show code"
     '& .os-host > .os-padding > .os-viewport > .os-content > pre > code': {
-      fontFamily: theme.typography.fonts.mono
+      fontFamily: theme.typography.fonts.mono,
     },
   }
 

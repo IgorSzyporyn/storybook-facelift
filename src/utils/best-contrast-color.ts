@@ -32,7 +32,7 @@ function getColors(props?: GetColorsProps) {
 
   const colors = []
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i += 1) {
     const modifier1 = i / 10
     const modifier2 = modifier1 + 0.05
 
@@ -73,7 +73,7 @@ export function bestContrastColor({
 
   const color = pick({
     colors,
-    background: background,
+    background,
     ratio: ratio || 4.5,
   })
 

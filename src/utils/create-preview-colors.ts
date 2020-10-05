@@ -9,8 +9,10 @@ type CreatePreviewColorsOptions = {
   isDark: boolean
 }
 
-
-export function createPreviewColors(theme: StorybookTheme, { docs, isDark }: CreatePreviewColorsOptions) {
+export function createPreviewColors(
+  theme: StorybookTheme,
+  { docs, isDark }: CreatePreviewColorsOptions
+) {
   const colors = {
     background: {
       root: theme.background.content,
@@ -34,7 +36,7 @@ export function createPreviewColors(theme: StorybookTheme, { docs, isDark }: Cre
     border: {
       radius: theme.appBorderRadius,
       color: docs.hidePropertyBorders ? 'transparent' : 'rgba(0,0,0,0.1)',
-    }
+    },
   }
 
   const rootRatio = getContrastRatio(colors.color.root, colors.background.root)
@@ -82,7 +84,10 @@ export function createPreviewColors(theme: StorybookTheme, { docs, isDark }: Cre
     })
   }
 
-  const docsTableLightRatio = getContrastRatio(colors.color.docsTableLight, colors.background.docsTable)
+  const docsTableLightRatio = getContrastRatio(
+    colors.color.docsTableLight,
+    colors.background.docsTable
+  )
   if (docsTableLightRatio < 6) {
     colors.color.docsLight = bestContrastColor({
       color1: colors.color.docsTableLight,

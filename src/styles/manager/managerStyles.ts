@@ -1,4 +1,5 @@
-import { getContrastRatio, Hidden } from '@material-ui/core'
+/* eslint-disable no-param-reassign */
+import { getContrastRatio } from '@material-ui/core'
 import {
   convert,
   Theme as StorybookTheme,

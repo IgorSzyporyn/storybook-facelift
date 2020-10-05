@@ -1,6 +1,6 @@
-import * as Parameters from './parameters'
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { Config } from '../typings'
+import * as Parameters from './parameters'
+import { Config } from '.'
 
 declare type AddonState = {
   theme?: StorybookThemeOptions

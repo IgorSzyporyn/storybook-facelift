@@ -129,6 +129,7 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
       }
 
       if (light || dark) {
+        // eslint-disable-next-line no-multi-assign
         const returnTheme: Config.Theme = (returnThemes[themeKey] = {
           key: themeKey,
           type: themeType,

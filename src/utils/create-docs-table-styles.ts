@@ -12,8 +12,10 @@ type CreateDocsTableStylesOptions = {
   isToolPanel?: boolean
 }
 
-export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isToolPanel }: CreateDocsTableStylesOptions) {
-
+export function createDocsTableStyles(
+  theme: StorybookTheme,
+  { docs, isDark, isToolPanel }: CreateDocsTableStylesOptions
+) {
   const docsTableHead = `& .docblock-argstable-head`
   const docsTableBody = `& .docblock-argstable-body`
   const docsTableBodyRow = `${docsTableBody} tr`
@@ -21,7 +23,9 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
   const docsTableBodyRowCellTitle = `${docsTableBodyRowCell}:first-of-type`
   const docsTableBodyRowCellDescription = `${docsTableBodyRowCell}:nth-of-type(2)`
   const docsTableBodyRowCellDefault = `${docsTableBodyRowCell}:nth-of-type(3)`
-  const docsTableBodyRowCellControl = `${docsTableBodyRowCell}:nth-of-type(${isToolPanel ? '2' : '4'})`
+  const docsTableBodyRowCellControl = `${docsTableBodyRowCell}:nth-of-type(${
+    isToolPanel ? '2' : '4'
+  })`
 
   const docsTablePaddingOuter = 20
   const docsTablePaddingInner = 15
@@ -71,7 +75,7 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
     },
 
     '& button': {
-      ...buttonStylesMinimal,      
+      ...buttonStylesMinimal,
     },
   }
 
@@ -208,7 +212,7 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
       paddingRight: '6px',
       marginRight: '6px',
       marginBottom: '6px',
-    }
+    },
   }
 
   styles[`${docsTableBodyRowCellControl}`] = {
@@ -230,8 +234,8 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
       lineHeight: '20px',
 
       '& > div': {
-        boxShadow: `${border.color} 0 0 0 1px inset`
-      }
+        boxShadow: `${border.color} 0 0 0 1px inset`,
+      },
     },
     '& > label': {
       marginBottom: 0,
@@ -256,7 +260,6 @@ export function createDocsTableStyles(theme: StorybookTheme, { docs, isDark, isT
       right: '10px',
     },
   }
-
 
   return styles
 }

@@ -48,7 +48,7 @@ export function addStories(_config: Parameters.Stories | true) {
   }
 
   if (config.entries) {
-    const entries: Parameters.StoryEntries = config.entries
+    const { entries } = config
 
     Object.keys(entries).forEach((key) => {
       const entryType = key as Parameters.StoryEntryTypes

@@ -1,12 +1,12 @@
-import { Parameters } from '../typings'
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
+import { Parameters } from '../typings'
 
 export function getNativeBackgroundColors(
   theme: StorybookThemeOptions,
   background?: Parameters.ThemeBackgroundsTypes
 ) {
-  let appBg = theme.appBg
-  let appContentBg = theme.appContentBg
+  let { appBg } = theme
+  let { appContentBg } = theme
 
   if (background && background !== 'normal') {
     switch (background) {

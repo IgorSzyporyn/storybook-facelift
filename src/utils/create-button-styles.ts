@@ -1,4 +1,4 @@
-import {  Theme as StorybookTheme } from '@storybook/theming'
+import { Theme as StorybookTheme } from '@storybook/theming'
 import { getContrastRatio } from '@material-ui/core'
 import { bestContrastColor } from './best-contrast-color'
 
@@ -11,14 +11,14 @@ export function createButtonStyles(theme: StorybookTheme, minimal?: boolean) {
   if (contrastRatio < 2.62) {
     foreground = bestContrastColor({
       color1: foreground,
-      background: background,
+      background,
       ratio: 7,
     })
   }
 
   const styles: Record<string, any> = {
     color: foreground,
-    background: background,
+    background,
     boxShadow: 'none',
     fontWeight: 500,
     textAlign: 'center',

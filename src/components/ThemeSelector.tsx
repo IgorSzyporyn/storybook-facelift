@@ -10,12 +10,12 @@ import { Config } from '../typings'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
-  height: '19px !important'
+  height: '19px !important',
 }))
 
 const UncheckedIcon = styled(RadioButtonUncheckedSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
-  height: '19px !important'
+  height: '19px !important',
 }))
 
 type ThemeSelectorItem = {
@@ -41,7 +41,7 @@ const createThemeSelectorItem = memoize(1000)(
     change: (key: string) => void
   ): ThemeSelectorItem => ({
     id: id !== null ? id : key,
-    title: title,
+    title,
     // active: currentKey === key,
     disabled: currentKey === key,
     value: key,
@@ -78,7 +78,7 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
     return null
   }
 
-  const titles = settings.config.titles
+  const { titles } = settings.config
   const hasMultipleThemes = Object.keys(settings.config.themes).length > 1
   const currentTheme = settings.state.themeName
 
@@ -88,6 +88,7 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
         placement="top"
         trigger="click"
         closeOnClick
+        // eslint-disable-next-line react/no-unused-prop-types
         tooltip={({ onHide }: { onHide: () => void }) => (
           <TooltipLinkList
             links={createThemeList(titles, currentTheme, (key) => {
@@ -97,7 +98,7 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
           />
         )}
       >
-        <IconButton title={`Change theme`}>
+        <IconButton title="Change theme">
           <PaletteSharpIcon />
         </IconButton>
       </WithTooltip>
