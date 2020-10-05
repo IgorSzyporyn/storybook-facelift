@@ -1,11 +1,10 @@
-#### 6.0.19 (2020-08-16)
+### 6.1.0 (2020-10-05)
 
 ##### New Features
 
-* **dev:**  added a .nvmrc file ([721b82b3](https://github.com/IgorSzyporyn/storybook-facelift/commit/721b82b30fc1913dfd920867188a585c25476639))
+*  added responsiveFontSizes to theme options ([7c578564](https://github.com/IgorSzyporyn/storybook-facelift/commit/7c5785645db31fb7ac37a20e3367477f99add7c5))
 
 ##### Bug Fixes
 
-* **styles:**  info panel in docs page now styled ([e1acc454](https://github.com/IgorSzyporyn/storybook-facelift/commit/e1acc454f12ad74f3b590fd444302444d35ccab6))
-* **style:**  first button in addon panel has border radius top left ([37cf1879](https://github.com/IgorSzyporyn/storybook-facelift/commit/37cf187939c3507fd15eaa2fb756d25cc36e30be))
+*  lot of eslint --fix and well other fixes... ([d6f1aff2](https://github.com/IgorSzyporyn/storybook-facelift/commit/d6f1aff2641d5f03bad322b987f7ba0ea667edee))
 
