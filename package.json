@@ -34,6 +34,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "storybook": {
+    "displayName": "Facelift"
+  },
+  "engines": {
+    "node": ">=15.14.0"
+  },
   "scripts": {
     "dev": "tsc --watch",
     "build": "npm run build:pre && tsc && npm run build:post",
@@ -82,8 +88,5 @@
     "prettier": "2.0.2",
     "rimraf": "^3.0.2",
     "typescript": "3.9.6"
-  },
-  "storybook": {
-    "displayName": "Facelift"
   }
 }
