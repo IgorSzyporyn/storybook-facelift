@@ -1,4 +1,3 @@
-import { getPreferredColorScheme } from '@storybook/theming/dist/utils'
 import deepmerge from 'ts-deepmerge'
 import { Config, Parameters, Settings } from '../typings'
 import { createStorybookThemeOptionsFromMui } from '../utils/create-storybook-theme-from-mui'
@@ -20,7 +19,7 @@ export const defaultParameters: Parameters.DefaultParameters = {
 export function createAddonParameters(apiParameters?: Parameters.ApiParameters) {
   const mergedParameters = { ...defaultParameters, ...apiParameters }
 
-  const defaultVariant = mergedParameters.defaultVariant || getPreferredColorScheme()
+  const defaultVariant = mergedParameters.defaultVariant || 'light'
   const themeConverters = mergedParameters.themeConverters || {}
 
   themeConverters.mui = createStorybookThemeOptionsFromMui

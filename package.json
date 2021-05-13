@@ -66,8 +66,8 @@
     "@storybook/addons": "6.2.9",
     "@storybook/api": "6.2.9",
     "@storybook/components": "6.2.9",
-    "@storybook/core-events": "^6.0.3",
-    "@storybook/theming": "^6.2.9",
+    "@storybook/core-events": "6.2.9",
+    "@storybook/theming": "6.2.9",
     "jss": "10.4.0",
     "memoizerific": "1.11.3",
     "react": "16.13.1",
@@ -76,17 +76,17 @@
     "uuid": "8.3.0"
   },
   "devDependencies": {
-    "@storybook/eslint-config-storybook": "^1.0.0",
+    "@storybook/eslint-config-storybook": "3.0.0",
     "@types/node": "^13.9.5",
     "@types/react": "16.9.27",
     "@types/react-dom": "^16.9.8",
     "@types/uuid": "^8.0.0",
-    "copyfiles": "^2.3.0",
-    "cross-env": "^7.0.2",
+    "copyfiles": "2.3.0",
+    "cross-env": "7.0.2",
     "eslint": "6.8.0",
-    "generate-changelog": "^1.8.0",
+    "generate-changelog": "1.8.0",
     "prettier": "2.0.2",
-    "rimraf": "^3.0.2",
+    "rimraf": "3.0.2",
     "typescript": "3.9.6"
   }
 }
