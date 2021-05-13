@@ -76,7 +76,7 @@
     "uuid": "8.3.0"
   },
   "devDependencies": {
-    "@storybook/eslint-config-storybook": "^2.4.0",
+    "@storybook/eslint-config-storybook": "^1.0.0",
     "@types/node": "^13.9.5",
     "@types/react": "16.9.27",
     "@types/react-dom": "^16.9.8",
