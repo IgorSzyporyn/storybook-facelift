@@ -2,7 +2,6 @@ import { lighten } from '@material-ui/core'
 import { Theme as StorybookTheme } from '@storybook/theming'
 import { elevationMap } from '../styles/elevation'
 import { Parameters } from '../typings'
-import { createButtonStyles } from './create-button-styles'
 import { createInputStyles } from './create-input-styles'
 import { createPreviewColors } from './create-preview-colors'
 
@@ -20,21 +19,13 @@ export function createDocsTableStyles(
   const docsTableBody = `& .docblock-argstable-body`
   const docsTableBodyRow = `${docsTableBody} tr`
   const docsTableBodyRowCell = `${docsTableBody} td`
-  const docsTableBodyRowCellTitle = `${docsTableBodyRowCell}:first-of-type`
   const docsTableBodyRowCellDescription = `${docsTableBodyRowCell}:nth-of-type(2)`
   const docsTableBodyRowCellDefault = `${docsTableBodyRowCell}:nth-of-type(3)`
   const docsTableBodyRowCellControl = `${docsTableBodyRowCell}:nth-of-type(${
     isToolPanel ? '2' : '4'
   })`
 
-  const docsTablePaddingOuter = 20
-  const docsTablePaddingInner = 15
-
-  const docsTableBodyRowInputHeight = 32
-  const docsTableBodyRowHeight = 64
-
   const inputStyles = createInputStyles(theme)
-  const buttonStylesMinimal = createButtonStyles(theme, true)
 
   const styles: Record<string, any> = {}
 
@@ -44,38 +35,13 @@ export function createDocsTableStyles(
   styles[`${docsTableHead}`] = {
     '& tr th': {
       color: color.docsLight,
-
-      '&:first-of-type': {
-        width: 'auto',
-        minWidth: '160px',
-        paddingLeft: docsTablePaddingOuter,
-        paddingRight: docsTablePaddingInner,
-      },
       '&:nth-of-type(2)': {
         width: isToolPanel ? '50%' : 'auto',
         display: !isToolPanel && docs.hideDescription ? 'none' : 'table-cell',
-        paddingLeft: docsTablePaddingInner,
-        paddingRight: isToolPanel ? docsTablePaddingOuter : docsTablePaddingInner,
       },
       '&:nth-of-type(3)': {
-        width: 'auto',
         display: !isToolPanel && docs.hideDefaults ? 'none' : 'table-cell',
-        paddingLeft: docsTablePaddingInner,
-        paddingRight: docsTablePaddingInner,
-
-        '&:last-of-type': {
-          paddingRight: docsTablePaddingOuter,
-        },
       },
-      '&:nth-of-type(4)': {
-        width: '251px',
-        paddingLeft: docsTablePaddingInner,
-        paddingRight: docsTablePaddingOuter,
-      },
-    },
-
-    '& button': {
-      ...buttonStylesMinimal,
     },
   }
 
@@ -88,64 +54,21 @@ export function createDocsTableStyles(
   // Fix border radius problems and set themes borderRadius
   styles[`${docsTableBodyRow}`] = {
     '& td': {
-      '&:first-of-type': {
-        width: 'auto',
-        paddingLeft: docsTablePaddingOuter,
-        paddingRight: docsTablePaddingInner,
-      },
       '&:nth-of-type(2)': {
-        width: 'auto',
         display: !isToolPanel && docs.hideDescription ? 'none' : 'table-cell',
-        paddingLeft: docsTablePaddingInner,
-        paddingRight: isToolPanel ? docsTablePaddingOuter : docsTablePaddingInner,
       },
       '&:nth-of-type(3)': {
-        width: 'auto',
         display: !isToolPanel && docs.hideDefaults ? 'none' : 'table-cell',
-        paddingLeft: docsTablePaddingInner,
-        paddingRight: docsTablePaddingInner,
-
-        '&:last-of-type': {
-          paddingRight: docsTablePaddingOuter,
-        },
-      },
-      '&:nth-of-type(4)': {
-        width: 'auto',
-        paddingLeft: docsTablePaddingInner,
-        paddingRight: docsTablePaddingOuter,
       },
     },
 
-    '&:first-of-type': {
-      '& td:first-of-type': { borderTopLeftRadius: border.radius },
-      '& td:last-child': { borderBottomRightRadius: 0 },
-    },
-    '&:not(:first-of-type):not(:last-of-type)': {
-      '& td': { borderRadius: 0 },
-    },
-    '&:last-of-type': {
-      '& td:first-of-type': { borderBottomLeftRadius: border.radius },
-      '& td:last-child': { borderBottomRightRadius: border.radius },
-    },
+
     '&:not(:first-of-type)': { borderTopColor: border.color },
   }
 
   styles[`${docsTableBodyRowCell}`] = {
     color: color.docs,
     background: isToolPanel ? 'transparent' : background.docsTable,
-    width: 'auto',
-    paddingTop: `${(docsTableBodyRowHeight - docsTableBodyRowInputHeight) / 2}px`,
-    paddingBottom: `${(docsTableBodyRowHeight - docsTableBodyRowInputHeight) / 2}px`,
-
-    '& > span': {
-      lineHeight: `${docsTableBodyRowInputHeight}px`,
-    },
-  }
-
-  styles[`${docsTableBodyRowCellTitle}`] = {
-    '& > span': {
-      fontWeight: 500,
-    },
   }
 
   styles[`${docsTableBodyRowCellDescription}`] = {
@@ -158,7 +81,7 @@ export function createDocsTableStyles(
 
     // Container for properties
     '& div + div': {
-      marginTop: '22px',
+      marginTop: '8px',
     },
 
     // Each property span container
@@ -170,17 +93,9 @@ export function createDocsTableStyles(
             borderColor: color.docsLight,
           }
         : {}),
-      lineHeight: '16px',
-      paddingTop: '4px',
-      paddingLeft: '6px',
-      paddingRight: '6px',
-      marginRight: '6px',
-      marginBottom: '6px',
     },
 
     '& code': {
-      margin: '0 2px',
-      padding: '3px 8px',
       backgroundColor: background.docsTable,
       color: color.docsLight,
       borderColor: color.docsLight,
@@ -189,15 +104,10 @@ export function createDocsTableStyles(
     '& a': {
       color: theme.color.secondary,
       fontWeight: theme.typography.weight.bold,
-      textDecoration: 'none',
     },
   }
 
   styles[`${docsTableBodyRowCellDefault}`] = {
-    '& > div': {
-      paddingTop: '4px',
-    },
-
     '& > div > span': {
       ...(isDark
         ? {
@@ -206,12 +116,6 @@ export function createDocsTableStyles(
             borderColor: color.docsLight,
           }
         : {}),
-      lineHeight: '16px',
-      paddingTop: '4px',
-      paddingLeft: '6px',
-      paddingRight: '6px',
-      marginRight: '6px',
-      marginBottom: '6px',
     },
   }
 
@@ -221,38 +125,24 @@ export function createDocsTableStyles(
     },
     '& textarea': {
       ...inputStyles,
-      minWidth: '251px',
     },
     '& select': {
       ...inputStyles,
-      width: 'calc(100% - 40px)',
-      paddingRight: '30px',
     },
     '& > button': {
       ...inputStyles,
-      boxSizing: 'border-box',
-      lineHeight: '20px',
 
       '& > div': {
         boxShadow: `${border.color} 0 0 0 1px inset`,
       },
     },
     '& > label': {
-      marginBottom: 0,
-      display: 'flex',
-      minHeight: `${docsTableBodyRowInputHeight}px`,
-
       '& input[type="checkbox"]': {
         background: 'transparent',
         borderRadius: '32px',
-        overflow: 'hidden',
-        boxSizing: 'border-box',
       },
-      '& input[type="checkbox"] ~ span': {
-        color: color.docs,
-        boxShadow: 'none',
-        flexBasis: '50%',
-        lineHeight: `14px`,
+      '& span': {
+        color: color.docsLight,
       },
     },
 

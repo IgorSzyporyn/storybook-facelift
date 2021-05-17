@@ -15,3 +15,5 @@ export function config(entry: any[] = [], { addDecorator = true }: ThemedOptions
 
   return [...entry, ...themedConfig]
 }
+
+module.exports = { managerEntries, config };

@@ -307,7 +307,6 @@ export function enhanceManagerStyles(
         '& > #panel-tab-content > div:last-of-type': {
           backgroundColor: theme.background.content,
           borderTopLeftRadius: theme.appBorderRadius,
-          overflow: 'Hidden',
 
           '& .docblock-argstable': {
             ...docsTableStyles,

@@ -35,7 +35,9 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "Facelift"
+    "displayName": "Facelift",
+    "supportedFrameworks": ["React"],
+    "icon": "https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/logo-small.png"
   },
   "engines": {
     "node": ">=15.14.0"
