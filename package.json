@@ -1,7 +1,7 @@
 {
   "name": "storybook-facelift",
   "description": "Theme control and UI enhancement for Storybook v6",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
@@ -36,7 +36,9 @@
   },
   "storybook": {
     "displayName": "Facelift",
-    "supportedFrameworks": ["React"],
+    "supportedFrameworks": [
+      "React"
+    ],
     "icon": "https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/logo-small.png"
   },
   "engines": {
