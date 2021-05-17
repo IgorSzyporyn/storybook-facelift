@@ -65,7 +65,7 @@ declare type Native = {
 // PARAMETER "UI"
 // SET CONFIG FOR UI RELATED SETTINGS
 
-declare type UIElevationTypes = 0 | 1 | 2 | 3
+declare type UIElevationTypes = 0 | 1 | 2 | 3 | 4
 
 declare type UI = {
   // How much to elevate the content panel
