@@ -1,6 +1,6 @@
-### 6.4.0 (2021-05-17)
+#### 6.4.1 (2021-05-17)
 
-##### Bug Fixes
+##### New Features
 
-*  lot less style overriding required ([9344d829](https://github.com/IgorSzyporyn/storybook-facelift/commit/9344d8292123554d25377b9760ceeaed432e7fb7))
+*  added a 5th elevation type ([2a8a3cbc](https://github.com/IgorSzyporyn/storybook-facelift/commit/2a8a3cbc0ccacc25a1e220d138f1e755308212cc))
 
