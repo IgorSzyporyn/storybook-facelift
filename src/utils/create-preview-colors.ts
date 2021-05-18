@@ -5,13 +5,13 @@ import { bestContrastColor } from './best-contrast-color'
 import { setColorOpacity } from './color'
 
 type CreatePreviewColorsOptions = {
-  docs: Parameters.Docs
+  params: Parameters.Docs
   isDark: boolean
 }
 
 export function createPreviewColors(
   theme: StorybookTheme,
-  { docs, isDark }: CreatePreviewColorsOptions
+  { params, isDark }: CreatePreviewColorsOptions
 ) {
   const colors = {
     background: {
@@ -35,7 +35,7 @@ export function createPreviewColors(
     },
     border: {
       radius: theme.appBorderRadius,
-      color: docs.hidePropertyBorders ? 'transparent' : 'rgba(0,0,0,0.1)',
+      color: params.hidePropertyBorders ? 'transparent' : 'rgba(0,0,0,0.1)',
     },
   }
 

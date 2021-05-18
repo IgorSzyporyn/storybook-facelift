@@ -1,13 +1,15 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ReactNode, useEffect, useState } from 'react'
 import { CssBaseline } from '@material-ui/core'
+import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
   createMuiTheme,
   jssPreset,
   MuiThemeProvider,
-  StylesProvider,
+  StylesProvider as MuiStylesProvider,
   Theme,
 } from '@material-ui/core/styles'
 import { create, Jss } from 'jss'
-import React, { ReactNode, useEffect, useState } from 'react'
 import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
 import { Parameters } from '../typings'
@@ -47,43 +49,73 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
 
   let theme: Theme | false = false
   let themeOriginal: false | Parameters.ThemeOriginal = false
-  let isMuiTheme = false
+  let themeInstanciated: false | Record<string, any> = false
   let autoThemeStory = false
-  let valid = false
-  let jss: Jss | null = null
+
+  let isStyledTheme = false
+
+  let isMuiTheme = false
+  let isMuiValid = false
+  let muiJSS: Jss | null = null
 
   if (settings) {
     const { state, parameters } = settings
     themeOriginal = state.themeOriginal ? state.themeOriginal : false
+    themeInstanciated = state.themeInstanciated ? state.themeInstanciated : false
     isMuiTheme = state.themeType === 'mui'
-    valid = themeOriginal && isMuiTheme
+    isStyledTheme = state.themeType === 'styled' || state.themeType === 'cylindoui'
+    isMuiValid = themeOriginal && isMuiTheme
     autoThemeStory = parameters.autoThemeStory === true
 
     // @TODO - Let user add jssPresets through parameters
-    jss = create({
+    muiJSS = create({
       plugins: [...jssPreset().plugins],
     })
   }
 
-  if (valid) {
-    theme = themeOriginal as Theme
+  if (isMuiTheme) {
+    if (isMuiValid) {
+      theme = themeOriginal as Theme
+    }
+
+    return (
+      <>
+        <PreviewStyles />
+        {showChildren && (
+          <>
+            {theme && autoThemeStory && muiJSS !== null ? (
+              <MuiThemeProvider theme={createMuiTheme(theme)}>
+                <CssBaseline />
+                <MuiStylesProvider jss={muiJSS}>{children}</MuiStylesProvider>
+              </MuiThemeProvider>
+            ) : (
+              children
+            )}
+          </>
+        )}
+      </>
+    )
+  }
+
+  if (isStyledTheme) {
+    return (
+      <>
+        <PreviewStyles />
+        {themeInstanciated && autoThemeStory ? (
+          <StyledComponentsThemeProvider theme={themeInstanciated}>
+            {children}
+          </StyledComponentsThemeProvider>
+        ) : (
+          children
+        )}
+      </>
+    )
   }
 
   return (
     <>
       <PreviewStyles />
-      {showChildren && (
-        <>
-          {theme && isMuiTheme && autoThemeStory && jss !== null ? (
-            <MuiThemeProvider theme={createMuiTheme(theme)}>
-              <CssBaseline />
-              <StylesProvider jss={jss}>{children}</StylesProvider>
-            </MuiThemeProvider>
-          ) : (
-            <>{children}</>
-          )}
-        </>
-      )}
+      {children}
     </>
   )
 }

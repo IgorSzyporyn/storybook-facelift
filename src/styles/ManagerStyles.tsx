@@ -1,5 +1,6 @@
-import { Global, themes, Theme as StorybookTheme } from '@storybook/theming'
+// eslint-disable-next-line no-use-before-define
 import React from 'react'
+import { Global, themes, Theme as StorybookTheme } from '@storybook/theming'
 import { useFaceliftSettings } from '../index'
 import { enhanceManagerStyles } from './manager/managerStyles'
 
@@ -18,10 +19,10 @@ export const ManagerStyles = () => {
   const { ui, enhanceUi, docs } = parameters
 
   const themeVars = theme || { ...themes[themeVariant] }
-  const styles = {}
+  let styles = {}
 
   if (enhanceUi) {
-    enhanceManagerStyles(styles, themeVars, themeVariant, ui, docs)
+    styles = enhanceManagerStyles(styles, themeVars, themeVariant, ui, docs)
   }
 
   return enhanceUi ? <Global<StorybookTheme> styles={styles} /> : null

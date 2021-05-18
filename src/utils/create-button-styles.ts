@@ -22,6 +22,7 @@ export function createButtonStyles(theme: StorybookTheme, minimal?: boolean) {
     boxShadow: 'none',
     fontWeight: 500,
     textAlign: 'center',
+    border: '0 none',
   }
 
   if (!minimal) {

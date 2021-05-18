@@ -43,23 +43,11 @@ declare type Docs = {
   hideDefaults?: boolean
   // Set to true to hide the sibling stories shown below property table
   hideStories?: boolean
+  //
+  hideControls?: boolean
   // Set to either full or simple - full is default, and simple will ONLY show type info
   // and not any stories etc..
   type?: DocsTypes
-}
-
-// PARAMETER "NATIVE"
-// SET CONFIG FOR THE NATIVE THEME
-
-declare type Native = {
-  // Ability to influense the native theme settings
-  override?: StorybookThemeOverride
-  // Title to show in the menu picker
-  title?: string
-  // Array to override showing both light and dark (default) ["dark"]
-  variants?: ThemeVariantTypes[]
-  // Ability to set the background type for native as with other themes in parameters
-  background?: ThemeBackgroundsTypes
 }
 
 // PARAMETER "UI"
@@ -82,7 +70,7 @@ declare type UI = {
 // The two variant types supported
 declare type ThemeVariantTypes = 'light' | 'dark'
 // The two theme types supported internally (Storybook & Material UI)
-declare type ThemeTypes = 'native' | 'mui'
+declare type ThemeTypes = 'native' | 'mui' | 'styled' | 'cylindoui'
 // Type for variant configuration given for light or dark
 declare type ThemeVariant = MuiThemeOptions | StorybookThemeOptions
 // Courtesy type to make code and types in places less ambigious as
@@ -101,6 +89,20 @@ declare type ThemeBackgroundsTypes =
   | 'equal-reverse'
   | 'equal-app'
   | 'equal-content'
+
+// PARAMETER "NATIVE"
+// SET CONFIG FOR THE NATIVE THEME
+
+declare type Native = {
+  // Ability to influense the native theme settings
+  override?: StorybookThemeOverride
+  // Title to show in the menu picker
+  title?: string
+  // Array to override showing both light and dark (default) ["dark"]
+  variants?: ThemeVariantTypes[]
+  // Ability to set the background type for native as with other themes in parameters
+  background?: ThemeBackgroundsTypes
+}
 
 declare type Theme = {
   // Unique key for this theme entry

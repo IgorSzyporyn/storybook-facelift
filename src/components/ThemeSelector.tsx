@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ReactNode } from 'react'
 import AdjustSharpIcon from '@material-ui/icons/AdjustSharp'
 import PaletteSharpIcon from '@material-ui/icons/PaletteSharp'
 import RadioButtonUncheckedSharpIcon from '@material-ui/icons/RadioButtonUncheckedSharp'
 import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components'
 import { styled } from '@storybook/theming'
 import memoize from 'memoizerific'
-import React, { ReactNode } from 'react'
 import { useFaceliftSettings } from '../index'
 import { Config } from '../typings'
 
@@ -38,7 +39,7 @@ const createThemeSelectorItem = memoize(1000)(
     title: string,
     key: string,
     currentKey: string,
-    change: (key: string) => void
+    change: (_key: string) => void
   ): ThemeSelectorItem => ({
     id: id !== null ? id : key,
     title,

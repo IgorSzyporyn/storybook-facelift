@@ -6,14 +6,14 @@ import { createInputStyles } from './create-input-styles'
 import { createPreviewColors } from './create-preview-colors'
 
 type CreateDocsTableStylesOptions = {
-  docs: Parameters.Docs
+  params: Parameters.Docs
   isDark: boolean
   isToolPanel?: boolean
 }
 
 export function createDocsTableStyles(
   theme: StorybookTheme,
-  { docs, isDark, isToolPanel }: CreateDocsTableStylesOptions
+  { params, isDark, isToolPanel }: CreateDocsTableStylesOptions
 ) {
   const docsTableHead = `& .docblock-argstable-head`
   const docsTableBody = `& .docblock-argstable-body`
@@ -29,18 +29,34 @@ export function createDocsTableStyles(
 
   const styles: Record<string, any> = {}
 
-  const colors = createPreviewColors(theme, { docs, isDark })
+  const colors = createPreviewColors(theme, { params, isDark })
   const { color, background, border } = colors
+
+  let numberOfColumns = 4
+
+  if (params.hideControls) {
+    numberOfColumns -= 1
+  }
+
+  if (params.hideDefaults) {
+    numberOfColumns -= 1
+  }
+
+  if (params.hideDescription) {
+    numberOfColumns -= 1
+  }
 
   styles[`${docsTableHead}`] = {
     '& tr th': {
       color: color.docsLight,
       '&:nth-of-type(2)': {
-        width: isToolPanel ? '50%' : 'auto',
-        display: !isToolPanel && docs.hideDescription ? 'none' : 'table-cell',
+        display: !isToolPanel && params.hideDescription ? 'none' : 'table-cell',
       },
       '&:nth-of-type(3)': {
-        display: !isToolPanel && docs.hideDefaults ? 'none' : 'table-cell',
+        display: !isToolPanel && params.hideDefaults ? 'none' : 'table-cell',
+      },
+      '&:nth-of-type(4)': {
+        display: !isToolPanel && params.hideControls ? 'none' : 'table-cell',
       },
     },
   }
@@ -54,14 +70,18 @@ export function createDocsTableStyles(
   // Fix border radius problems and set themes borderRadius
   styles[`${docsTableBodyRow}`] = {
     '& td': {
+      padding: '20px',
       '&:nth-of-type(2)': {
-        display: !isToolPanel && docs.hideDescription ? 'none' : 'table-cell',
+        display: !isToolPanel && params.hideDescription ? 'none' : 'table-cell',
+        width: numberOfColumns < 4 ? '50%' : 'auto',
       },
       '&:nth-of-type(3)': {
-        display: !isToolPanel && docs.hideDefaults ? 'none' : 'table-cell',
+        display: !isToolPanel && params.hideDefaults ? 'none' : 'table-cell',
+      },
+      '&:nth-of-type(4)': {
+        display: !isToolPanel && params.hideControls ? 'none' : 'table-cell',
       },
     },
-
 
     '&:not(:first-of-type)': { borderTopColor: border.color },
   }
@@ -75,13 +95,13 @@ export function createDocsTableStyles(
     color: color.docsTableLight,
 
     // Container for description text
-    '& > div:first-of-type': {
-      marginTop: '4px',
+    '& > div:not(:first-of-type)': {
+      marginTop: '11px',
     },
 
     // Container for properties
     '& div + div': {
-      marginTop: '8px',
+      marginTop: '11px',
     },
 
     // Each property span container
@@ -119,36 +139,38 @@ export function createDocsTableStyles(
     },
   }
 
-  styles[`${docsTableBodyRowCellControl}`] = {
-    '& input': {
-      ...inputStyles,
-    },
-    '& textarea': {
-      ...inputStyles,
-    },
-    '& select': {
-      ...inputStyles,
-    },
-    '& > button': {
-      ...inputStyles,
+  if (!isToolPanel) {
+    styles[`${docsTableBodyRowCellControl}`] = {
+      '& input': {
+        ...inputStyles,
+      },
+      '& textarea': {
+        ...inputStyles,
+      },
+      '& select': {
+        ...inputStyles,
+      },
+      '& > button': {
+        ...inputStyles,
 
-      '& > div': {
-        boxShadow: `${border.color} 0 0 0 1px inset`,
+        '& > div': {
+          boxShadow: `${border.color} 0 0 0 1px inset`,
+        },
       },
-    },
-    '& > label': {
-      '& input[type="checkbox"]': {
-        background: 'transparent',
-        borderRadius: '32px',
+      '& > label': {
+        '& input[type="checkbox"]': {
+          background: 'transparent',
+          borderRadius: '32px',
+        },
+        '& span': {
+          color: color.docsLight,
+        },
       },
-      '& span': {
-        color: color.docsLight,
-      },
-    },
 
-    '& span > svg': {
-      right: '10px',
-    },
+      '& span > svg': {
+        right: '10px',
+      },
+    }
   }
 
   return styles

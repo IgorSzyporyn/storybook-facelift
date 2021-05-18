@@ -9,12 +9,12 @@ import { Parameters } from '../../typings'
 import { bestContrastColor } from '../../utils/best-contrast-color'
 import { setColorOpacity } from '../../utils/color'
 import { elevationMap } from '../elevation'
-import { createButtonStyles } from '../../utils/create-button-styles'
-import { createDocsTableStyles } from '../../utils/create-docs-table-styles'
+// import { createButtonStyles } from '../../utils/create-button-styles'
+// import { createDocsTableStyles } from '../../utils/create-docs-table-styles'
 
 export const rootId = `#root`
 
-export const mainRoot = `${rootId} > div > div:last-of-type > div`
+export const mainRoot = `${rootId} > div > div[role=main] > div`
 
 export const sidebarHeading = `${rootId} .sidebar-header`
 export const sidebarForm = `${sidebarHeading} + form`
@@ -162,8 +162,8 @@ export function enhanceManagerStyles(
 
   const headerColors = getHeaderColors(theme, isDark)
 
-  const buttonStyles = createButtonStyles(theme)
-  const docsTableStyles = createDocsTableStyles(theme, { docs, isDark, isToolPanel: true })
+  // const buttonStyles = createButtonStyles(theme)
+  // const docsTableStyles = createDocsTableStyles(theme, { params: _docs, isDark, isToolPanel: true })
 
   styles[`${sidebarHeading}`] = {
     display: 'flex',
@@ -299,6 +299,7 @@ export function enhanceManagerStyles(
     backgroundColor: theme.background.content,
 
     // Addon panel
+    /*
     '& > div:nth-of-type(2)': {
       borderLeftColor: headerColors.border,
       borderTopColor: headerColors.border,
@@ -316,6 +317,10 @@ export function enhanceManagerStyles(
             ...buttonStyles,
             borderRadius: 0,
 
+            '&:first-of-type': {
+              borderTopLeftRadius: theme.appBorderRadius,
+            },
+
             '&:not(:last-of-type)': {
               borderRight: `1px solid ${setColorOpacity(headerColors.border, 0.25)}`,
               marginRight: '1px',
@@ -324,6 +329,7 @@ export function enhanceManagerStyles(
         },
       },
     },
+    */
   }
 
   styles[`${modalMenu}`] = {

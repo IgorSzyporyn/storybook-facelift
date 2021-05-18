@@ -1,7 +1,8 @@
+// eslint-disable-next-line no-use-before-define
+import React, { useCallback, useEffect, useState } from 'react'
 /* eslint-disable no-underscore-dangle */
 import { API } from '@storybook/api'
 import { DOCS_RENDERED, STORY_CHANGED } from '@storybook/core-events'
-import React, { useCallback, useEffect, useState } from 'react'
 import { ThemeSelector } from './components/ThemeSelector'
 import { VariantSelector } from './components/VariantSelector'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'

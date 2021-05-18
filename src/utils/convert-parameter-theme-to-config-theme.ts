@@ -21,7 +21,7 @@ export function convertParameterThemeToConfigTheme({
   }
 
   const theme = themeVariant
-  const variantOverride: {} = {
+  const variantOverride: Record<string, any> = {
     ...(parameters.override || {}),
     ...(themeConfig.override || {}),
   }

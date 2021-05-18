@@ -1,5 +1,6 @@
-import addons, { makeDecorator } from '@storybook/addons'
+// eslint-disable-next-line no-use-before-define
 import React, { useEffect, useState } from 'react'
+import addons, { makeDecorator } from '@storybook/addons'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
 import { WithFacelift } from './components/WithFacelift'
 import { Settings } from './typings'

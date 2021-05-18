@@ -11,6 +11,7 @@ const root = `.sb-show-main`
 const preview = `${root} > #root`
 const docs = `${root} > #docs-root > .sbdocs`
 // const docsEmptyBlock = `${docs} .docbloc-emptyblock`
+const docsParagraph = `${docs} .sbdocs-p`
 const docsPreview = `${docs} .sbdocs-preview`
 const docsTitle = `${docs} .sbdocs-title`
 const docsSubtitle = `${docs} .sbdocs-h2`
@@ -25,16 +26,16 @@ export function enhancePreviewStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: ThemeVars,
   themeVariant: Parameters.ThemeVariantTypes,
-  _ui: Parameters.UI,
-  _docs: Parameters.Docs
+  uiParams: Parameters.UI,
+  docsParams: Parameters.Docs
 ) {
   const theme = convert(themeVars)
   const isDark = themeVariant === 'dark'
 
   const buttonStyles = createButtonStyles(theme)
-  const docsTableStyles = createDocsTableStyles(theme, { docs: _docs, isDark })
+  const docsTableStyles = createDocsTableStyles(theme, { params: docsParams, isDark })
 
-  const colors = createPreviewColors(theme, { docs: _docs, isDark })
+  const colors = createPreviewColors(theme, { params: docsParams, isDark })
   const { color, background } = colors
 
   styles.section = {
@@ -50,7 +51,7 @@ export function enhancePreviewStyles(
   styles[`${preview}`] = {
     color: color.preview,
     fontFamily: theme.typography.fonts.base,
-    padding: _ui.padding ? `${_ui.padding} !important` : '1rem',
+    padding: uiParams.padding ? `${uiParams.padding} !important` : '1rem',
   }
 
   styles[`${docs}`] = {
@@ -72,7 +73,7 @@ export function enhancePreviewStyles(
   }
 
   styles[`${docsSubtitle}`] = {
-    display: _docs.hideStories || _docs.type === 'simple' ? 'none' : 'inherit',
+    display: docsParams.hideStories || docsParams.type === 'simple' ? 'none' : 'inherit',
     color: color.docs,
     borderBottomColor: color.docsLight,
     marginBottom: '32px',
@@ -80,7 +81,7 @@ export function enhancePreviewStyles(
 
   styles[`${docsUndertext}`] = {
     color: color.docs,
-    display: _docs.hideStories || _docs.type === 'simple' ? 'none' : 'inherit',
+    display: docsParams.hideStories || docsParams.type === 'simple' ? 'none' : 'inherit',
   }
 
   styles[`${docsText}`] = {
@@ -91,9 +92,13 @@ export function enhancePreviewStyles(
     ...docsTableStyles,
   }
 
+  styles[`${docsParagraph}`] = {
+    color: color.docs,
+  }
+
   styles[`${storyPreview}`] = {
     backgroundColor: background.docsPreview,
-    display: _docs.hideStories || _docs.type === 'simple' ? 'none' : 'inherit',
+    display: docsParams.hideStories || docsParams.type === 'simple' ? 'none' : 'inherit',
     boxShadow: elevationMap[1],
     border: '0 none',
 
@@ -115,7 +120,7 @@ export function enhancePreviewStyles(
 
   styles[`${docsPreview}`] = {
     backgroundColor: background.docsPreview,
-    display: _docs.type === 'simple' ? 'none' : 'block',
+    display: docsParams.type === 'simple' ? 'none' : 'block',
     boxShadow: elevationMap[1],
     border: '0 none',
 

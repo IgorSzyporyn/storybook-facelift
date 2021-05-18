@@ -1,6 +1,7 @@
 import deepmerge from 'ts-deepmerge'
 import { Config, Parameters, Settings } from '../typings'
 import { createStorybookThemeOptionsFromMui } from '../utils/create-storybook-theme-from-mui'
+import { createStorybookThemeFromCylindoUi } from '../utils/create-storybook-theme-from-cylindoui'
 import { createStorybookThemeFromNative } from '../utils/create-storybook-theme-from-native'
 
 export const defaultParameters: Parameters.DefaultParameters = {
@@ -24,6 +25,7 @@ export function createAddonParameters(apiParameters?: Parameters.ApiParameters) 
 
   themeConverters.mui = createStorybookThemeOptionsFromMui
   themeConverters.native = createStorybookThemeFromNative
+  themeConverters.cylindoui = createStorybookThemeFromCylindoUi
 
   const parameters: Parameters.AddonParameters = {
     autoThemeStory: mergedParameters.autoThemeStory,
