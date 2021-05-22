@@ -1,6 +1,6 @@
-#### 6.6.7 (2021-05-22)
+#### 6.6.8 (2021-05-22)
 
-##### Bug Fixes
+##### New Features
 
-*  wont work ([80b6dd1d](https://github.com/IgorSzyporyn/storybook-facelift/commit/80b6dd1d4ffa91ecc999471d3128acafe28f64aa))
+*  support for generic themes ([5c4e3114](https://github.com/IgorSzyporyn/storybook-facelift/commit/5c4e3114b7c551323f5d27269fd910751de93c43))
 
