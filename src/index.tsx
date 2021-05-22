@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import addons, { makeDecorator } from '@storybook/addons'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
 import { WithFacelift } from './components/WithFacelift'
+import events from '@storybook/core-events'
 
 import type { AddonSettings } from './typings/settings'
 
@@ -28,3 +29,5 @@ export const withFacelift = makeDecorator({
 })
 
 export * from './constants'
+export type EVENT_NAMES = events
+export type { AddonParameters as StorybookParameters } from './typings/parameters'
