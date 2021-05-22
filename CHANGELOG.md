@@ -1,6 +1,6 @@
-#### 6.6.10 (2021-05-22)
+#### 6.6.11 (2021-05-22)
 
 ##### Bug Fixes
 
-*  required fallback type ([8269003c](https://github.com/IgorSzyporyn/storybook-facelift/commit/8269003c769d3d829ef862c415fd1c427c1ea12b))
+*  generic did not work ([3aa673ac](https://github.com/IgorSzyporyn/storybook-facelift/commit/3aa673ac8756131997cd51edb17bf46081dace6c))
 
