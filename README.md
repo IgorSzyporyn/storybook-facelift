@@ -24,33 +24,63 @@
     <img width="128px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/example-6.png" />
     </a>
   </p>
+  <p>&nbsp;</p>
 </div>
 
-**Theme integration and Enhanced UI for Storybook 6.0**
+# Multiple themes integration with light/dark mode
 
-**_NOTE:_** _Since this is first release, update often and PLEASE [submit issues](https://github.com/IgorSzyporyn/storybook-facelift/issues)_
+Simply provide the options object for the preset theme framework you wish to implement (or your custom)
 
-At its core Storybook Facelift simply lets you easily add and select multiple themes for storybook - in either light or dark variants, or both.
+- [Material UI](https://material-ui.com/) Themes
+- Native Storybook Themes
+- Badger UI Themes
+- Support for custom themes converters and [Styled Components](https://styled-components.com/)
 
-Storybook Facelift also lets you easily integrate themes from other theming frameworks by either allowing theme converter functions in configuration, or by using the built in converters (currently only [Material UI](https://material-ui.com/) is supported).
+#### Easy to use
 
-Storybook Facelift also offers a wide variety of easy config options to control how Storybook behaves - note that in order to be able to control many of these features, the configuration option `enhanceUi` to be set.
+Storybook Facelift is zero-config - which will just return a light/dark mode button for the native theme
 
-With the `enhanceUi` option set you also get theme color contrast safety for readability no matter how much your theme clashes with Storybook's theming.
+#### Customize Storybook features
 
-[@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) is also supported by `enhanceUi` and will theme according to your chosen theme and theme variant.
+Easily unlock more control over Storybook such as control which columns to show in the Docs section (description, defaults and control) and more.
 
-Apart from that Storybook Facelift also offers control over what is presented in the @storybook/addon-docs panel - with the option to hide all other elements than the property table, control the visibility state of "defaults" and "description" column in the property table - and if borders should be shown or not.
+#### Enhanced UI for Storybook
 
-Storybook Facelift also supports Material UI, with the option `autoThemeStory` your story will automatically inherit the theme selected - if this theme is of the `mui` type.
+Unlock better UI for Storybook via the parameter `enhanceUi`
+Most notably dark mode works for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs)
+Later versions of Storybook does not require much changes to the CSS and this part will probably be deprecated
+
+#### Automatic Theme Providers with Material UI and Styled Components
+
+Use the parameter `autoThemeStory` to automatically add a React Theme Provider for your stories
+
+- Material UI themes uses own provider
+- Badger UI themes uses Styled Components
+- Custom themes uses Styled Components via custom theme converter
+
+Provide a custom theme converter named `styled` under the parameter `themeConverters`, and use same type for your custom theme to use Styled Components
+
+```
+{
+  themeConverters: {
+    styled: () => ...
+  },
+  themes: [
+    {
+      type: 'styled',
+      ...
+    }
+  ]
+}
+```
 
 ## Installation
 
-`npm i storybook-facelift`
+`npm i -D storybook-facelift`
 
 ## Usage
 
-First add the addon to your storybook `main.js` file (or `main.ts` - will just assume js from now on...)
+Add the addon to your storybook `main.js` file (or `main.ts` - will just assume js from now on...)
 
 ```js
 module.exports = {
@@ -79,12 +109,6 @@ export const parameters = {
 Which will produce an UI wise enhanced version of Storybook with a dark/light toggler.
 
 ## Options
-
-All options in `storybook-facelift` are optional - you can get away with a zero config (well... zero-options) initialization of the addon.
-
-But to get the most of the addon you will more than likely want to add a few.
-
-### The Options Type
 
 The type for the options is called `Parameters.ApiParameters`
 
