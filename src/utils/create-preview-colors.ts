@@ -3,7 +3,7 @@ import { Theme as StorybookTheme } from '@storybook/theming'
 import { bestContrastColor } from './best-contrast-color'
 import { setColorOpacity } from './color'
 
-import { ParamDocs } from '../types/parameters'
+import { ParamDocs } from '../typings/internal/parameters'
 
 type CreatePreviewColorsOptions = {
   params: ParamDocs

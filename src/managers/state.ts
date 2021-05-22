@@ -1,8 +1,8 @@
 import { output } from '../utils/output'
 
-import type { AddonStateParameters } from '../types/parameters'
-import type { AddonConfig } from '../types/config'
-import type { AddonState } from '../types/state'
+import type { AddonStateParameters } from '../typings/internal/parameters'
+import type { AddonConfig } from '../typings/internal/config'
+import type { AddonState } from '../typings/internal/state'
 
 type CreateAddonPropsStateOptions = Pick<AddonState, 'themeName' | 'themeVariant'>
 

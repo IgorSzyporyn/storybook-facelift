@@ -6,7 +6,7 @@ import {
   ParamTheme,
   ThemeVariantTypes,
   ThemeVariant,
-} from '../types/parameters'
+} from '../typings/internal/parameters'
 
 export type ConvertParameterThemeToConfigThemeProps = {
   parameters: AddonStateParameters

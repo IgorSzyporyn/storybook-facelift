@@ -4,7 +4,7 @@ import addons, { makeDecorator } from '@storybook/addons'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
 import { WithFacelift } from './components/WithFacelift'
 
-import type { AddonSettings } from './types/settings'
+import type { AddonSettings } from './typings/internal/settings'
 
 export const useFaceliftSettings = () => {
   const [addonSettings, setAddonSettings] = useState<AddonSettings | null>(null)
@@ -27,4 +27,4 @@ export const withFacelift = makeDecorator({
   },
 })
 
-export * from './types/parameters'
+export * from './typings/internal/parameters'

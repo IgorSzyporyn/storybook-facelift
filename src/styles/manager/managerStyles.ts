@@ -16,7 +16,7 @@ import type {
   ParamUI,
   ParamUIElevationTypes,
   ThemeVariantTypes,
-} from '../../types/parameters'
+} from '../../typings/internal/parameters'
 
 export const rootId = `#root`
 

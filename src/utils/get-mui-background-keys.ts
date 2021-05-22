@@ -1,4 +1,4 @@
-import type { ThemeBackgroundsTypes } from '../types/parameters'
+import type { ThemeBackgroundsTypes } from '../typings/internal/parameters'
 
 type BackgroundKeyTypes = 'default' | 'paper'
 

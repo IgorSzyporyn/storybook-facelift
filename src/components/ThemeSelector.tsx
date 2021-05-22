@@ -8,7 +8,7 @@ import { styled } from '@storybook/theming'
 import memoize from 'memoizerific'
 import { useFaceliftSettings } from '../index'
 
-import type { ConfigTitles } from '../types/config'
+import type { ConfigTitles } from '../typings/internal/config'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
