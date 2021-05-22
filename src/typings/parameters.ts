@@ -1,40 +1,34 @@
 import { ThemeOptions as MuiThemeOptions } from '@material-ui/core'
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { Config } from './config'
+import { ThemeOptions as BadgerThemeOptions } from 'badger-ui'
 
-// Type for allowed override configurations
-declare type StorybookThemeOverride = Pick<
+import type { ThemeInstanciatedType } from './config'
+
+// Utility type for storybook theme overrides in various parameter types
+export type StorybookThemeOverride = Pick<
   StorybookThemeOptions,
-  'brandTitle',
-  'brandImage',
-  'brandUrl'
+  'brandTitle' | 'brandImage' | 'brandUrl'
 >
 
-// PARAMETER "STORY"
+export type ThemeVariantTypes = 'light' | 'dark'
+export type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui' | 'cylindo'
+export type ThemeVariant = MuiThemeOptions | StorybookThemeOptions | BadgerThemeOptions
+export type ThemeOriginal = ThemeVariant
+export type ThemeVariants = { [key in ThemeVariantTypes]: ThemeVariant }
+export type ThemeBackgroundsTypes =
+  | 'normal'
+  | 'reverse'
+  | 'equal'
+  | 'equal-reverse'
+  | 'equal-app'
+  | 'equal-content'
 
-declare type StoryEntryTypes = 'palette' | 'typography'
+// PARAMETERS.DOCS
+// Control the UI of the docs tab
+// --------------------------------------------------------------------------------
+export type ParamDocsType = 'simple' | 'full'
 
-declare type Story = {
-  title?: string
-  path?: string
-  show?: boolean
-}
-
-declare type StoryEntries = {
-  [key in StoryEntryTypes]: Story | false
-}
-
-declare type Stories = {
-  title?: string
-  entries?: StoryEntries
-}
-
-// PARAMETER "DOCS"
-// SET CONFIG FOR DOCS ADDON
-
-declare type DocsTypes = 'simple' | 'full'
-
-declare type Docs = {
+export type ParamDocs = {
   // Set to true (default false) to hide the borders where type info is shown
   hidePropertyBorders?: boolean
   // Set to true (default false) to hide description values in docs table (@NEW)
@@ -47,53 +41,32 @@ declare type Docs = {
   hideControls?: boolean
   // Set to either full or simple - full is default, and simple will ONLY show type info
   // and not any stories etc..
-  type?: DocsTypes
+  type?: ParamDocsType
 }
 
-// PARAMETER "UI"
-// SET CONFIG FOR UI RELATED SETTINGS
+// PARAMETERS.UI
+// Overall control of the UI
+// --------------------------------------------------------------------------------
+export type ParamUIElevationTypes = 0 | 1 | 2 | 3 | 4
 
-declare type UIElevationTypes = 0 | 1 | 2 | 3 | 4
-
-declare type UI = {
+export type ParamUI = {
   // How much to elevate the content panel
-  elevation?: UIElevationTypes
+  elevation?: ParamUIElevationTypes
   // Ability to override SB's own preview panel padding
   padding?: string
   // Ability to use a custom css box-shadow string for content elevation
   shadow?: string
 }
 
-// PARAMETER "THEMES"
-// CONFIGURATION OF OBJECTS USED IN THEME ARRAY FOR PARAMETERS
+// PARAMETERS.UI
+// Overall control of the UI
+// --------------------------------------------------------------------------------
 
-// The two variant types supported
-declare type ThemeVariantTypes = 'light' | 'dark'
-// The two theme types supported internally (Storybook & Material UI)
-declare type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui'
-// Type for variant configuration given for light or dark
-declare type ThemeVariant = MuiThemeOptions | StorybookThemeOptions
-// Courtesy type to make code and types in places less ambigious as
-// original type is used for multiple purposes
-declare type ThemeOriginal = ThemeVariant
-// Only allow supported variants as keys in variant property
-declare type ThemeVariants = {
-  [key in ThemeVariantTypes]: ThemeVariant
-}
-// Property to control the way app and content colors are used in storybook
-// App is base color, and content is the color used for the preview panel
-declare type ThemeBackgroundsTypes =
-  | 'normal'
-  | 'reverse'
-  | 'equal'
-  | 'equal-reverse'
-  | 'equal-app'
-  | 'equal-content'
+// PARAMETERS.NATIVE
+// Take control over the native Storybook theme
+// --------------------------------------------------------------------------------
 
-// PARAMETER "NATIVE"
-// SET CONFIG FOR THE NATIVE THEME
-
-declare type Native = {
+export type ParamNative = {
   // Ability to influense the native theme settings
   override?: StorybookThemeOverride
   // Title to show in the menu picker
@@ -104,7 +77,15 @@ declare type Native = {
   background?: ThemeBackgroundsTypes
 }
 
-declare type Theme = {
+// PARAMETERS.THEMES (array of Theme)
+// Define custom themes of allowed types to use
+//
+// Supports Storybok, Material UI, Cylindo & Styled Components (requires a custom
+// themeConverter called "styled" and will provide a ThemeProvider context for
+// story components)
+// --------------------------------------------------------------------------------
+
+export type ParamTheme = {
   // Unique key for this theme entry
   key: string
   // Override the Storybook theme used with these settings
@@ -134,8 +115,16 @@ declare type Theme = {
 // KEY VALUE MAP FOR USED THEME OPTIONS -> STORYBOOK THEME CONVERTER FUNCTIONS
 // NOTE THAT KEYS "native" & "mui" ARE PROTECTED
 
+// PARAMETERS.THEMES (array of Theme)
+// Define custom themes of allowed types to use
+//
+// Supports Storybok, Material UI, Cylindo & Styled Components (requires a custom
+// themeConverter called "styled" and will provide a ThemeProvider context for
+// story components)
+// --------------------------------------------------------------------------------
+
 // Properties the converter function will recieve as argument
-declare type ThemeConverterProps = {
+export type ThemeConverterFnProps = {
   override?: StorybookThemeOptions
   theme: MuiThemeOptions | StorybookThemeOptions
   variant: ThemeVariantTypes
@@ -144,22 +133,22 @@ declare type ThemeConverterProps = {
 }
 
 // Values the converter function can return
-declare type ThemeConverterResponse = {
+export type ThemeConverterFnResult = {
   converted: StorybookThemeOptions
   original: ThemeOriginal
-  instanciated: Config.ThemeInstanciatedType
+  instanciated: ThemeInstanciatedType
 }
+
+export type ThemeConverterType = 'mui' | 'styled' | 'native' | 'badgerui' | 'cylindo'
 
 // The type for the converter function itself
-declare type ThemeConverter = (props: ThemeConverterProps) => null | ThemeConverterResponse
+export type ThemeConverterFn = (props: ThemeConverterFnProps) => null | ThemeConverterFnResult
 
 // The type for the parameters
-declare type ThemeConverters = {
-  [key: string]: ThemeConverter | undefined
-}
+export type ParamThemeConverters = Record<ThemeConverterType, ThemeConverterFn | undefined>
 
 // Type used for the addon state
-declare type AddonParameters = {
+export type AddonParameters = {
   // Should the story component previewed use the shown theme's values
   // Note: Only works with Material UI themes and if withFacelift decorator is added
   autoThemeStory?: boolean
@@ -169,60 +158,57 @@ declare type AddonParameters = {
   // Default variant (light of dark) to use - if not set will set to light unless browser is in dark mode
   defaultVariant: ThemeVariantTypes
   // Configuration for the Docs page
-  docs: Docs
+  docs: ParamDocs
   // Setting that will fix a lot of minor css errors, ensure contrast ratios in text (themes can have weird colors),
   // pimp up the UI, and allow usage of the "ui" parameter
   enhanceUi: boolean
   // If themes parameter is set then you can disable the usage of the native theme by setting this to true
   includeNative: boolean
   // Configure settings for the native theme (title in picker, variants to show etc..)
-  native?: Native
+  native?: ParamNative
   // Override the used storybook theme configuration with these settings
   // Easy place to set the brandTitle and ensure that it is shown across all themes
   // Note: Each theme can in turn also override these settings
   override?: StorybookThemeOverride
-  // Configure what available stories in the toolbox should be used
-  // Note only MUI themes have toolbox stories for now
-  stories?: boolean | Stories
   // Converters functions used to convert themes in parameters into Storybook themes
   // Note: "native" & "mui" are protected
-  themeConverters: ThemeConverters
-  themes?: Theme[]
-  ui: UI
+  themeConverters: ParamThemeConverters
+  themes?: ParamTheme[]
+  ui: ParamUI
 }
 
 // Type used for parameters from storybook
 // Either from preview.(t|j)s or from story
-declare type ApiParameters = {
+export type ApiParameters = {
   autoThemeStory?: boolean
   defaultTheme?: string
   defaultVariant?: ThemeVariantTypes
-  docs?: Docs
+  docs?: ParamDocs
   enhanceUi?: boolean
   includeNative?: boolean
-  native?: Native
+  native?: ParamNative
   override?: StorybookThemeOverride
-  stories?: boolean | Stories
-  themeConverters?: ThemeConverters
-  themes?: Theme[]
-  ui?: UI
+  themeConverters?: ParamThemeConverters
+  themes?: ParamTheme[]
+  ui?: ParamUI
 }
 
 // Type used for allowed parameters from stories
-declare type CustomParameters = {
+export type StoryParameters = {
   autoThemeStory?: boolean
-  docs?: Docs
+  docs?: ParamDocs
   enhanceUi?: boolean
-  ui?: UI
+  ui?: ParamUI
   override?: StorybookThemeOverride
 }
 
 // Type for the default parameters
-declare type DefaultParameters = {
+export type DefaultParameters = {
   autoThemeStory: boolean
   defaultTheme: string
-  docs: Docs
+  docs: ParamDocs
   enhanceUi: boolean
   includeNative: boolean
-  ui: UI
+  ui: ParamUI
+  themeConverters: ParamThemeConverters
 }

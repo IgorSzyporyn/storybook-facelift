@@ -5,12 +5,18 @@ import {
   Theme as StorybookTheme,
   ThemeVars as StorybookThemeOptions,
 } from '@storybook/theming'
-import { Parameters } from '../../typings'
 import { bestContrastColor } from '../../utils/best-contrast-color'
 import { setColorOpacity } from '../../utils/color'
 import { elevationMap } from '../elevation'
 // import { createButtonStyles } from '../../utils/create-button-styles'
 // import { createDocsTableStyles } from '../../utils/create-docs-table-styles'
+
+import type {
+  ParamDocs,
+  ParamUI,
+  ParamUIElevationTypes,
+  ThemeVariantTypes,
+} from '../../typings/parameters'
 
 export const rootId = `#root`
 
@@ -110,8 +116,8 @@ function getMenuItemColor(theme: StorybookTheme) {
   return color
 }
 
-function getMainShadow(ui: Parameters.UI) {
-  const elevation: Parameters.UIElevationTypes = ui.elevation !== undefined ? ui.elevation : 1
+function getMainShadow(ui: ParamUI) {
+  const elevation: ParamUIElevationTypes = ui.elevation !== undefined ? ui.elevation : 1
   const shadow = elevationMap[elevation]
 
   return shadow
@@ -145,9 +151,9 @@ function getMenuIconColor(_color: string, theme: StorybookTheme) {
 export function enhanceManagerStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: StorybookThemeOptions,
-  themeVariant: Parameters.ThemeVariantTypes,
-  ui: Parameters.UI,
-  docs: Parameters.Docs
+  themeVariant: ThemeVariantTypes,
+  ui: ParamUI,
+  _docs: ParamDocs
 ) {
   const isDark = themeVariant === 'dark'
   const theme = convert(themeVars)

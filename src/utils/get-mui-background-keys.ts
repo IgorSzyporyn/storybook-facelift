@@ -1,8 +1,8 @@
-import { Parameters } from '../typings'
+import type { ThemeBackgroundsTypes } from '../typings/parameters'
 
 type BackgroundKeyTypes = 'default' | 'paper'
 
-export function getMuiBackgroundKeys(background?: Parameters.ThemeBackgroundsTypes) {
+export function getMuiBackgroundKeys(background?: ThemeBackgroundsTypes) {
   let appBg: BackgroundKeyTypes = 'paper'
   let appContentBg: BackgroundKeyTypes = 'default'
 

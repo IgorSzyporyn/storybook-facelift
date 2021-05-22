@@ -12,7 +12,8 @@ import {
 import { create, Jss } from 'jss'
 import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
-import { Parameters } from '../typings'
+
+import type { ThemeOriginal } from '../typings/parameters'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -48,7 +49,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   }, [settings])
 
   let theme: Theme | false = false
-  let themeOriginal: false | Parameters.ThemeOriginal = false
+  let themeOriginal: false | ThemeOriginal = false
   let themeInstanciated: false | Record<string, any> = false
   let autoThemeStory = false
 
@@ -63,7 +64,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     themeOriginal = state.themeOriginal ? state.themeOriginal : false
     themeInstanciated = state.themeInstanciated ? state.themeInstanciated : false
     isMuiTheme = state.themeType === 'mui'
-    isStyledTheme = state.themeType === 'styled' || state.themeType === 'badgerui'
+    isStyledTheme =
+      state.themeType === 'styled' ||
+      state.themeType === 'badgerui' ||
+      state.themeType === 'cylindo'
     isMuiValid = themeOriginal && isMuiTheme
     autoThemeStory = parameters.autoThemeStory === true
 

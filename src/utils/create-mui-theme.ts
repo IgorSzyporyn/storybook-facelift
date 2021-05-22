@@ -1,13 +1,14 @@
 import {
   createMuiTheme as _createMuiTheme,
   responsiveFontSizes as _responsiveFontSizes,
-  ThemeOptions,
 } from '@material-ui/core'
-import { Parameters } from '../typings'
+
+import type { ThemeOptions } from '@material-ui/core'
+import type { ThemeConverterFnProps } from '../typings/parameters'
 
 export function createMuiTheme(
   themeOptions: ThemeOptions,
-  { responsiveFontSizes }: Parameters.ThemeConverterProps
+  { responsiveFontSizes }: ThemeConverterFnProps
 ) {
   let theme = _createMuiTheme(themeOptions)
 

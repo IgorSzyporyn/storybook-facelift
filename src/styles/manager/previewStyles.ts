@@ -1,11 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { convert, ThemeVars } from '@storybook/theming'
-import { Parameters } from '../../typings'
 import { createButtonStyles } from '../../utils/create-button-styles'
 import { createDocsTableStyles } from '../../utils/create-docs-table-styles'
 import { createPreviewColors } from '../../utils/create-preview-colors'
 import { removeScrollStyles } from '../../utils/remove-scroll-styles'
 import { elevationMap } from '../elevation'
+
+import type { ParamDocs, ParamUI } from '../../typings/parameters'
+import { ThemeVariantTypes } from '../../typings/parameters'
 
 const root = `.sb-show-main`
 const preview = `${root} > #root`
@@ -25,9 +27,9 @@ const storyPreview = `${story} > .sbdocs-preview`
 export function enhancePreviewStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: ThemeVars,
-  themeVariant: Parameters.ThemeVariantTypes,
-  uiParams: Parameters.UI,
-  docsParams: Parameters.Docs
+  themeVariant: ThemeVariantTypes,
+  uiParams: ParamUI,
+  docsParams: ParamDocs
 ) {
   const theme = convert(themeVars)
   const isDark = themeVariant === 'dark'

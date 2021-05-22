@@ -1,13 +1,15 @@
-import { convert, create, ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { Parameters } from '../typings'
+import { convert, create } from '@storybook/theming'
 import { getNativeBackgroundColors } from './get-native-background-colors'
+
+import type { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
+import type { ThemeConverterFnProps } from '../typings/parameters'
 
 export function createStorybookThemeFromNative({
   theme: _themeOptions,
   override,
   variant,
   background,
-}: Parameters.ThemeConverterProps) {
+}: ThemeConverterFnProps) {
   if (_themeOptions === undefined) {
     return null
   }

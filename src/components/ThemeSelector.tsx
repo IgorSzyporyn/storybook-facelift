@@ -7,7 +7,8 @@ import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components'
 import { styled } from '@storybook/theming'
 import memoize from 'memoizerific'
 import { useFaceliftSettings } from '../index'
-import { Config } from '../typings'
+
+import type { ConfigTitles } from '../typings/config'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
@@ -54,7 +55,7 @@ const createThemeSelectorItem = memoize(1000)(
 )
 
 const createThemeList = memoize(10)(
-  (titles: Config.Titles, currentKey: string, change: (key: string) => void) => {
+  (titles: ConfigTitles, currentKey: string, change: (key: string) => void) => {
     const themeSelectorItems: ThemeSelectorItem[] = []
 
     Object.keys(titles).forEach((key) => {

@@ -1,12 +1,19 @@
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { Parameters } from '../typings'
+
+import {
+  AddonParameters,
+  ThemeConverterFn,
+  ParamTheme,
+  ThemeVariantTypes,
+  ThemeVariant,
+} from '../typings/parameters'
 
 export type ConvertParameterThemeToConfigThemeProps = {
-  parameters: Parameters.AddonParameters
-  themeConfig: Parameters.Theme
-  themeVariant: Parameters.ThemeVariant
-  converter: Parameters.ThemeConverter
-  themeVariantName: Parameters.ThemeVariantTypes
+  parameters: AddonParameters
+  themeConfig: ParamTheme
+  themeVariant: ThemeVariant
+  converter: ThemeConverterFn
+  themeVariantName: ThemeVariantTypes
 }
 
 export function convertParameterThemeToConfigTheme({

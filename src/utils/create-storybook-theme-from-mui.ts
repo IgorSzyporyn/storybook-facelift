@@ -1,10 +1,11 @@
 import { ThemeOptions } from '@material-ui/core'
 import { create, themes } from '@storybook/theming'
-import { Parameters } from '../typings'
 import { createMuiTheme } from './create-mui-theme'
 import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
-export function createStorybookThemeOptionsFromMui(converterProps: Parameters.ThemeConverterProps) {
+import type { ThemeConverterFnProps } from '../typings/parameters'
+
+export function createStorybookThemeOptionsFromMui(converterProps: ThemeConverterFnProps) {
   // @TODO - Do not destructure the argument given
   // Then remove this proxy object
   const { theme: _original, override, variant, background } = converterProps

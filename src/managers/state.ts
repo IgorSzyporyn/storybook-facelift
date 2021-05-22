@@ -1,11 +1,14 @@
-import { Config, Parameters, State } from '../typings'
 import { output } from '../utils/output'
 
-type CreateAddonPropsStateOptions = Pick<State.AddonState, 'themeName' | 'themeVariant'>
+import type { AddonParameters } from '../typings/parameters'
+import type { AddonConfig } from '../typings/config'
+import type { AddonState } from '../typings/state'
+
+type CreateAddonPropsStateOptions = Pick<AddonState, 'themeName' | 'themeVariant'>
 
 type CreateAddonStateProps = {
-  parameters: Parameters.AddonParameters
-  config: Config.AddonConfig
+  parameters: AddonParameters
+  config: AddonConfig
   options?: CreateAddonPropsStateOptions
 }
 
@@ -47,7 +50,7 @@ export function createAddonState({
     }
   }
 
-  const addonState: State.AddonState = {
+  const addonState: AddonState = {
     theme,
     themeName,
     themeOriginal,

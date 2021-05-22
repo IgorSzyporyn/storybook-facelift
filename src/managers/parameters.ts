@@ -1,13 +1,28 @@
 import deepmerge from 'ts-deepmerge'
-import { Config, Parameters, Settings } from '../typings'
 import { createStorybookThemeOptionsFromMui } from '../utils/create-storybook-theme-from-mui'
 import { createStorybookThemeFromBadgerUi } from '../utils/create-storybook-theme-from-badgerui'
 import { createStorybookThemeFromNative } from '../utils/create-storybook-theme-from-native'
 
-export const defaultParameters: Parameters.DefaultParameters = {
+import type {
+  AddonParameters,
+  ApiParameters,
+  DefaultParameters,
+  StoryParameters,
+} from '../typings/parameters'
+import type { AddonConfig, ConfigThemes } from '../typings/config'
+import type { AddonSettings } from '../typings/settings'
+
+export const defaultParameters: DefaultParameters = {
   defaultTheme: 'native',
   autoThemeStory: false,
   includeNative: false,
+  themeConverters: {
+    mui: createStorybookThemeOptionsFromMui,
+    native: createStorybookThemeFromNative,
+    badgerui: createStorybookThemeFromBadgerUi,
+    cylindo: createStorybookThemeFromBadgerUi,
+    styled: createStorybookThemeFromBadgerUi,
+  },
   docs: {
     type: 'full',
   },
@@ -17,37 +32,18 @@ export const defaultParameters: Parameters.DefaultParameters = {
   },
 }
 
-export function createAddonParameters(apiParameters?: Parameters.ApiParameters) {
-  const mergedParameters = { ...defaultParameters, ...apiParameters }
-
-  const defaultVariant = mergedParameters.defaultVariant || 'light'
-  const themeConverters = mergedParameters.themeConverters || {}
-
-  themeConverters.mui = createStorybookThemeOptionsFromMui
-  themeConverters.native = createStorybookThemeFromNative
-  themeConverters.badgerui = createStorybookThemeFromBadgerUi
-
-  const parameters: Parameters.AddonParameters = {
-    autoThemeStory: mergedParameters.autoThemeStory,
-    defaultTheme: mergedParameters.defaultTheme,
-    defaultVariant,
-    docs: mergedParameters.docs,
-    enhanceUi: mergedParameters.enhanceUi,
-    includeNative: mergedParameters.includeNative,
-    ui: { ...defaultParameters.ui, ...mergedParameters.ui },
-    native: mergedParameters.native,
-    override: mergedParameters.override,
-    stories: mergedParameters.stories,
-    themeConverters,
-    themes: mergedParameters.themes,
-  }
+export function createAddonParameters(apiParameters?: ApiParameters) {
+  const parameters: AddonParameters = deepmerge(
+    { defaultVariant: 'light', ...defaultParameters },
+    apiParameters || {}
+  )
 
   return parameters
 }
 
 export type updateAddonParametersProps = {
-  apiParameters?: Parameters.ApiParameters
-  settings: Settings.AddonSettings
+  apiParameters?: ApiParameters
+  settings: AddonSettings
 }
 
 export function updateAddonParameters({ apiParameters, settings }: updateAddonParametersProps) {
@@ -62,7 +58,7 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
   // Only allow certain parameters to be merged on to addon parameters
   if (settings.initialized && settings.initialAddonParameters) {
     const { ui = {}, docs = {}, override = {}, enhanceUi, autoThemeStory } = apiParameters
-    const customParameters: Parameters.CustomParameters = {
+    const customParameters: StoryParameters = {
       ui,
       docs,
       override,
@@ -85,12 +81,9 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
   return returnParameters
 }
 
-const getFirstThemeKey = (themes: Config.Themes) => Object.keys(themes).map((k) => k)[0]
+const getFirstThemeKey = (themes: ConfigThemes) => Object.keys(themes).map((k) => k)[0]
 
-export function verifyParameters(
-  parametersSource: Parameters.AddonParameters,
-  configSource: Config.AddonConfig
-) {
+export function verifyParameters(parametersSource: AddonParameters, configSource: AddonConfig) {
   const parameters = { ...parametersSource }
   const config = { ...configSource }
 

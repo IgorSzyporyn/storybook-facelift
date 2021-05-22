@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import addons, { makeDecorator } from '@storybook/addons'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
 import { WithFacelift } from './components/WithFacelift'
-import { Settings } from './typings'
+
+import type { AddonSettings } from './typings/settings'
 
 export const useFaceliftSettings = () => {
-  const [addonSettings, setAddonSettings] = useState<Settings.AddonSettings | null>(null)
+  const [addonSettings, setAddonSettings] = useState<AddonSettings | null>(null)
 
   useEffect(() => {
     const chan = addons.getChannel()

@@ -14,7 +14,7 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "outDir": "dist",
-    "removeComments": true,
+    "removeComments": false,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

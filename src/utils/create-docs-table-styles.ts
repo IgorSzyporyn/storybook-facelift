@@ -1,12 +1,13 @@
 import { lighten } from '@material-ui/core'
 import { Theme as StorybookTheme } from '@storybook/theming'
 import { elevationMap } from '../styles/elevation'
-import { Parameters } from '../typings'
 import { createInputStyles } from './create-input-styles'
 import { createPreviewColors } from './create-preview-colors'
 
+import type { ParamDocs } from '../typings/parameters'
+
 type CreateDocsTableStylesOptions = {
-  params: Parameters.Docs
+  params: ParamDocs
   isDark: boolean
   isToolPanel?: boolean
 }

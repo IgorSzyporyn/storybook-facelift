@@ -1,16 +1,18 @@
 import { themes as nativeThemes, convert } from '@storybook/theming'
-import { Parameters, Config } from '../typings'
 import { convertParameterThemeToConfigTheme } from '../utils/convert-parameter-theme-to-config-theme'
 import { validateThemeForConfig } from '../utils/validate-theme-for-config'
 
-function createNativeTitle(parameters: Parameters.AddonParameters) {
+import type { AddonParameters } from '../typings/parameters'
+import type { AddonConfig, ConfigThemes, ConfigTheme, ConfigTitles } from '../typings/config'
+
+function createNativeTitle(parameters: AddonParameters) {
   const title = (parameters.native && parameters.native.title) || 'Native Storybook'
 
   return title
 }
 
-function createNativeTheme(parameters: Parameters.AddonParameters) {
-  const nativeTheme: Config.Theme = {
+function createNativeTheme(parameters: AddonParameters) {
+  const nativeTheme: ConfigTheme = {
     type: 'native',
     key: 'native',
     light: {
@@ -44,10 +46,10 @@ function createNativeTheme(parameters: Parameters.AddonParameters) {
   return nativeTheme
 }
 
-export function createConfigDefaults(sourceParameters: Parameters.AddonParameters) {
+export function createConfigDefaults(sourceParameters: AddonParameters) {
   const parameters = { ...sourceParameters }
-  const returnTitles: Config.Titles = { native: createNativeTitle(parameters) }
-  const returnThemes: Config.Themes = { native: createNativeTheme(parameters) }
+  const returnTitles: ConfigTitles = { native: createNativeTitle(parameters) }
+  const returnThemes: ConfigThemes = { native: createNativeTheme(parameters) }
 
   const { native: nativeParam, themes: themesParam = [] } = parameters
 
@@ -69,7 +71,7 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
   // Iterate through the given addon parameter themes and validate and convert
   // into a config object for settings.config - Just bail out if no themesParam
   if (!themesParam || themesParam.length === 0) {
-    const config: Config.AddonConfig = { titles: returnTitles, themes: returnThemes }
+    const config: AddonConfig = { titles: returnTitles, themes: returnThemes }
 
     return config
   }
@@ -88,8 +90,8 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
 
     if (themeConverter) {
       const container: {
-        light: Config.Theme | null
-        dark: Config.Theme | null
+        light: ConfigTheme | null
+        dark: ConfigTheme | null
       } = { light: null, dark: null }
 
       const light = convertParameterThemeToConfigTheme({
@@ -130,7 +132,7 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
 
       if (light || dark) {
         // eslint-disable-next-line no-multi-assign
-        const returnTheme: Config.Theme = (returnThemes[themeKey] = {
+        const returnTheme: ConfigTheme = (returnThemes[themeKey] = {
           key: themeKey,
           type: themeType,
           original: {},
@@ -156,15 +158,12 @@ export function createConfigDefaults(sourceParameters: Parameters.AddonParameter
     }
   })
 
-  const config: Config.AddonConfig = { titles: returnTitles, themes: returnThemes }
+  const config: AddonConfig = { titles: returnTitles, themes: returnThemes }
 
   return config
 }
 
-export function verifyConfig(
-  configSource: Config.AddonConfig,
-  parametersSource: Parameters.AddonParameters
-) {
+export function verifyConfig(configSource: AddonConfig, parametersSource: AddonParameters) {
   const config = { ...configSource }
   const parameters = { ...parametersSource }
 

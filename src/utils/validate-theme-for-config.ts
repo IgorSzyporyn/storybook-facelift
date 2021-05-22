@@ -1,10 +1,8 @@
-import { Parameters } from '../typings'
 import { output } from './output'
 
-export const validateThemeForConfig = (
-  theme: Parameters.Theme,
-  params: Parameters.AddonParameters
-) => {
+import type { AddonParameters, ParamTheme } from '../typings/parameters'
+
+export const validateThemeForConfig = (theme: ParamTheme, params: AddonParameters) => {
   let valid = true
 
   if (!theme.key) {
@@ -25,6 +23,7 @@ export const validateThemeForConfig = (
     output(`No type given for theme "${theme.key}" - falling back to Storybook`, 'warning')
   } else if (theme.type && !params.themeConverters[theme.type]) {
     output(`No matching converter for theme "${theme.key}"`, 'error')
+    output(`hellloooo"`, 'error')
     return valid
   }
 

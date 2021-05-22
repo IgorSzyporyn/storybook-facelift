@@ -1,11 +1,12 @@
 import { getContrastRatio, lighten } from '@material-ui/core'
 import { Theme as StorybookTheme } from '@storybook/theming'
-import { Parameters } from '../typings'
 import { bestContrastColor } from './best-contrast-color'
 import { setColorOpacity } from './color'
 
+import { ParamDocs } from '../typings/parameters'
+
 type CreatePreviewColorsOptions = {
-  params: Parameters.Docs
+  params: ParamDocs
   isDark: boolean
 }
 
