@@ -70,7 +70,7 @@ declare type UI = {
 // The two variant types supported
 declare type ThemeVariantTypes = 'light' | 'dark'
 // The two theme types supported internally (Storybook & Material UI)
-declare type ThemeTypes = 'native' | 'mui' | 'styled' | 'cylindoui'
+declare type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui'
 // Type for variant configuration given for light or dark
 declare type ThemeVariant = MuiThemeOptions | StorybookThemeOptions
 // Courtesy type to make code and types in places less ambigious as

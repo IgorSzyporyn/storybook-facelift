@@ -63,7 +63,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     themeOriginal = state.themeOriginal ? state.themeOriginal : false
     themeInstanciated = state.themeInstanciated ? state.themeInstanciated : false
     isMuiTheme = state.themeType === 'mui'
-    isStyledTheme = state.themeType === 'styled' || state.themeType === 'cylindoui'
+    isStyledTheme = state.themeType === 'styled' || state.themeType === 'badgerui'
     isMuiValid = themeOriginal && isMuiTheme
     autoThemeStory = parameters.autoThemeStory === true
 

@@ -1,11 +1,11 @@
 import { create, themes } from '@storybook/theming'
-import { createTheme as createCylindoUiTheme } from 'cylindo'
+import { createTheme } from 'badger-ui'
 
 import type { ThemeVars } from '@storybook/theming'
-import type { ThemeOptions as CylindoUiThemeOptions } from 'cylindo'
+import type { ThemeOptions } from 'badger-ui'
 import type { Parameters } from '../typings'
 
-export function createStorybookThemeFromCylindoUi({
+export function createStorybookThemeFromBadgerUi({
   theme: _themeOptions,
   override,
   variant,
@@ -14,8 +14,8 @@ export function createStorybookThemeFromCylindoUi({
     return null
   }
 
-  const original = _themeOptions as CylindoUiThemeOptions
-  const instanciated = createCylindoUiTheme({ ...original, type: variant })
+  const original = _themeOptions as ThemeOptions
+  const instanciated = createTheme({ ...original, type: variant })
 
   const convertedThemeOptions: ThemeVars = {
     base: variant,
