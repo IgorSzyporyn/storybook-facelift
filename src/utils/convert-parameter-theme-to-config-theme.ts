@@ -8,21 +8,21 @@ import {
   ThemeVariant,
 } from '../typings/internal/parameters'
 
-export type ConvertParameterThemeToConfigThemeProps<T> = {
+export type ConvertParameterThemeToConfigThemeProps = {
   parameters: AddonStateParameters
   themeConfig: ParamTheme
-  themeVariant: ThemeVariant | T
-  converter: ThemeConverterFn<T>
+  themeVariant: ThemeVariant
+  converter: ThemeConverterFn
   themeVariantName: ThemeVariantTypes
 }
 
-export function convertParameterThemeToConfigTheme<T = Record<string, unknown>>({
+export function convertParameterThemeToConfigTheme({
   parameters,
   themeConfig,
   themeVariant,
   converter,
   themeVariantName: variant,
-}: ConvertParameterThemeToConfigThemeProps<T>) {
+}: ConvertParameterThemeToConfigThemeProps) {
   if (themeVariant === undefined) {
     return null
   }
