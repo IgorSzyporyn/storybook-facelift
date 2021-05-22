@@ -27,5 +27,4 @@ export const withFacelift = makeDecorator({
   },
 })
 
-export * from './constants'
 export * from './typings/parameters'
