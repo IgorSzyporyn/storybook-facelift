@@ -1,6 +1,6 @@
-#### 6.6.11 (2021-05-22)
+#### 6.6.12 (2021-05-22)
 
 ##### Bug Fixes
 
-*  generic did not work ([3aa673ac](https://github.com/IgorSzyporyn/storybook-facelift/commit/3aa673ac8756131997cd51edb17bf46081dace6c))
+*  hope this works ([cdc42511](https://github.com/IgorSzyporyn/storybook-facelift/commit/cdc42511f5797666185fca422903b7608e2d6ef6))
 
