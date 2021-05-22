@@ -11,7 +11,7 @@ import {
 export type ConvertParameterThemeToConfigThemeProps = {
   parameters: AddonStateParameters
   themeConfig: ParamTheme
-  themeVariant: ThemeVariant
+  themeVariant: ThemeVariant & Record<string, unknown>
   converter: ThemeConverterFn
   themeVariantName: ThemeVariantTypes
 }
