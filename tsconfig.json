@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "declaration": true,
+    "declarationDir": "dist/typings",
     "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

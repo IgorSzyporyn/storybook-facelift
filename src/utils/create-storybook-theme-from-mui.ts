@@ -3,7 +3,7 @@ import { create, themes } from '@storybook/theming'
 import { createMuiTheme } from './create-mui-theme'
 import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
-import type { ThemeConverterFnProps } from '../typings/parameters'
+import type { ThemeConverterFnProps } from '../types/parameters'
 
 export function createStorybookThemeOptionsFromMui(converterProps: ThemeConverterFnProps) {
   // @TODO - Do not destructure the argument given

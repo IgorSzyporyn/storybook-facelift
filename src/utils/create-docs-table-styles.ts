@@ -4,7 +4,7 @@ import { elevationMap } from '../styles/elevation'
 import { createInputStyles } from './create-input-styles'
 import { createPreviewColors } from './create-preview-colors'
 
-import type { ParamDocs } from '../typings/parameters'
+import type { ParamDocs } from '../types/parameters'
 
 type CreateDocsTableStylesOptions = {
   params: ParamDocs

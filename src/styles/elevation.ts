@@ -1,4 +1,4 @@
-import type { ParamUIElevationTypes } from '../typings/parameters'
+import type { ParamUIElevationTypes } from '../types/parameters'
 
 export type ElevationMap = {
   [key in ParamUIElevationTypes]: string

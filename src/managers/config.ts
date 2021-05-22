@@ -2,8 +2,8 @@ import { themes as nativeThemes, convert } from '@storybook/theming'
 import { convertParameterThemeToConfigTheme } from '../utils/convert-parameter-theme-to-config-theme'
 import { validateThemeForConfig } from '../utils/validate-theme-for-config'
 
-import type { AddonStateParameters } from '../typings/parameters'
-import type { AddonConfig, ConfigThemes, ConfigTheme, ConfigTitles } from '../typings/config'
+import type { AddonStateParameters } from '../types/parameters'
+import type { AddonConfig, ConfigThemes, ConfigTheme, ConfigTitles } from '../types/config'
 
 function createNativeTitle(parameters: AddonStateParameters) {
   const title = (parameters.native && parameters.native.title) || 'Native Storybook'

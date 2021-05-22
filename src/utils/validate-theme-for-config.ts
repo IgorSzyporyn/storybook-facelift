@@ -1,6 +1,6 @@
 import { output } from './output'
 
-import type { AddonStateParameters, ParamTheme } from '../typings/parameters'
+import type { AddonStateParameters, ParamTheme } from '../types/parameters'
 
 export const validateThemeForConfig = (theme: ParamTheme, params: AddonStateParameters) => {
   let valid = true

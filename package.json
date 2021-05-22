@@ -13,7 +13,7 @@
     "appearance"
   ],
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/typings/index.d.ts",
   "files": [
     "dist/**/*",
     "README.md",

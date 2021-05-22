@@ -2,8 +2,8 @@ import { createConfigDefaults, verifyConfig } from './config'
 import { createAddonParameters, verifyParameters } from './parameters'
 import { createAddonState } from './state'
 
-import type { AddonParameters } from '../typings/parameters'
-import type { AddonSettings } from '../typings/settings'
+import type { AddonParameters } from '../types/parameters'
+import type { AddonSettings } from '../types/settings'
 
 export function createDefaultSettings(apiParameters?: AddonParameters) {
   let defaultParameters = createAddonParameters(apiParameters)

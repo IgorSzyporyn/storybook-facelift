@@ -8,9 +8,9 @@ import type {
   AddonParameters,
   DefaultParameters,
   StoryParameters,
-} from '../typings/parameters'
-import type { AddonConfig, ConfigThemes } from '../typings/config'
-import type { AddonSettings } from '../typings/settings'
+} from '../types/parameters'
+import type { AddonConfig, ConfigThemes } from '../types/config'
+import type { AddonSettings } from '../types/settings'
 
 export const defaultParameters: DefaultParameters = {
   defaultTheme: 'native',

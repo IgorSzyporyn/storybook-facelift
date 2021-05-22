@@ -13,7 +13,7 @@ import { create, Jss } from 'jss'
 import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
 
-import type { ThemeVariant } from '../typings/parameters'
+import type { ThemeVariant } from '../types/parameters'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')

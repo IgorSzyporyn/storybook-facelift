@@ -6,8 +6,8 @@ import { createPreviewColors } from '../../utils/create-preview-colors'
 import { removeScrollStyles } from '../../utils/remove-scroll-styles'
 import { elevationMap } from '../elevation'
 
-import type { ParamDocs, ParamUI } from '../../typings/parameters'
-import { ThemeVariantTypes } from '../../typings/parameters'
+import type { ParamDocs, ParamUI } from '../../types/parameters'
+import { ThemeVariantTypes } from '../../types/parameters'
 
 const root = `.sb-show-main`
 const preview = `${root} > #root`

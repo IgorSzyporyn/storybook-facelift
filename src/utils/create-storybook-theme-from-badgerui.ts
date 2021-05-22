@@ -3,7 +3,7 @@ import { createTheme } from 'badger-ui'
 
 import type { ThemeVars } from '@storybook/theming'
 import type { ThemeOptions } from 'badger-ui'
-import type { ThemeConverterFnProps } from '../typings/parameters'
+import type { ThemeConverterFnProps } from '../types/parameters'
 
 export function createStorybookThemeFromBadgerUi({
   theme,
