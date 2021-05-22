@@ -13,7 +13,6 @@ export type StorybookThemeOverride = Pick<
 export type ThemeVariantTypes = 'light' | 'dark'
 export type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui' | 'cylindo'
 export type ThemeVariant = MuiThemeOptions | StorybookThemeOptions | BadgerThemeOptions
-export type ThemeOriginal = ThemeVariant
 export type ThemeVariants = { [key in ThemeVariantTypes]: ThemeVariant }
 export type ThemeBackgroundsTypes =
   | 'normal'
@@ -126,7 +125,7 @@ export type ParamTheme = {
 // Properties the converter function will recieve as argument
 export type ThemeConverterFnProps = {
   override?: StorybookThemeOptions
-  theme: MuiThemeOptions | StorybookThemeOptions
+  theme: ThemeVariant
   variant: ThemeVariantTypes
   background?: ThemeBackgroundsTypes
   responsiveFontSizes?: boolean
@@ -135,7 +134,7 @@ export type ThemeConverterFnProps = {
 // Values the converter function can return
 export type ThemeConverterFnResult = {
   converted: StorybookThemeOptions
-  original: ThemeOriginal
+  original: ThemeVariant
   instanciated: ThemeInstanciatedType
 }
 

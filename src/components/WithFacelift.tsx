@@ -13,7 +13,7 @@ import { create, Jss } from 'jss'
 import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
 
-import type { ThemeOriginal } from '../typings/parameters'
+import type { ThemeVariant } from '../typings/parameters'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -49,7 +49,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   }, [settings])
 
   let theme: Theme | false = false
-  let themeOriginal: false | ThemeOriginal = false
+  let themeOriginal: false | ThemeVariant = false
   let themeInstanciated: false | Record<string, any> = false
   let autoThemeStory = false
 

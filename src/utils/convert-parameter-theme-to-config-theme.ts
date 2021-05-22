@@ -27,8 +27,7 @@ export function convertParameterThemeToConfigTheme({
     return null
   }
 
-  const theme = themeVariant
-  const variantOverride: Record<string, any> = {
+  const variantOverride: Record<string, unknown> = {
     ...(parameters.override || {}),
     ...(themeConfig.override || {}),
   }
@@ -38,7 +37,7 @@ export function convertParameterThemeToConfigTheme({
   const override = _override as StorybookThemeOptions | undefined
 
   const converted = converter({
-    theme,
+    theme: themeVariant,
     override,
     variant,
     background: themeConfig.background,
