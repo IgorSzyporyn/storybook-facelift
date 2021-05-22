@@ -123,9 +123,9 @@ export type ParamTheme = {
 // --------------------------------------------------------------------------------
 
 // Properties the converter function will recieve as argument
-export type ThemeConverterFnProps = {
+export type ThemeConverterFnProps<T = Record<string, unknown>> = {
   override?: StorybookThemeOptions
-  theme: ThemeVariant
+  theme: ThemeVariant & T
   variant: ThemeVariantTypes
   background?: ThemeBackgroundsTypes
   responsiveFontSizes?: boolean
@@ -141,10 +141,15 @@ export type ThemeConverterFnResult = {
 export type ThemeConverterType = 'mui' | 'styled' | 'native' | 'badgerui' | 'cylindo'
 
 // The type for the converter function itself
-export type ThemeConverterFn = (props: ThemeConverterFnProps) => null | ThemeConverterFnResult
+export type ThemeConverterFn<T = Record<string, unknown>> = (
+  props: ThemeConverterFnProps<T>
+) => null | ThemeConverterFnResult
 
 // The type for the parameters
-export type ParamThemeConverters = Record<ThemeConverterType, ThemeConverterFn | undefined>
+export type ParamThemeConverters<T = Record<string, unknown>> = Record<
+  ThemeConverterType,
+  ThemeConverterFn<T> | undefined
+>
 
 // Type used for the addon state
 export type AddonStateParameters = {
@@ -178,7 +183,7 @@ export type AddonStateParameters = {
 
 // Type used for parameters from storybook
 // Either from preview.(t|j)s or from story
-export type AddonParameters = {
+export type AddonParameters<T = Record<string, unknown>> = {
   autoThemeStory?: boolean
   defaultTheme?: string
   defaultVariant?: ThemeVariantTypes
@@ -187,7 +192,7 @@ export type AddonParameters = {
   includeNative?: boolean
   native?: ParamNative
   override?: StorybookThemeOverride
-  themeConverters?: ParamThemeConverters
+  themeConverters?: ParamThemeConverters<T>
   themes?: ParamTheme[]
   ui?: ParamUI
 }
