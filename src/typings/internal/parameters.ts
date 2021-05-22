@@ -12,7 +12,11 @@ export type StorybookThemeOverride = Pick<
 
 export type ThemeVariantTypes = 'light' | 'dark'
 export type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui' | 'cylindo'
-export type ThemeVariant = MuiThemeOptions | StorybookThemeOptions | BadgerThemeOptions
+export type ThemeVariant =
+  | MuiThemeOptions
+  | StorybookThemeOptions
+  | BadgerThemeOptions
+  | Record<string, unknown>
 export type ThemeVariants = { [key in ThemeVariantTypes]: ThemeVariant }
 export type ThemeBackgroundsTypes =
   | 'normal'
