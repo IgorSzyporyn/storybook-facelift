@@ -1,6 +1,6 @@
-#### 6.6.3 (2021-05-22)
+#### 6.6.4 (2021-05-22)
 
 ##### Bug Fixes
 
-*  better exports ([32c2626f](https://github.com/IgorSzyporyn/storybook-facelift/commit/32c2626faa02af38570f6f88f1cc7b1b1f8a270b))
+*  wont work ([a46e676a](https://github.com/IgorSzyporyn/storybook-facelift/commit/a46e676aa29294d88cad61dea87baaa14e84084a))
 
