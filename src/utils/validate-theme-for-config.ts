@@ -1,8 +1,8 @@
 import { output } from './output'
 
-import type { AddonParameters, ParamTheme } from '../typings/parameters'
+import type { AddonStateParameters, ParamTheme } from '../typings/parameters'
 
-export const validateThemeForConfig = (theme: ParamTheme, params: AddonParameters) => {
+export const validateThemeForConfig = (theme: ParamTheme, params: AddonStateParameters) => {
   let valid = true
 
   if (!theme.key) {

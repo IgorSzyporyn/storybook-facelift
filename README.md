@@ -94,9 +94,9 @@ module.exports = {
 
 This will give you the zero-config version of the addon which is simply Storybook as-is, but with a light/dark theme variant toggler.
 
-The addon and options available are meant to be as gracefull and unobtrusive as possible, and therefore most features of `storybook-facelift` are not enabled as default.
+The addon and parameters available are meant to be as gracefull and unobtrusive as possible, and therefore most features of `storybook-facelift` are not enabled as default.
 
-To get the most of the addon you may want to configure it through the options in `preview.js`.
+To get the most of the addon you may want to configure it through the parameters in `preview.js`.
 
 ```js
 export const parameters = {
@@ -108,9 +108,11 @@ export const parameters = {
 
 Which will produce an UI wise enhanced version of Storybook with a dark/light toggler.
 
-## Options
+## Addon Parameters
 
-The type for the options is called `Parameters.ApiParameters`
+The type for the parameters is called `AddonParameters` and can be imported via
+
+`import type { AddonParameters } from 'storybook-facelift'`
 
 ```
 enhanceUi?: boolean

@@ -12,7 +12,7 @@ import { createDefaultSettings } from './managers/settings'
 import { createAddonState } from './managers/state'
 import { ManagerStyles } from './styles/ManagerStyles'
 
-import type { ApiParameters, ThemeVariantTypes } from './typings/parameters'
+import type { AddonParameters, ThemeVariantTypes } from './typings/parameters'
 import type { AddonSettings } from './typings/settings'
 
 type SetThemeProps = {
@@ -26,7 +26,7 @@ type FaceliftProps = {
 }
 
 export function Facelift({ api }: FaceliftProps) {
-  const apiParameters = api.getCurrentParameter<ApiParameters | undefined>(ADDON_PARAM_KEY)
+  const apiParameters = api.getCurrentParameter<AddonParameters | undefined>(ADDON_PARAM_KEY)
 
   const [settings, setSettings] = useState<AddonSettings | null>(null)
 

@@ -1,13 +1,13 @@
 import { output } from '../utils/output'
 
-import type { AddonParameters } from '../typings/parameters'
+import type { AddonStateParameters } from '../typings/parameters'
 import type { AddonConfig } from '../typings/config'
 import type { AddonState } from '../typings/state'
 
 type CreateAddonPropsStateOptions = Pick<AddonState, 'themeName' | 'themeVariant'>
 
 type CreateAddonStateProps = {
-  parameters: AddonParameters
+  parameters: AddonStateParameters
   config: AddonConfig
   options?: CreateAddonPropsStateOptions
 }

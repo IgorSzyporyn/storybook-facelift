@@ -1,7 +1,7 @@
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 
 import {
-  AddonParameters,
+  AddonStateParameters,
   ThemeConverterFn,
   ParamTheme,
   ThemeVariantTypes,
@@ -9,7 +9,7 @@ import {
 } from '../typings/parameters'
 
 export type ConvertParameterThemeToConfigThemeProps = {
-  parameters: AddonParameters
+  parameters: AddonStateParameters
   themeConfig: ParamTheme
   themeVariant: ThemeVariant
   converter: ThemeConverterFn

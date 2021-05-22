@@ -4,8 +4,8 @@ import { createStorybookThemeFromBadgerUi } from '../utils/create-storybook-them
 import { createStorybookThemeFromNative } from '../utils/create-storybook-theme-from-native'
 
 import type {
+  AddonStateParameters,
   AddonParameters,
-  ApiParameters,
   DefaultParameters,
   StoryParameters,
 } from '../typings/parameters'
@@ -32,8 +32,8 @@ export const defaultParameters: DefaultParameters = {
   },
 }
 
-export function createAddonParameters(apiParameters?: ApiParameters) {
-  const parameters: AddonParameters = deepmerge(
+export function createAddonParameters(apiParameters?: AddonParameters) {
+  const parameters: AddonStateParameters = deepmerge(
     { defaultVariant: 'light', ...defaultParameters },
     apiParameters || {}
   )
@@ -42,7 +42,7 @@ export function createAddonParameters(apiParameters?: ApiParameters) {
 }
 
 export type updateAddonParametersProps = {
-  apiParameters?: ApiParameters
+  apiParameters?: AddonParameters
   settings: AddonSettings
 }
 
@@ -83,7 +83,10 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
 
 const getFirstThemeKey = (themes: ConfigThemes) => Object.keys(themes).map((k) => k)[0]
 
-export function verifyParameters(parametersSource: AddonParameters, configSource: AddonConfig) {
+export function verifyParameters(
+  parametersSource: AddonStateParameters,
+  configSource: AddonConfig
+) {
   const parameters = { ...parametersSource }
   const config = { ...configSource }
 

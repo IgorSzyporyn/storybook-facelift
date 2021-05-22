@@ -147,7 +147,7 @@ export type ThemeConverterFn = (props: ThemeConverterFnProps) => null | ThemeCon
 export type ParamThemeConverters = Record<ThemeConverterType, ThemeConverterFn | undefined>
 
 // Type used for the addon state
-export type AddonParameters = {
+export type AddonStateParameters = {
   // Should the story component previewed use the shown theme's values
   // Note: Only works with Material UI themes and if withFacelift decorator is added
   autoThemeStory?: boolean
@@ -178,7 +178,7 @@ export type AddonParameters = {
 
 // Type used for parameters from storybook
 // Either from preview.(t|j)s or from story
-export type ApiParameters = {
+export type AddonParameters = {
   autoThemeStory?: boolean
   defaultTheme?: string
   defaultVariant?: ThemeVariantTypes

@@ -2,16 +2,16 @@ import { themes as nativeThemes, convert } from '@storybook/theming'
 import { convertParameterThemeToConfigTheme } from '../utils/convert-parameter-theme-to-config-theme'
 import { validateThemeForConfig } from '../utils/validate-theme-for-config'
 
-import type { AddonParameters } from '../typings/parameters'
+import type { AddonStateParameters } from '../typings/parameters'
 import type { AddonConfig, ConfigThemes, ConfigTheme, ConfigTitles } from '../typings/config'
 
-function createNativeTitle(parameters: AddonParameters) {
+function createNativeTitle(parameters: AddonStateParameters) {
   const title = (parameters.native && parameters.native.title) || 'Native Storybook'
 
   return title
 }
 
-function createNativeTheme(parameters: AddonParameters) {
+function createNativeTheme(parameters: AddonStateParameters) {
   const nativeTheme: ConfigTheme = {
     type: 'native',
     key: 'native',
@@ -46,7 +46,7 @@ function createNativeTheme(parameters: AddonParameters) {
   return nativeTheme
 }
 
-export function createConfigDefaults(sourceParameters: AddonParameters) {
+export function createConfigDefaults(sourceParameters: AddonStateParameters) {
   const parameters = { ...sourceParameters }
   const returnTitles: ConfigTitles = { native: createNativeTitle(parameters) }
   const returnThemes: ConfigThemes = { native: createNativeTheme(parameters) }
@@ -163,7 +163,7 @@ export function createConfigDefaults(sourceParameters: AddonParameters) {
   return config
 }
 
-export function verifyConfig(configSource: AddonConfig, parametersSource: AddonParameters) {
+export function verifyConfig(configSource: AddonConfig, parametersSource: AddonStateParameters) {
   const config = { ...configSource }
   const parameters = { ...parametersSource }
 
