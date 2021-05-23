@@ -8,11 +8,11 @@
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Configure Addon](#usage-configure-addon)
-  - [Configure Story](#usage-configure-story)
+- [Configure Addon](#usage-configure-addon)
+- [Configure Story](#usage-configure-story)
 - [Parameters](#parameters)
-  - [Addon Parameters](#parameters-addon)
-  - [Story Parameters](#parameters-story)
+- [Addon Parameters](#parameters-addon)
+- [Story Parameters](#parameters-story)
 - [Examples](#examples)
 
 ### Introduction
