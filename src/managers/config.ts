@@ -111,9 +111,9 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
         container.light = {
           key: themeKey,
           type: themeType,
-          light: light.converted,
-          original: { light: light.original },
-          instanciated: { light: light.instanciated },
+          light: light.storybookThemeOptions,
+          original: { light: light.themeOptions },
+          instanciated: { light: light.theme },
         }
       }
 
@@ -129,9 +129,9 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
         container.dark = {
           key: themeKey,
           type: themeType,
-          dark: dark.converted,
-          original: { dark: dark.original },
-          instanciated: { light: dark.instanciated },
+          dark: dark.storybookThemeOptions,
+          original: { dark: dark.themeOptions },
+          instanciated: { light: dark.theme },
         }
       }
 
@@ -145,15 +145,15 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
         })
 
         if (light) {
-          returnTheme.light = light.converted
-          returnTheme.original.light = light.original
-          returnTheme.instanciated.light = light.instanciated
+          returnTheme.light = light.storybookThemeOptions
+          returnTheme.original.light = light.themeOptions
+          returnTheme.instanciated.light = light.theme
         }
 
         if (dark) {
-          returnTheme.dark = dark.converted
-          returnTheme.original.dark = dark.original
-          returnTheme.instanciated.dark = dark.instanciated
+          returnTheme.dark = dark.storybookThemeOptions
+          returnTheme.original.dark = dark.themeOptions
+          returnTheme.instanciated.dark = dark.theme
         }
 
         if (!themeItem.previewOnly) {

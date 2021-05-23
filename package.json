@@ -71,6 +71,7 @@
     "@storybook/api": "6.2.9",
     "@storybook/components": "6.2.9",
     "@storybook/core-events": "6.2.9",
+    "@storybook/react": "^6.2.9",
     "@storybook/theming": "6.2.9",
     "badger-ui": "0.12.0",
     "jss": "10.6.0",

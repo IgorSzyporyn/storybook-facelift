@@ -1,31 +1,35 @@
 import { convert, create } from '@storybook/theming'
 import { getNativeBackgroundColors } from './get-native-background-colors'
 
-import type { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import type { ThemeConverterFnProps } from '../typings/internal/parameters'
+import type { ThemeVars as StorybookThemeConfig } from '@storybook/theming'
+import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/parameters'
 
 export function createStorybookThemeFromNative({
-  theme: _themeOptions,
+  theme,
   override,
   variant,
   background,
-}: ThemeConverterFnProps) {
-  if (_themeOptions === undefined) {
+}: ThemeConverterFnProps): ThemeConverterFnResult {
+  if (theme === undefined) {
     return null
   }
 
-  const themeVars = { ..._themeOptions, ...(override || {}) } as StorybookThemeOptions
+  const themeConfig = { ...theme, ...(override || {}) } as StorybookThemeConfig
 
-  themeVars.base = variant
-  const { appBg, appContentBg } = getNativeBackgroundColors(themeVars, background)
+  themeConfig.base = variant
+  const { appBg, appContentBg } = getNativeBackgroundColors(themeConfig, background)
 
-  let theme = create(themeVars)
-  theme.appBg = appBg
-  theme.appContentBg = appContentBg
-  theme.barBg = appContentBg
+  let storybookThemeConfig = create(themeConfig)
+  storybookThemeConfig.appBg = appBg
+  storybookThemeConfig.appContentBg = appContentBg
+  storybookThemeConfig.barBg = appContentBg
 
-  theme = create(theme)
-  const instanciated = convert(theme)
+  storybookThemeConfig = create(storybookThemeConfig)
+  const instanciated = convert(storybookThemeConfig)
 
-  return { converted: theme, original: themeVars, instanciated }
+  return {
+    storybookThemeOptions: storybookThemeConfig,
+    themeOptions: themeConfig,
+    theme: instanciated,
+  }
 }

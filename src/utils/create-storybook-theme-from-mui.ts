@@ -1,29 +1,29 @@
-import { ThemeOptions } from '@material-ui/core'
+import { ThemeOptions as MuiThemeConfig } from '@material-ui/core'
 import { create, themes } from '@storybook/theming'
 import { createMuiTheme } from './create-mui-theme'
 import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
-import type { ThemeConverterFnProps } from '../typings/internal/parameters'
+import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/parameters'
 
-export function createStorybookThemeOptionsFromMui(converterProps: ThemeConverterFnProps) {
-  // @TODO - Do not destructure the argument given
-  // Then remove this proxy object
-  const { theme: _original, override, variant, background } = converterProps
+export function createStorybookThemeOptionsFromMui(
+  props: ThemeConverterFnProps
+): ThemeConverterFnResult {
+  const { theme, override, variant, background } = props
 
   // Bail out early
-  if (_original === undefined) {
+  if (theme === undefined) {
     return null
   }
 
-  const original = _original as ThemeOptions
+  const themeConfig = theme as MuiThemeConfig
 
-  if (!original.palette) {
-    original.palette = { type: variant }
-  } else if (!original.palette.type) {
-    original.palette.type = variant
+  if (!themeConfig.palette) {
+    themeConfig.palette = { type: variant }
+  } else if (!themeConfig.palette.type) {
+    themeConfig.palette.type = variant
   }
 
-  const instanciated = createMuiTheme(original, converterProps)
+  const instanciated = createMuiTheme(themeConfig, props)
   const defaultThemeValues = themes[variant]
 
   const { appBg, appContentBg } = getMuiBackgroundKeys(background)
@@ -64,7 +64,11 @@ export function createStorybookThemeOptionsFromMui(converterProps: ThemeConverte
     base: variant,
   }
 
-  const converted = create(themeValue)
+  const storybookThemeConfig = create(themeValue)
 
-  return { converted, original, instanciated }
+  return {
+    storybookThemeOptions: storybookThemeConfig,
+    themeOptions: themeConfig,
+    theme: instanciated,
+  }
 }

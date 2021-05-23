@@ -1,18 +1,25 @@
 import { ThemeOptions as MuiThemeOptions } from '@material-ui/core'
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { ThemeOptions as BadgerThemeOptions } from 'badger-ui'
+import { ThemeOptions as BadgerThemeConfig } from 'badger-ui'
 
+import { Meta, Parameters } from '@storybook/react'
+import { Args as DefaultArgs } from '@storybook/addons'
 import type { ThemeInstanciatedType } from './config'
 
 // Utility type for storybook theme overrides in various parameter types
-export type ParamOverride = Omit<StorybookThemeOptions, 'base'>
+export type ThemeOptionsOverride = Omit<StorybookThemeOptions, 'base'>
+export type StorybookFaceliftThemeOptionsOverride = ThemeOptionsOverride
 
-export type ParamThemeOverride = Pick<ParamOverride, 'brandTitle' | 'brandImage' | 'brandUrl'>
+export type ThemeOptions =
+  | MuiThemeOptions
+  | StorybookFaceliftThemeOptionsOverride
+  | BadgerThemeConfig
+export type StorybookFaceliftThemeOptions = ThemeOptions
 
 export type ThemeVariantTypes = 'light' | 'dark'
 export type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui' | 'cylindo'
-export type ThemeVariant = MuiThemeOptions | StorybookThemeOptions | BadgerThemeOptions
-export type ThemeVariants = { [key in ThemeVariantTypes]: ThemeVariant }
+
+export type ThemeVariants = { [key in ThemeVariantTypes]: ThemeOptions }
 export type ThemeBackgroundsTypes =
   | 'normal'
   | 'reverse'
@@ -20,6 +27,9 @@ export type ThemeBackgroundsTypes =
   | 'equal-reverse'
   | 'equal-app'
   | 'equal-content'
+
+export type StorybookFaceliftTheme = ThemeInstanciatedType
+export type { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
 
 // PARAMETERS.DOCS
 // Control the UI of the docs tab
@@ -66,7 +76,7 @@ export type ParamUi = {
 
 export type ParamNative = {
   // Ability to influense the native theme settings
-  override?: ParamThemeOverride
+  override?: ThemeOptionsOverride
   // Title to show in the menu picker
   title?: string
   // Array to override showing both light and dark (default) ["dark"]
@@ -88,7 +98,7 @@ export type ParamTheme = {
   key: string
   // Override the Storybook theme used with these settings
   // Good for special brandTitle etc..
-  override?: ParamThemeOverride
+  override?: ThemeOptionsOverride
   // The title used in the theme picker
   title: string
   // Ability to configure how backgrounds are used in the Storybook theme
@@ -122,9 +132,9 @@ export type ParamTheme = {
 // --------------------------------------------------------------------------------
 
 // Properties the converter function will recieve as argument
-export type ThemeConverterFnProps<T = Record<string, unknown>> = {
-  override?: ParamThemeOverride
-  theme: ThemeVariant | T
+export type ThemeConverterFnProps = {
+  override?: ThemeOptionsOverride
+  theme: ThemeOptions
   variant: ThemeVariantTypes
   background?: ThemeBackgroundsTypes
   responsiveFontSizes?: boolean
@@ -132,15 +142,15 @@ export type ThemeConverterFnProps<T = Record<string, unknown>> = {
 
 // Values the converter function can return
 export type ThemeConverterFnResult = {
-  converted: StorybookThemeOptions
-  original: ThemeVariant
-  instanciated: ThemeInstanciatedType
-}
+  storybookThemeOptions: StorybookThemeOptions
+  themeOptions: ThemeOptions
+  theme: ThemeInstanciatedType
+} | null
 
 export type ThemeConverterType = 'mui' | 'styled' | 'native' | 'badgerui' | 'cylindo'
 
 // The type for the converter function itself
-export type ThemeConverterFn = (props: ThemeConverterFnProps) => null | ThemeConverterFnResult
+export type ThemeConverterFn = (props: ThemeConverterFnProps) => ThemeConverterFnResult
 
 // The type for the parameters
 export type ParamThemeConverters = Record<ThemeConverterType, ThemeConverterFn | undefined>
@@ -167,7 +177,7 @@ export type AddonStateParameters = {
   // Override the used storybook theme configuration with these settings
   // Easy place to set the brandTitle and ensure that it is shown across all themes
   // Note: Each theme can in turn also override these settings
-  override?: ParamOverride
+  override?: ThemeOptionsOverride
   // Converters functions used to convert themes in parameters into Storybook themes
   // Note: "native" & "mui" are protected
   themeConverters: ParamThemeConverters
@@ -185,7 +195,7 @@ export type AddonParameters = {
   enhanceUi?: boolean
   includeNative?: boolean
   native?: ParamNative
-  override?: ParamOverride
+  override?: ThemeOptionsOverride
   themeConverters?: ParamThemeConverters
   themes?: ParamTheme[]
   ui?: ParamUi
@@ -197,7 +207,7 @@ export type StoryParameters = {
   docs?: ParamDocs
   enhanceUi?: boolean
   ui?: ParamUi
-  override?: ParamOverride
+  override?: ThemeOptionsOverride
 }
 
 // Type for the default parameters
@@ -209,4 +219,13 @@ export type DefaultParameters = {
   includeNative: boolean
   ui: ParamUi
   themeConverters: ParamThemeConverters
+}
+
+export type StoryMeta<
+  T extends Record<string, unknown> = Record<string, unknown>,
+  ArgTypes = DefaultArgs
+> = Meta<ArgTypes> & {
+  parameters?: Parameters & {
+    facelift: StoryParameters
+  } & T
 }
