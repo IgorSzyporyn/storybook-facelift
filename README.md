@@ -147,7 +147,7 @@ As `Meta` from `@storybook/react` can not have `Parameters` augmented Storybook 
 This type will let you add additional parameter types from other addons as a generic, and also the `Args` generic that `Meta` takes
 
 - Link to referenced [ParamDocs](#param-story-docs)
-- Link to referenced [StorybookThemeOptionsOverride](#support-type-storybook-theme-options-override)
+- Link to referenced [StorybookThemeOptionsOverride](#storybook-theme-options-override)
 
 ```ts
 import { Meta, Parameters } from '@storybook/react'
@@ -314,7 +314,7 @@ Any value added here will be in the final theme output, unless value is overwrit
 
 Easy simple courtesy parameters for the most used features to tweak for the native theme, as well as full control via `override`
 
-- link to the referenced type [StorybookThemeOptionsOverride](#support-type-storybook-theme-options-override)
+- link to the referenced type [StorybookThemeOptionsOverride](#storybook-theme-options-override)
 
 ```ts
   // Title to show in the menu picker
@@ -342,10 +342,10 @@ If a converter named `styled` is provided, then the use of `type: "styled"` for 
 
 Go to [examples](#examples) to see how to implement a custom theme
 
-- link to the referenced type [StorybookThemeOptions](#support-type-storybook-theme-options)
-- link to the referenced type [StorybookThemeOptionsOverride](#support-type-storybook-theme-options-override)
-- link to the referenced type [StorybookFaceliftThemeOptions](#support-type-storybook-facelift-theme-options)
-- link to the referenced type [StorybookFaceliftTheme](#support-type-storybook-facelift-theme)
+- link to the referenced type [StorybookThemeOptions](#storybook-theme-options)
+- link to the referenced type [StorybookThemeOptionsOverride](#storybook-theme-options-override)
+- link to the referenced type [StorybookFaceliftThemeOptions](#storybook-facelift-theme-options)
+- link to the referenced type [StorybookFaceliftTheme](#storybook-facelift-theme)
 
 ```ts
   [key]: (props: {
@@ -365,8 +365,8 @@ Go to [examples](#examples) to see how to implement a custom theme
 
 ##### Addon parameter
 
-- link to the referenced type [StorybookThemeOptionsOverride](#support-type-storybook-theme-options-override)
-- link to the referenced type [StorybookFaceliftThemeOptions](#support-type-storybook-facelift-theme-options)
+- link to the referenced type [StorybookThemeOptionsOverride](#storybook-theme-options-override)
+- link to the referenced type [StorybookFaceliftThemeOptions](#storybook-facelift-theme-options)
 
 ```ts
   // Unique key for this theme entry
@@ -515,7 +515,7 @@ Any value added here will be in the final theme output, unless value is overwrit
 
 ## <a name="support-types"></a>Support Types
 
-#### <a name="support-type-storybook-theme-options"></a>StorybookThemeOptions
+#### <a name="storybook-theme-options"></a>StorybookThemeOptions
 
 ```ts
   "base": string
@@ -543,7 +543,7 @@ Any value added here will be in the final theme output, unless value is overwrit
   "gridCellSize"?: number
 ```
 
-#### <a name="support-type-storybook-theme-options-override"></a>StorybookThemeOptionsOverride
+#### <a name="storybook-theme-options-override"></a>StorybookThemeOptionsOverride
 
 ```ts
   "colorPrimary"?: string
@@ -570,7 +570,7 @@ Any value added here will be in the final theme output, unless value is overwrit
   "gridCellSize"?: number
 ```
 
-#### <a name="support-type-storybook-facelift-theme-options"></a>StorybookFaceliftThemeOptions
+#### <a name="storybook-facelift-theme-options"></a>StorybookFaceliftThemeOptions
 
 Configuration object for either Storybook, Material UI or a custom theme depending on the `type` property set for the theme
 
@@ -618,7 +618,7 @@ For Material UI themes the theme config is the same as that of MUIs own `ThemeOp
 - link to [MUI createMuiTheme options documentation](https://material-ui.com/customization/theming/#createmuitheme-options-args-theme)
 - link to [ThemeOptions on GitHub](https://github.com/mui-org/material-ui/blob/79242159a5156d11db4ce3a024e2eb07bd953b49/packages/material-ui/src/styles/createTheme.d.ts#L16)
 
-#### <a name="support-type-storybook-facelift-theme"></a>StorybookFaceliftTheme
+#### <a name="storybook-facelift-theme"></a>StorybookFaceliftTheme
 
 ##### With theme type "native" (Storybook)
 
