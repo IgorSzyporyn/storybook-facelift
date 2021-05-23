@@ -44,7 +44,6 @@ Later versions of Storybook does not require much changes to the CSS and this pa
 Use the parameter `autoThemeStory` to automatically add a React Theme Provider for your stories
 
 - Material UI themes uses own provider
-- Badger UI themes uses Styled Components
 - Custom themes uses Styled Components via custom theme converter
 
 Provide a custom theme converter named `styled` under the parameter `themeConverters`, and use same type for your custom theme to use Styled Components
