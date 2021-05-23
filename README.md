@@ -42,11 +42,12 @@ Storybook Facelift is zero-config - which will just return a light/dark mode but
 
 #### Customize Storybook features
 
-Easily unlock more control over Storybook such as control which columns to show in the Docs section (description, defaults and control) and more.
+Easily unlock more control over Storybook such as control which columns to show with [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) (description, defaults and control) and more.
 
 #### Enhanced UI for Storybook
 
 Unlock better UI for Storybook via the parameter `enhanceUi`
+
 Most notably dark mode works for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs)
 
 Later versions of Storybook does not require much changes to the CSS and this part will probably be deprecated
@@ -220,6 +221,11 @@ Click here for more information about how to create custom theme converters
   // Unique key for this theme entry
   "key": string
 
+  // Built in support for Storybook native theme, Material UI, BadgerUi,
+  // Styled Components (through custom converter with same name) and any other string that is matched
+  // by a converter function key in themeConverter parameter
+  "type": "native" | "mui" | "styled" | string
+
   // Override the Storybook theme used with these settings
   // Good for special brandTitle etc..
   "override"?: ParamThemeOverride
@@ -231,11 +237,6 @@ Click here for more information about how to create custom theme converters
   // 'reverse' will swap between app and content etc..
   "background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
 
-  // Built in support for Storybook native theme, Material UI, BadgerUi,
-  // Styled Components (through custom converter with same name) and any other string that is matched
-  // by a converter function key in themeConverter parameter
-  "type": "native" | "mui" | "styled" | string
-
   // Variants config with a "light" or "dark" property - these are the theme options which will be
   // used for the theme in each chosen variant.
   "variants": ThemeVariants
@@ -245,40 +246,46 @@ Click here for more information about how to create custom theme converters
   "previewOnly"?: boolean
 
   // This is for typography - use responsive font sizes or not
-  // Note: Default is false
   "resposiveFontSizes"?: boolean
 ```
 
 ## Examples
 
-#### Minimal example with native, light only, theme
+#### Minimal native Storybook theme with light variant only
 
 ```ts
 export const parameters = {
   facelift: {
-    enhanceUi: true,
-    themes: [{
-      type: "native",
-      variants: {
-        light: {
-          colorPrimary: "#0000ff"
-          colorSecondary: "##ff00ff"
-        }
-      }
-    }]
-  }
+    themes: [
+      {
+        key: 'native-1',
+        type: 'native',
+        title: 'Custom Storybook theme'
+        variants: {
+          light: {
+            colorPrimary: '#0000ff',
+          },
+        },
+      },
+    ],
+  },
 }
 ```
 
-#### Minimal example with default mui light and dark themes
+#### Example w/default Material UI light & dark themes
+
+Will also enhance the UI and add WithFacelift decorator to apply theme to stories
 
 ```ts
 export const parameters = {
   facelift: {
     enhanceUi: true,
+    autoThemeStory: true,
     themes: [
       {
-        type: 'native',
+        type: 'mui',
+        key: 'mui-1',
+        title: 'Default Material UI theme'
         variants: {
           light: {},
           dark: {},
