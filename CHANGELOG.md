@@ -1,6 +1,6 @@
-#### 6.7.6 (2021-05-23)
+#### 6.7.7 (2021-05-23)
 
 ##### Bug Fixes
 
-*  more links wrong in readme ([d851b1a3](https://github.com/IgorSzyporyn/storybook-facelift/commit/d851b1a32729d2f33969ad5467d4f1fa30e67e52))
+*  removed reference to badgerui ([cadc2147](https://github.com/IgorSzyporyn/storybook-facelift/commit/cadc2147c519c81f757fb68d4bc9b17174ea95af))
 
