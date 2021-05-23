@@ -260,7 +260,7 @@ export const parameters = {
       {
         key: 'native-1',
         type: 'native',
-        title: 'Custom Storybook theme'
+        title: 'Custom Storybook theme',
         variants: {
           light: {
             colorPrimary: '#0000ff',
@@ -285,7 +285,7 @@ export const parameters = {
       {
         type: 'mui',
         key: 'mui-1',
-        title: 'Default Material UI theme'
+        title: 'Default Material UI theme',
         variants: {
           light: {},
           dark: {},
