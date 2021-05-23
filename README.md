@@ -173,17 +173,17 @@ If custom themes are provided then set this parameter to true in order to includ
 ##### native `ParamNative`
 
 ```ts
-  // Control the usage of Storybooks theme values in the backgrounds
-  "background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
+// Title to show in the menu picker
+"title"?: string
 
-  // Override any default native theme options from Storybook
-  "override"?: ParamThemeOverride
+// Control which theme variants are available - defaults to ["light", "dark"]
+"variants"?: ("light" | "dark")[]
 
-  // Title to show in the menu picker
-  "title"?: string
+// Control the usage of Storybooks theme values in the backgrounds
+"background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
 
-  // Control which theme variants are available - defaults to ["light", "dark"]
-  "variants"?: ("light" | "dark")[]
+// Override any default native theme options from Storybook
+"override"?: ParamThemeOverride
 ```
 
 ##### override `ParamOverride`
@@ -191,14 +191,14 @@ If custom themes are provided then set this parameter to true in order to includ
 Storybook wide
 
 ```ts
-  // Customize the title for Storybook
-  "brandTitle"?: string
+// Customize the title for Storybook
+"brandTitle"?: string
 
-  // Customize a URL and title will link to it
-  "brandUrl"?: string
+// Customize a URL and title will link to it
+"brandUrl"?: string
 
-  // Customize the brand image - will accept base64 encoded images
-  "brandImage"?: string
+// Customize the brand image - will accept base64 encoded images
+"brandImage"?: string
 ```
 
 ##### themeConverters `Record<string, ParamThemeConverter>`
@@ -218,35 +218,35 @@ Click here for more information about how to create custom theme converters
 ##### themes `ParamTheme[]`
 
 ```ts
-  // Unique key for this theme entry
-  "key": string
+// Unique key for this theme entry
+"key": string
 
-  // Built in support for Storybook native theme, Material UI, BadgerUi,
-  // Styled Components (through custom converter with same name) and any other string that is matched
-  // by a converter function key in themeConverter parameter
-  "type": "native" | "mui" | "styled" | string
+// Built in support for Storybook native theme, Material UI, BadgerUi,
+// Styled Components (through custom converter with same name) and any other string that is matched
+// by a converter function key in themeConverter parameter
+"type": "native" | "mui" | "styled" | string
 
-  // Override the Storybook theme used with these settings
-  // Good for special brandTitle etc..
-  "override"?: ParamThemeOverride
+// The title used in the theme picker
+"title": string
 
-  // The title used in the theme picker
-  "title": string
+// Variants config with a "light" or "dark" property - these are the theme options which will be
+// used for the theme in each chosen variant.
+"variants": ThemeVariants
 
-  // Ability to configure how backgrounds are used in the Storybook theme
-  // 'reverse' will swap between app and content etc..
-  "background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
+// Override the Storybook theme used with these settings
+// Good for special brandTitle etc..
+"override"?: ParamThemeOverride
 
-  // Variants config with a "light" or "dark" property - these are the theme options which will be
-  // used for the theme in each chosen variant.
-  "variants": ThemeVariants
+// Ability to configure how backgrounds are used in the Storybook theme
+// 'reverse' will swap between app and content etc..
+"background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
 
-  // This theme is for the toolbox preview mode only and will make the theme not show in theme picker
-  // Note: Only supported for Material UI themes for now
-  "previewOnly"?: boolean
+// This theme is for the toolbox preview mode only and will make the theme not show in theme picker
+// Note: Only supported for Material UI themes for now
+"previewOnly"?: boolean
 
-  // This is for typography - use responsive font sizes or not
-  "resposiveFontSizes"?: boolean
+// This is for typography - use responsive font sizes or not
+"resposiveFontSizes"?: boolean
 ```
 
 ## Examples
