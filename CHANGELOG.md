@@ -1,6 +1,6 @@
-#### 6.6.17 (2021-05-23)
+### 6.7.0 (2021-05-23)
 
 ##### Bug Fixes
 
-*  removed mentioning of badgerui ([5a34406e](https://github.com/IgorSzyporyn/storybook-facelift/commit/5a34406e1fd39999219226f4cfbdd3ebe2c0038b))
+*  better documentation and types ([4912224e](https://github.com/IgorSzyporyn/storybook-facelift/commit/4912224e6de2b186d7f4c219c4904803908fd085))
 
