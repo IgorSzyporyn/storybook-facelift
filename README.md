@@ -98,15 +98,14 @@ Which will produce an UI wise enhanced version of Storybook with a dark/light to
 
 ### TypeScript support example
 
+Storybook Facelift supplies a GlobalParameters type to help you get typesafety - it takes one generic to let you add more parameter types from other addons
+
 ```ts
-import type { Parameters as StorybookParameters } from '@storybook/react'
-import type { AddonParameters as StorybookFaceliftParameters } from 'storybook-facelift'
+import type { GlobalParameters } from 'storybook-facelift'
+import type { SomeAddonParamType } from '@storybook/some-addon'
 
-type Parameters = {
-  facelift: StorybookFaceliftParameters
-} & StorybookParameters
-
-export const parameters: Parameters = {
+export const parameters: GlobalParameters<{ someAddon: SomeAddonParamType }> = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
   facelift: {
     enhanceUi: true,
   },

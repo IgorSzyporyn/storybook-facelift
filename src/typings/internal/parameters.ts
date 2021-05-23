@@ -229,3 +229,8 @@ export type StoryMeta<
     facelift: StoryParameters
   } & T
 }
+
+export type GlobalParameters<T extends Record<string, unknown> = Record<string, unknown>> = {
+  facelift: AddonParameters
+} & Parameters &
+  T
