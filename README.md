@@ -201,7 +201,7 @@ Controllable.args = {
 }
 ```
 
-### <a name="addon-parameters"></a>Addon Parameters
+## <a name="addon-parameters"></a>Addon Parameters
 
 ```ts
   "autoThemeStory"?: boolean
@@ -415,7 +415,7 @@ Go to [examples](#examples) to see how to implement a custom theme
   shadow?: string
 ```
 
-### <a name="story-parameters"></a>Story Parameters
+## <a name="story-parameters"></a>Story Parameters
 
 ```ts
   "autoThemeStory"?: boolean
