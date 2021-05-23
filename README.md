@@ -7,12 +7,10 @@
 ### Multiple themes integration with light/dark mode and Theme Providers for stories
 
 - [Installation](#installation)
-- [Usage](#usage)
-- [Configure Addon](#usage-configure-addon)
-- [Configure Story](#usage-configure-story)
-- [Parameters](#parameters)
-- [Addon Parameters](#parameters-addon)
-- [Story Parameters](#parameters-story)
+- [Configure Addon](#configure-addon)
+- [Configure Story](#configure-story)
+- [Addon Parameters](#addon-parameters)
+- [Story Parameters](#story-parameters)
 - [Examples](#examples)
 
 ### Introduction
@@ -69,9 +67,7 @@ Provide a custom theme converter named `styled` under the parameter `themeConver
 
 `npm i -D storybook-facelift`
 
-## <a name="usage"></a>Usage
-
-## <a name="usage-configure-addon"></a>Configure Addon
+## <a name="configure-addon"></a>Configure Addon
 
 Add the addon to your storybook `main.js` file (or `main.ts` - will just assume js from now on...)
 
@@ -118,7 +114,7 @@ export const parameters: Parameters = {
 }
 ```
 
-## <a name="usage-configure-story"></a>Configure Story
+## <a name="configure-story"></a>Configure Story
 
 You can also configure Storybook Facelift on story level to enable auto theming with a theme provider on a story level instead of on a global level
 
@@ -205,9 +201,7 @@ Controllable.args = {
 }
 ```
 
-## <a name="parameters"></a>Parameters
-
-### <a name="parameters-addon"></a>Addon Parameters
+### <a name="addon-parameters"></a>Addon Parameters
 
 ```ts
   "autoThemeStory"?: boolean
@@ -421,7 +415,7 @@ Go to [examples](#examples) to see how to implement a custom theme
   shadow?: string
 ```
 
-### <a name="parameters-story"></a>Story Parameters
+### <a name="story-parameters"></a>Story Parameters
 
 ```ts
   "autoThemeStory"?: boolean
