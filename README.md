@@ -71,7 +71,7 @@ Provide a custom theme converter named `styled` under the parameter `themeConver
 
 ## <a name="usage"></a>Usage
 
-## <a name="usage-configure-addon"></a>Configure Addon
+## <a name="#usage-configure-addon"></a>Configure Addon
 
 Add the addon to your storybook `main.js` file (or `main.ts` - will just assume js from now on...)
 
@@ -118,7 +118,7 @@ export const parameters: Parameters = {
 }
 ```
 
-## <a name="usage-configure-story"></a>Configure Story
+## <a name="#usage-configure-story"></a>Configure Story
 
 You can also configure Storybook Facelift on story level to enable auto theming with a theme provider on a story level instead of on a global level
 
@@ -421,7 +421,7 @@ Go to [examples](#examples) to see how to implement a custom theme
   shadow?: string
 ```
 
-### <a name="parameters-addon"></a>Story Parameters
+### <a name="parameters-story"></a>Story Parameters
 
 ```ts
   "autoThemeStory"?: boolean
