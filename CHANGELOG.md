@@ -1,6 +1,6 @@
-#### 6.6.16 (2021-05-23)
+#### 6.6.17 (2021-05-23)
 
 ##### Bug Fixes
 
-*  centered top title ([c9cbc912](https://github.com/IgorSzyporyn/storybook-facelift/commit/c9cbc912d91bdbe6ca3baed4be4cd516eca5c808))
+*  removed mentioning of badgerui ([5a34406e](https://github.com/IgorSzyporyn/storybook-facelift/commit/5a34406e1fd39999219226f4cfbdd3ebe2c0038b))
 
