@@ -13,8 +13,8 @@ import { elevationMap } from '../elevation'
 
 import type {
   ParamDocs,
-  ParamUI,
-  ParamUIElevationTypes,
+  ParamUi,
+  ParamUiElevationTypes,
   ThemeVariantTypes,
 } from '../../typings/internal/parameters'
 
@@ -116,8 +116,8 @@ function getMenuItemColor(theme: StorybookTheme) {
   return color
 }
 
-function getMainShadow(ui: ParamUI) {
-  const elevation: ParamUIElevationTypes = ui.elevation !== undefined ? ui.elevation : 1
+function getMainShadow(ui: ParamUi) {
+  const elevation: ParamUiElevationTypes = ui.elevation !== undefined ? ui.elevation : 1
   const shadow = elevationMap[elevation]
 
   return shadow
@@ -152,7 +152,7 @@ export function enhanceManagerStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: StorybookThemeOptions,
   themeVariant: ThemeVariantTypes,
-  ui: ParamUI,
+  ui: ParamUi,
   _docs: ParamDocs
 ) {
   const isDark = themeVariant === 'dark'

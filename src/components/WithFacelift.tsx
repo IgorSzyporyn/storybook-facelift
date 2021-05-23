@@ -88,7 +88,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         {showChildren && (
           <>
             {theme && autoThemeStory && muiJSS !== null ? (
-              <MuiThemeProvider theme={createMuiTheme(theme)}>
+              <MuiThemeProvider
+                theme={createMuiTheme(theme)}
+                key="storybook-facelift-mui-theme-provider"
+              >
                 <CssBaseline />
                 <MuiStylesProvider jss={muiJSS}>{children}</MuiStylesProvider>
               </MuiThemeProvider>
@@ -106,7 +109,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
       <>
         <PreviewStyles />
         {themeInstanciated && autoThemeStory ? (
-          <StyledComponentsThemeProvider theme={themeInstanciated}>
+          <StyledComponentsThemeProvider
+            theme={themeInstanciated}
+            key="storybook-facelift-styled-theme-provider"
+          >
             {children}
           </StyledComponentsThemeProvider>
         ) : (

@@ -48,6 +48,7 @@ Easily unlock more control over Storybook such as control which columns to show 
 
 Unlock better UI for Storybook via the parameter `enhanceUi`
 Most notably dark mode works for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs)
+
 Later versions of Storybook does not require much changes to the CSS and this part will probably be deprecated
 
 #### Automatic Theme Providers with Material UI and Styled Components
@@ -108,207 +109,182 @@ export const parameters = {
 
 Which will produce an UI wise enhanced version of Storybook with a dark/light toggler.
 
-## Addon Parameters
+### TypeScript support example
 
-The type for the parameters is called `AddonParameters` and can be imported via
+```ts
+import type { Parameters as StorybookParameters } from '@storybook/react';
+import type { AddonParameters as StorybookFaceliftParameters } from 'storybook-facelift';
 
-`import type { AddonParameters } from 'storybook-facelift'`
+type Parameters = {
+  facelift: StorybookFaceliftParameters;
+} & StorybookParameters;
 
-```
-enhanceUi?: boolean
-includeNative?: boolean
-autoThemeStory?: boolean
-defaultTheme?: string
-defaultVariant?: Parameters.ThemeVariantTypes
-native?: Parameters.Native
-override?: Parameters.StorybookThemeOverride
-ui?: Parameters.UI
-docs?: Parameters.Docs
-themes?: Parameters.Theme[]
-stories?: boolean | Parameters.Story[]
-themeConverters?: Parameters.ThemeConverters
+export const parameters: Parameters = {
+  facelift: {
+    enhanceUi: true
+  }
 ```
 
-### Options API
+## Parameters
 
-### **enhanceUi** | `boolean` | default: `false`
+##### autoThemeStory `boolean`
 
-- Fix a lot of minor CSS errors
-- Ensure UI contrast ratio (mostly text and with approximation towards Storybooks initial intent - _text for selected stories in menu have a lower tolerance for contrast ratio than 4.5 (will in fact allow > 2.62) to try to keep it white as intended by Storybook for instance)_.
-- Pimp up some UI elements such as menu icons, buttons for for panels, overlay menus etc..
+Enable the WithTheme decorator for all themes using the original framework theme as context in theme provider.
 
-### **defaultTheme** | `string` | default: `undefined`
+##### defaultTheme `string`
 
-- Which theme to select as default
-- if `undefined` then first available theme in **themes** option will be selected - note that if no themes are provided, then native theme is automatically enabled and selected.
+The default theme to start storybook with - the key from the theme parameter is used as reference
 
-### **defaultVariant** | `"light" | "dark"` | default: `"light"`
+##### docs `ParamDocs`
 
-- Variant of default theme to use - if not set will then `light` variant will be chosen _unless browser is in `dark` mode_.
+```ts
+// Set to true to hide the column borders in docs table
+"hidePropertyBorders"?: boolean
 
-### **includeNative** | `boolean` | default: `false`
+// Set to true to hide description column in docs table
+"hideDescription"?: boolean
 
-- Instruct the addon to include the native theme even if custom themes are provided
-- Note that this setting is auto enabled if no themes are provided.
+// Set to true to hide default value column in docs table
+"hideDefaults"?: boolean
 
-### **themeConverters** | `Parameters.ThemeConverters` | default: `false`
+// Set to true to hide the controls column in docs
+"hideControls"?: boolean
 
-- Key value configuration of converters used in converting theme types into Storybook themes.
-- Note that the keys `"native"` and `"mui"` are protected.
+// Set to true to hide the sibling stories shown below property table
+"hideStories"?: boolean
 
-### **autoThemeStory** | `boolean` | default: `false`
+// Set to either full or simple - full is default, and simple will ONLY show docs table
+"type"?: "full" | "simple"
+```
 
-- Set to `true` to automatically theme any component in a story of same type as the theme used.
-- Note that this feature only works for `"mui"` typed themes.
+##### defaultVariant `ThemeVariantTypes ('light' | 'dark')`
 
-### **override** | `Parameters.StorybookThemeOverride` | default: `undefined`
+The default theme variant for Storybook theme
 
-- Easy way to set the title, logo or url for the whole application.
-- Note that these settings can be overriden in turn by themes.
+##### enhanceUi `boolean`
 
-  > #### **brandTitle** | `string`
-  >
-  > - Set title of storybook globally.
-  >
-  > #### **brandImage** | `string`
-  >
-  > - Set logo of storybook globally.
-  >
-  > #### **brandUrl** | `string`
-  >
-  > - Set url of title or logo of storybook globally.
+Fix some minor css errors, ensure contrast ratios in text (themes can have weird colors), and allow usage of the `ui` parameter
 
-### **native** | `Parameters.Native` | default: `undefined`
+##### includeNative `boolean`
 
-- Configure the native theme if included.
+If custom themes are provided then set this parameter to true in order to include the native Storybook theme
 
-  > #### **title** | `string`
-  >
-  > - Name to display in theme picker menu
-  > - If no value set, then "Native Theme" is used.
-  >
-  > #### **variants** | `Array<"light" | "dark">`
-  >
-  > - Array with either `"light"` or `"dark"` (or both - but that equals to omission) to select specifically which variants to load for native theme.
-  > - If no value set, then both are selected.
-  >
-  > #### **background** | `"normal" | "reverse" | "equal" | "equal-reverse"`
-  >
-  > - Allows you to choose how to apply the theme colors for app (appBg) and content (appContentBg) in theme.
-  > - Applying `"reverse"` will use content background color on app, and app background color on content.
-  > - Applying `"equal"` will use app background color both places, and `"equal-reverse"` will use content background color both places.
-  > - If no value is set, then `"normal"` will be used.
-  >
-  > #### **override** | types: `Parameters.StorybookThemeOverride`
-  >
-  > - Set the title, logo or url for the native theme only.
-  > - See [Parameters.StorybookThemeOverride]() for properties
+##### native `ParamNative`
 
-### **ui** | `Parameters.UI` | default: `{ elevation: 2 }`
+```ts
+  // Control the usage of Storybooks theme values in the backgrounds
+  "background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
 
-- Configure UI based settings
-- Note that this requires `enhanceUi` to be set to `true`
+  // Override any default native theme options from Storybook
+  "override"?: ParamThemeOverride
 
-  > #### **elevation** | `0 | 1 | 2 | 3`
-  >
-  > - Set the elevation level of the content panel - 0 is no elevation at all.
-  >
-  > #### **shadow** | `string`
-  >
-  > - Should you wish to provide your own shadow for the content panel, then add a valid `box-shadow` value here.
-  >
-  > #### **padding** | `string`
-  >
-  > - Provide a valid css string for `padding` and you can set the padding used in the Canvas panel.
+  // Title to show in the menu picker
+  "title"?: string
 
-### **docs** | `Parameters.Docs` | default: `{ type: "full" }`
+  // Control which theme variants are available - defaults to ["light", "dark"]
+  "variants"?: ("light" | "dark")[]
+```
 
-- Configure settings for use in the Docs panel
+##### override `ParamOverride`
 
-  > #### **type** | `"full" | "simple"`
-  >
-  > - Setting this property to `"simple"` will remove all other elements in Docs panel apart from the documentation of properties.
-  >
-  > #### **hideStories** | `boolean`
-  >
-  > - If set to `true` then sibling stories shown below property table will be hidden.
-  >
-  > #### **hidePropertyBorders** | `boolean`
-  >
-  > - If set to `true` then borders between properties in documentation panel will be hidden.
-  >
-  > #### **hideDescription** | `boolean`
-  >
-  > - If set to `true` then description column in documentation panel will be hidden.
-  >
-  > #### **hideDefaults** | `boolean`
-  >
-  > - If set to `true` then defaults column in documentation panel will be hidden.
+Storybook wide
 
-### **themes** | `Array<Parameters.Theme>` | default: `undefined`
+```ts
+  // Customize the title for Storybook
+  "brandTitle"?: string
 
-- Provide an array of theme configuration objects to be used as themes for Storybook.
+  // Customize a URL and title will link to it
+  "brandUrl"?: string
 
-  > #### **key** | `string`
-  >
-  > - Note this value is **_required_**.
-  > - Unique key to identify this theme configuration.
-  >
-  > #### **type** | `"native" | "mui" | "?"`
-  >
-  > - Note this value is **_required_**.
-  > - Used to indentify the converter to use in order to compile a Storybook theme.
-  > - Only `"native"` and `"mui"` are supported by the addon, so if you wish to use a custom made type, you have to ensure that a corresponding converter function is added in **themeConverters** - and ensure that the `"type"` value is used as the key of the converter function.
-  >
-  > #### **title** | `string`
-  >
-  > - Note this value is **_required_**.
-  > - The name to show in the theme menu picker.
-  >
-  > #### **previewOnly** | `boolean`
-  >
-  > - If set to `true`, this theme will not be added to the list of themes shown in the theme picker menu.
-  >
-  > #### **background** | `"normal" | "reverse" | "equal" | "equal-reverse"`
-  >
-  > - Allows you to choose how to apply the theme colors for app (appBg) and content (appContentBg) in theme.
-  > - Applying `"reverse"` will use content background color on app, and app background color on content.
-  > - Applying `"equal"` will use app background color both places, and `"equal-reverse"` will use content background color both places.
-  > - If no value is set, then `"normal"` will be used.
-  >
-  > #### **override** | types: `Parameters.StorybookThemeOverride`
-  >
-  > - Set the title, logo or url for this theme only.
-  > - See [Parameters.StorybookThemeOverride]() for properties.
-  >
-  > #### **responsiveFontSizes** | types: `boolean`
-  >
-  > - Set if this theme should be using responsive font sizes from Material UI
-  > - Note: This naturally ONLY works with a "mui" type theme
-  >
-  > #### **variants** | `ThemeVariants`
-  >
-  > - Note this value is **_required_**.
-  > - Contains a `light` and/or a `dark` property with the theme options configuration for each.
-  > - Note that in order for a theme configuration that is **_not_** either a, native storybook options object, or a Material UI options object to work; **themeConverters** must have a converter function with the same key as **type**
-  >
-  > Example of a mui based theme variants property value
-  >
-  > ```js
-  > variants: {
-  >   light: {
-  >     palette: {
-  >       primary: '#ff0000'
-  >     }
-  >   }
-  > }
-  > ```
-  >
-  > This would be a valid `variants` config object, but so would this...
-  >
-  > ```js
-  > variants: {
-  >   light: {
-  >   }
-  > }
-  > ```
+  // Customize the brand image - will accept base64 encoded images
+  "brandImage"?: string
+```
+
+##### themeConverters `Record<string, ParamThemeConverter>`
+
+Match property named functions mapping the `type` property values from `ParamTheme` to use custom themes
+
+Please note that the keys `native`, `mui` & `cylindo` should be reserved for Storybook Facelift, but can be so you can provide your own converters for Material UI and Cylindo Ui
+
+If a converter named `styled` is provided, then the use of `type: "styled"` for custom themes will be supported with a theme context provider from Styled Componentes if `autoThemeStory` is enabled
+
+Click here for more information about how to create custom theme converters
+
+```ts
+  [key]: (props: ThemeConverterFnProps) => null | ThemeConverterFnResult
+```
+
+##### themes `ParamTheme[]`
+
+```ts
+  // Unique key for this theme entry
+  "key": string
+
+  // Override the Storybook theme used with these settings
+  // Good for special brandTitle etc..
+  "override"?: ParamThemeOverride
+
+  // The title used in the theme picker
+  "title": string
+
+  // Ability to configure how backgrounds are used in the Storybook theme
+  // 'reverse' will swap between app and content etc..
+  "background"?: "normal" | "reverse" | "equal" | "equal-reverse" | "equal-app" | "equal-content"
+
+  // Built in support for Storybook native theme, Material UI, BadgerUi,
+  // Styled Components (through custom converter with same name) and any other string that is matched
+  // by a converter function key in themeConverter parameter
+  "type": "native" | "mui" | "styled" | string
+
+  // Variants config with a "light" or "dark" property - these are the theme options which will be
+  // used for the theme in each chosen variant.
+  "variants": ThemeVariants
+
+  // This theme is for the toolbox preview mode only and will make the theme not show in theme picker
+  // Note: Only supported for Material UI themes for now
+  "previewOnly"?: boolean
+
+  // This is for typography - use responsive font sizes or not
+  // Note: Default is false
+  "resposiveFontSizes"?: boolean
+```
+
+## Examples
+
+#### Minimal example with native, light only, theme
+
+```ts
+export const parameters = {
+  facelift: {
+    enhanceUi: true,
+    themes: [{
+      type: "native",
+      variants: {
+        light: {
+          colorPrimary: "#0000ff"
+          colorSecondary: "##ff00ff"
+        }
+      }
+    }]
+  }
+}
+```
+
+#### Minimal example with default mui light and dark themes
+
+```ts
+export const parameters = {
+  facelift: {
+    enhanceUi: true,
+    themes: [
+      {
+        type: 'native',
+        variants: {
+          light: {},
+          dark: {},
+        },
+      },
+    ],
+  },
+}
+```

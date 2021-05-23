@@ -6,20 +6,26 @@ import { createPreviewColors } from '../../utils/create-preview-colors'
 import { removeScrollStyles } from '../../utils/remove-scroll-styles'
 import { elevationMap } from '../elevation'
 
-import type { ParamDocs, ParamUI } from '../../typings/internal/parameters'
+import type { ParamDocs, ParamUi } from '../../typings/internal/parameters'
 import { ThemeVariantTypes } from '../../typings/internal/parameters'
 
 const root = `.sb-show-main`
-const preview = `${root} > #root`
-const docs = `${root} > #docs-root > .sbdocs`
+const previewRoot = `.sb-show-main > #root`
+const docsRoot = `.sb-show-main > #docs-root`
+const docsWrapper = `${docsRoot} > .sbdocs-wrapper`
+const docsContent = `${docsWrapper} > .sbdocs-content`
 // const docsEmptyBlock = `${docs} .docbloc-emptyblock`
-const docsParagraph = `${docs} .sbdocs-p`
-const docsPreview = `${docs} .sbdocs-preview`
-const docsTitle = `${docs} .sbdocs-title`
-const docsSubtitle = `${docs} .sbdocs-h2`
-const docsUndertext = `${docs} .sbdocs-h3`
-const docsText = `${docs} .sbdocs-title + div > p`
-const docsTable = `${docs} .docblock-argstable`
+const docsParagraph = `${docsContent} .sbdocs-p`
+const docsPreview = `${docsContent} .sbdocs-preview`
+const docsTitle = `${docsContent} .sbdocs-title`
+const docsListItem = `${docsContent} .sbdocs-li`
+const docsSubtitle = `${docsContent} .sbdocs-h2`
+const docsUndertext = `${docsContent} .sbdocs-h3`
+const docsText = `${docsContent} .sbdocs-title + div > p`
+const docsTable = `${docsContent} .docblock-argstable`
+const docsStory = `${docsContent} .docs-story`
+const docsStoryContent = `${docsStory} > div:first-of-type`
+const docsStoryCodeButton = `${docsStory} > div:last-of-type`
 
 const story = `${docsSubtitle}#stories ~ div`
 const storyPreview = `${story} > .sbdocs-preview`
@@ -28,7 +34,7 @@ export function enhancePreviewStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: ThemeVars,
   themeVariant: ThemeVariantTypes,
-  uiParams: ParamUI,
+  uiParams: ParamUi,
   docsParams: ParamDocs
 ) {
   const theme = convert(themeVars)
@@ -50,13 +56,13 @@ export function enhancePreviewStyles(
     fontFamily: theme.typography.fonts.base,
   }
 
-  styles[`${preview}`] = {
+  styles[`${previewRoot}`] = {
     color: color.preview,
     fontFamily: theme.typography.fonts.base,
     padding: uiParams.padding ? `${uiParams.padding} !important` : '1rem',
   }
 
-  styles[`${docs}`] = {
+  styles[`${docsWrapper}`] = {
     background: background.docs,
 
     '& .sbdocs-preview': {
@@ -71,6 +77,10 @@ export function enhancePreviewStyles(
   }
 
   styles[`${docsTitle}`] = {
+    color: color.docs,
+  }
+
+  styles[`${docsListItem}`] = {
     color: color.docs,
   }
 
@@ -105,8 +115,6 @@ export function enhancePreviewStyles(
     border: '0 none',
 
     '& > div': {
-      // Inner with story
-      '& > div:first-of-type': {},
       // Utility area with button
       '& > div:last-of-type': {
         overflow: 'hidden',
@@ -117,6 +125,24 @@ export function enhancePreviewStyles(
           borderRadius: 0,
         },
       },
+    },
+  }
+
+  styles[`${docsStoryContent}`] = {
+    margin: 0,
+
+    '& > div': {
+      marginBottom: theme.layoutMargin * 2.5,
+    },
+  }
+
+  styles[`${docsStoryCodeButton}`] = {
+    overflow: 'hidden',
+    borderTopLeftRadius: theme.appBorderRadius,
+
+    '& button': {
+      ...buttonStyles,
+      borderRadius: 0,
     },
   }
 
@@ -137,22 +163,6 @@ export function enhancePreviewStyles(
           },
         },
       }),
-    },
-
-    // Panel
-    '& > div:nth-of-type(2)': {
-      // Inner with story
-      '& > div:first-of-type': {},
-      // Utility area with button
-      '& > div:last-of-type': {
-        overflow: 'hidden',
-        borderTopLeftRadius: theme.appBorderRadius,
-
-        '& button': {
-          ...buttonStyles,
-          borderRadius: 0,
-        },
-      },
     },
 
     // Code
