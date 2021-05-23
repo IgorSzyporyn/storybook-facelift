@@ -1,6 +1,6 @@
-#### 6.6.15 (2021-05-23)
+#### 6.6.16 (2021-05-23)
 
 ##### Bug Fixes
 
-*  corrected syntax error in example in documentation ([3f137b43](https://github.com/IgorSzyporyn/storybook-facelift/commit/3f137b43acac5276ea5207efb26f4d90d58ad49a))
+*  centered top title ([c9cbc912](https://github.com/IgorSzyporyn/storybook-facelift/commit/c9cbc912d91bdbe6ca3baed4be4cd516eca5c808))
 
