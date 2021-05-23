@@ -1,6 +1,6 @@
-### 6.7.0 (2021-05-23)
+#### 6.7.1 (2021-05-23)
 
 ##### Bug Fixes
 
-*  better documentation and types ([4912224e](https://github.com/IgorSzyporyn/storybook-facelift/commit/4912224e6de2b186d7f4c219c4904803908fd085))
+*  links in readme ([ae98e467](https://github.com/IgorSzyporyn/storybook-facelift/commit/ae98e467be6259a1603f9b21397c6adf13813cf9))
 
