@@ -8,11 +8,8 @@
   <p>&nbsp;</p>
 </div>
 
-Simply provide the options object for the preset theme framework you wish to implement (or your custom) - or none at all for just native light/dark mode
-
 - [Material UI](https://material-ui.com/) Themes
 - Native Storybook Themes
-- Badger UI Themes
 - Support for custom themes converters and [Styled Components](https://styled-components.com/)
 
 #### Easy to use
