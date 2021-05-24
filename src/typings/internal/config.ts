@@ -31,13 +31,9 @@ export type ConfigTheme = {
   instanciated: ConfigThemeInstanciated
 }
 
-export type ConfigThemes = {
-  [key: string]: ConfigTheme | undefined
-}
+export type ConfigThemes = Record<string, ConfigTheme | undefined>
 
-export type ConfigTitles = {
-  [key: string]: string
-}
+export type ConfigTitles = Record<string, string>
 
 export type AddonConfig = {
   themes: ConfigThemes

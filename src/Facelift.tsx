@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useCallback, useEffect, useState } from 'react'
-/* eslint-disable no-underscore-dangle */
 import { API } from '@storybook/api'
 import { DOCS_RENDERED, STORY_CHANGED } from '@storybook/core-events'
 import { ThemeSelector } from './components/ThemeSelector'
@@ -12,12 +11,17 @@ import { createDefaultSettings } from './managers/settings'
 import { createAddonState } from './managers/state'
 import { ManagerStyles } from './styles/ManagerStyles'
 
-import type { AddonParameters, ThemeVariantType } from './typings/internal/parameters'
 import type { AddonSettings } from './typings/internal/settings'
+import type {
+  AddonParameters,
+  ThemeProviderType,
+  ThemeVariantType,
+} from './typings/internal/parameters'
 
 type SetThemeProps = {
   themeName?: string
   themeVariant?: ThemeVariantType
+  themeProvider?: ThemeProviderType
   settings: AddonSettings
 }
 
@@ -31,13 +35,14 @@ export function Facelift({ api }: FaceliftProps) {
   const [settings, setSettings] = useState<AddonSettings | null>(null)
 
   const setTheme = useCallback(
-    ({ themeName, themeVariant, settings: __settings }: SetThemeProps) => {
+    ({ themeName, themeVariant, themeProvider, settings: __settings }: SetThemeProps) => {
       const addonState = createAddonState({
         parameters: __settings.parameters,
         config: __settings.config,
         options: {
           themeName: themeName || __settings.state.themeName,
           themeVariant: themeVariant || __settings.state.themeVariant,
+          themeProvider: themeProvider || __settings.state.themeProvider,
         },
       })
 
@@ -125,6 +130,7 @@ export function Facelift({ api }: FaceliftProps) {
             options: {
               themeName: newSettings.parameters.defaultTheme,
               themeVariant: newSettings.parameters.defaultVariant,
+              themeProvider: newSettings.parameters.defaultProvider,
             },
           })
 

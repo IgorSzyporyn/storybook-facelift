@@ -57,12 +57,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   if (settings) {
     const {
       state: { themeOriginal, themeProvider, themeInstanciated },
-      parameters: { autoThemeStory, defaultProvider },
+      parameters: { autoThemeStory },
     } = settings
 
-    const provider = themeProvider || defaultProvider
-
-    switch (provider) {
+    switch (themeProvider) {
       case 'mui':
         Facelifted = (
           <>

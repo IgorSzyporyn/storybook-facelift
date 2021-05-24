@@ -62,7 +62,8 @@
     "changelog:clean": "rimraf CHANGELOG.md",
     "release:major": "npm run changelog:major && npm version major && npm run github:release && npm run build && npm publish",
     "release:minor": "npm run changelog:minor && npm version minor && npm run github:release && npm run build && npm publish",
-    "release:patch": "npm run changelog:patch && npm version patch && npm run github:release && npm run build && npm publish"
+    "release:patch": "npm run changelog:patch && npm version patch && npm run github:release && npm run build && npm publish",
+    "release:beta": "npm run build && npm publish --tag beta"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
