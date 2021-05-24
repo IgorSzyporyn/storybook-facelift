@@ -4,7 +4,7 @@ import type { AddonStateParameters } from '../typings/internal/parameters'
 import type { AddonConfig } from '../typings/internal/config'
 import type { AddonState } from '../typings/internal/state'
 
-type CreateAddonPropsStateOptions = Pick<AddonState, 'themeName' | 'themeVariant'>
+type CreateAddonPropsStateOptions = Pick<AddonState, 'themeName' | 'themeVariant' | 'themeProvider'>
 
 type CreateAddonStateProps = {
   parameters: AddonStateParameters
@@ -20,6 +20,7 @@ export function createAddonState({
   const { themes } = addonConfig
   const _themeName = (options && options.themeName) || addonParameters.defaultTheme
   const _themeVariant = (options && options.themeVariant) || addonParameters.defaultVariant
+  const _themeProvider = (options && options.themeProvider) || addonParameters.defaultProvider
 
   const root = themes[_themeName]
   const original = root && root.original
@@ -29,13 +30,17 @@ export function createAddonState({
     output(`Trying to set invalid theme "${_themeName}" (theme does not exist)`, 'error')
   }
 
-  const themeName = _themeName
-  let themeVariant = _themeVariant
-  let theme = root && root[themeVariant]
   const themeType = root && root.type
+  const themeName = _themeName
+  const themeProvider = (root && root.provider) || _themeProvider
+
+  let theme = root && root[_themeVariant]
+  let themeVariant = _themeVariant
   let themeOriginal = original && original[themeVariant]
   let themeInstanciated = instanciated && instanciated[themeVariant]
 
+  // Look in root (all themes) if the wanted theme can not be found for the
+  // opposite variant (no light - look for dark)
   if (root && !theme) {
     const oppositeVariant = themeVariant === 'dark' ? 'light' : 'dark'
 
@@ -57,6 +62,7 @@ export function createAddonState({
     themeType,
     themeVariant,
     themeInstanciated,
+    themeProvider,
   }
 
   return addonState
