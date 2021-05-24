@@ -62,7 +62,7 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
     // @TODO remove this after some time
     let { addThemeProvider } = apiParameters
 
-    if (autoThemeStory || !addThemeProvider) {
+    if (autoThemeStory === true && addThemeProvider === undefined) {
       addThemeProvider = autoThemeStory
     }
 
