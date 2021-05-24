@@ -157,6 +157,8 @@ export type ParamThemeConverters = Record<string, ThemeConverterFn | undefined>
 
 // Type used for the addon state
 export type AddonStateParameters = {
+  // @deprecate
+  autoThemeStory?: boolean
   addThemeProvider?: boolean
   // What theme to show as default - if no theme has been set then the first one in the
   // themes configuration parameter will be used (if includeNative is set, then this will be used)

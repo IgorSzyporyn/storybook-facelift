@@ -56,15 +56,7 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
   // Initialized means we are being given custom parameters from a story most likely
   // Only allow certain parameters to be merged on to addon parameters
   if (settings.initialized && settings.initialAddonParameters) {
-    const { ui = {}, docs = {}, override = {}, enhanceUi, autoThemeStory } = apiParameters
-
-    // autoThemeStory is deprecated and addThemeProvider takes over
-    // @TODO remove this after some time
-    let { addThemeProvider } = apiParameters
-
-    if (autoThemeStory === true && addThemeProvider === undefined) {
-      addThemeProvider = autoThemeStory
-    }
+    const { ui = {}, docs = {}, override = {}, enhanceUi, addThemeProvider } = apiParameters
 
     const customParameters: StoryParameters = {
       ui,
@@ -77,6 +69,12 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
     returnParameters = deepmerge(settings.initialAddonParameters, customParameters)
   } else {
     returnParameters = deepmerge(addonParameters, apiParameters)
+  }
+
+  // autoThemeStory is deprecated and addThemeProvider takes over
+  // @TODO remove this after some time
+  if (returnParameters.autoThemeStory === true && returnParameters.addThemeProvider === undefined) {
+    returnParameters.addThemeProvider = returnParameters.autoThemeStory
   }
 
   return returnParameters
