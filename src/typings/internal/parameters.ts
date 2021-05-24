@@ -157,15 +157,13 @@ export type ParamThemeConverters = Record<string, ThemeConverterFn | undefined>
 
 // Type used for the addon state
 export type AddonStateParameters = {
-  // Should the story component previewed use the shown theme's values
-  // Note: Only works with Material UI themes and if withFacelift decorator is added
-  autoThemeStory?: boolean
+  addThemeProvider?: boolean
   // What theme to show as default - if no theme has been set then the first one in the
   // themes configuration parameter will be used (if includeNative is set, then this will be used)
   defaultTheme: string
   // Default variant (light of dark) to use - if not set will set to light unless browser is in dark mode
   defaultVariant: ThemeVariantType
-  // Default Theme Provider for autoThemeStory
+  // Default Theme Provider for addThemeProvider
   defaultProvider?: ThemeProviderType
   // Configuration for the Docs page
   docs: ParamDocs
@@ -190,7 +188,10 @@ export type AddonStateParameters = {
 // Type used for parameters from storybook
 // Either from preview.(t|j)s or from story
 export type AddonParameters = {
+  // @deprecated use addThemeProvider
   autoThemeStory?: boolean
+  // Automatically add a theme provider as indicated by either `provider` in themes or `defaultProvider`
+  addThemeProvider?: boolean
   defaultTheme?: string
   defaultVariant?: ThemeVariantType
   defaultProvider?: ThemeProviderType
@@ -206,7 +207,10 @@ export type AddonParameters = {
 
 // Type used for allowed parameters from stories
 export type StoryParameters = {
+  // @deprecated use addThemeProvider
   autoThemeStory?: boolean
+  // Automatically add a theme provider as indicated by either `provider` in themes or `defaultProvider`
+  addThemeProvider?: boolean
   docs?: ParamDocs
   enhanceUi?: boolean
   ui?: ParamUi
@@ -215,7 +219,7 @@ export type StoryParameters = {
 
 // Type for the default parameters
 export type DefaultParameters = {
-  autoThemeStory: boolean
+  addThemeProvider: boolean
   defaultTheme: string
   docs: ParamDocs
   enhanceUi: boolean

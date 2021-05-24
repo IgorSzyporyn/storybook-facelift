@@ -57,7 +57,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   if (settings) {
     const {
       state: { themeOriginal, themeProvider, themeInstanciated },
-      parameters: { autoThemeStory },
+      parameters: { addThemeProvider },
     } = settings
 
     switch (themeProvider) {
@@ -65,7 +65,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         Facelifted = (
           <>
             <PreviewStyles />
-            {showChildren && themeOriginal && autoThemeStory ? (
+            {showChildren && themeOriginal && addThemeProvider ? (
               <MuiThemeProvider
                 theme={createMuiTheme(themeOriginal as Theme)}
                 key="storybook-facelift-mui-theme-provider"
@@ -89,7 +89,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         Facelifted = (
           <>
             <PreviewStyles />
-            {showChildren && themeInstanciated && autoThemeStory ? (
+            {showChildren && themeInstanciated && addThemeProvider ? (
               <StyledThemeProvider
                 theme={themeInstanciated}
                 key="storybook-facelift-styled-theme-provider"
@@ -106,7 +106,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         Facelifted = (
           <>
             <PreviewStyles />
-            {showChildren && themeInstanciated && autoThemeStory ? (
+            {showChildren && themeInstanciated && addThemeProvider ? (
               <EmotionThemeProvider
                 theme={themeInstanciated}
                 key="storybook-facelift-emotion-theme-provider"
