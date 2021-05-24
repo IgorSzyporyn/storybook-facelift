@@ -16,10 +16,11 @@ export type ThemeOptions =
   | BadgerThemeConfig
 export type StorybookFaceliftThemeOptions = ThemeOptions
 
-export type ThemeVariantTypes = 'light' | 'dark'
-export type ThemeTypes = 'native' | 'mui' | 'styled' | 'badgerui' | 'cylindo'
+export type ThemeVariantType = 'light' | 'dark'
+export type ThemeType = 'native' | 'mui' | 'badgerui'
+export type ThemeProviderType = 'mui' | 'styled' | 'emotion'
 
-export type ThemeVariants = { [key in ThemeVariantTypes]: ThemeOptions }
+export type ThemeVariants = { [key in ThemeVariantType]: ThemeOptions }
 export type ThemeBackgroundsTypes =
   | 'normal'
   | 'reverse'
@@ -80,7 +81,7 @@ export type ParamNative = {
   // Title to show in the menu picker
   title?: string
   // Array to override showing both light and dark (default) ["dark"]
-  variants?: ThemeVariantTypes[]
+  variants?: ThemeVariantType[]
   // Ability to set the background type for native as with other themes in parameters
   background?: ThemeBackgroundsTypes
 }
@@ -107,15 +108,16 @@ export type ParamTheme = {
   // The theme type being used
   // Note: For now only 'native' (Storybook Theme Options) and "mui" (Material UI Theme Options)
   // are supported - also note that instanciated MUI Theme Options are not supported.
-  type: ThemeTypes
+  type: ThemeType
   // Variants config with a "light" or "dark" property - these are the theme options which will be
   // used for the theme in each chosen variant.
   variants: ThemeVariants
   // This theme is for the toolbox preview mode only and will make the theme not show in theme picker
   // Note: Only supported for Material UI themes for now
   previewOnly?: boolean
+  // Which theme provider to use if autoThemeStory is true
+  themeProvider?: ThemeProviderType
   // This is for typography - use responsive font sizes or not
-  // Note: Default is false
   resposiveFontSizes?: boolean
 }
 
@@ -135,7 +137,7 @@ export type ParamTheme = {
 export type ThemeConverterFnProps = {
   override?: ThemeOptionsOverride
   theme: ThemeOptions
-  variant: ThemeVariantTypes
+  variant: ThemeVariantType
   background?: ThemeBackgroundsTypes
   responsiveFontSizes?: boolean
 }
@@ -147,13 +149,11 @@ export type ThemeConverterFnResult = {
   theme: ThemeInstanciatedType
 } | null
 
-export type ThemeConverterType = 'mui' | 'styled' | 'native' | 'badgerui' | 'cylindo'
-
 // The type for the converter function itself
 export type ThemeConverterFn = (props: ThemeConverterFnProps) => ThemeConverterFnResult
 
 // The type for the parameters
-export type ParamThemeConverters = Record<ThemeConverterType, ThemeConverterFn | undefined>
+export type ParamThemeConverters = Record<string, ThemeConverterFn | undefined>
 
 // Type used for the addon state
 export type AddonStateParameters = {
@@ -164,7 +164,9 @@ export type AddonStateParameters = {
   // themes configuration parameter will be used (if includeNative is set, then this will be used)
   defaultTheme: string
   // Default variant (light of dark) to use - if not set will set to light unless browser is in dark mode
-  defaultVariant: ThemeVariantTypes
+  defaultVariant: ThemeVariantType
+  // Default Theme Provider for autoThemeStory
+  defaultProvider?: ThemeProviderType
   // Configuration for the Docs page
   docs: ParamDocs
   // Setting that will fix a lot of minor css errors, ensure contrast ratios in text (themes can have weird colors),
@@ -190,7 +192,8 @@ export type AddonStateParameters = {
 export type AddonParameters = {
   autoThemeStory?: boolean
   defaultTheme?: string
-  defaultVariant?: ThemeVariantTypes
+  defaultVariant?: ThemeVariantType
+  defaultProvider?: ThemeProviderType
   docs?: ParamDocs
   enhanceUi?: boolean
   includeNative?: boolean

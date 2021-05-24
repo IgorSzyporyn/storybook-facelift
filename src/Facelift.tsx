@@ -12,12 +12,12 @@ import { createDefaultSettings } from './managers/settings'
 import { createAddonState } from './managers/state'
 import { ManagerStyles } from './styles/ManagerStyles'
 
-import type { AddonParameters, ThemeVariantTypes } from './typings/internal/parameters'
+import type { AddonParameters, ThemeVariantType } from './typings/internal/parameters'
 import type { AddonSettings } from './typings/internal/settings'
 
 type SetThemeProps = {
   themeName?: string
-  themeVariant?: ThemeVariantTypes
+  themeVariant?: ThemeVariantType
   settings: AddonSettings
 }
 

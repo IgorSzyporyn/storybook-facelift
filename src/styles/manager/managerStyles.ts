@@ -15,7 +15,7 @@ import type {
   ParamDocs,
   ParamUi,
   ParamUiElevationTypes,
-  ThemeVariantTypes,
+  ThemeVariantType,
 } from '../../typings/internal/parameters'
 
 export const rootId = `#root`
@@ -151,7 +151,7 @@ function getMenuIconColor(_color: string, theme: StorybookTheme) {
 export function enhanceManagerStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: StorybookThemeOptions,
-  themeVariant: ThemeVariantTypes,
+  themeVariant: ThemeVariantType,
   ui: ParamUi,
   _docs: ParamDocs
 ) {

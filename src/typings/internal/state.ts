@@ -1,12 +1,12 @@
 import type { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import type { ThemeOptions, ThemeTypes, ThemeVariantTypes } from './parameters'
+import type { ThemeOptions, ThemeType, ThemeVariantType } from './parameters'
 import type { ThemeInstanciatedType } from './config'
 
 export type AddonState = {
   theme?: StorybookThemeOptions
   themeOriginal?: ThemeOptions
-  themeType?: ThemeTypes
+  themeType?: ThemeType
   themeName: string
-  themeVariant: ThemeVariantTypes
+  themeVariant: ThemeVariantType
   themeInstanciated?: ThemeInstanciatedType
 }

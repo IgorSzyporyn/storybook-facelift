@@ -2,7 +2,7 @@ import {
   AddonStateParameters,
   ThemeConverterFn,
   ParamTheme,
-  ThemeVariantTypes,
+  ThemeVariantType,
   ThemeOptions,
   ThemeOptionsOverride,
 } from '../typings/internal/parameters'
@@ -12,7 +12,7 @@ export type ConvertParameterThemeToConfigThemeProps = {
   themeConfig: ParamTheme
   themeVariant: ThemeOptions
   converter: ThemeConverterFn
-  themeVariantName: ThemeVariantTypes
+  themeVariantName: ThemeVariantType
 }
 
 export function convertParameterThemeToConfigTheme({

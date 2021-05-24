@@ -20,7 +20,6 @@ export const defaultParameters: DefaultParameters = {
     mui: createStorybookThemeOptionsFromMui,
     native: createStorybookThemeFromNative,
     badgerui: createStorybookThemeFromBadgerUi,
-    cylindo: createStorybookThemeFromBadgerUi,
     styled: createStorybookThemeFromBadgerUi,
   },
   docs: {

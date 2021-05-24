@@ -7,7 +7,7 @@ import { removeScrollStyles } from '../../utils/remove-scroll-styles'
 import { elevationMap } from '../elevation'
 
 import type { ParamDocs, ParamUi } from '../../typings/internal/parameters'
-import { ThemeVariantTypes } from '../../typings/internal/parameters'
+import { ThemeVariantType } from '../../typings/internal/parameters'
 
 const root = `.sb-show-main`
 const previewRoot = `.sb-show-main > #root`
@@ -33,7 +33,7 @@ const storyPreview = `${story} > .sbdocs-preview`
 export function enhancePreviewStyles(
   styles: { [key: string]: Record<string, any> },
   themeVars: ThemeVars,
-  themeVariant: ThemeVariantTypes,
+  themeVariant: ThemeVariantType,
   uiParams: ParamUi,
   docsParams: ParamDocs
 ) {

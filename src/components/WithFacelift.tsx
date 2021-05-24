@@ -64,12 +64,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     themeOriginal = state.themeOriginal ? state.themeOriginal : false
     themeInstanciated = state.themeInstanciated ? state.themeInstanciated : false
     isMuiTheme = state.themeType === 'mui'
-    isStyledTheme =
-      state.themeType === 'styled' ||
-      state.themeType === 'badgerui' ||
-      state.themeType === 'cylindo'
     isMuiValid = themeOriginal && isMuiTheme
     autoThemeStory = parameters.autoThemeStory === true
+
+    isStyledTheme = state.themeType === 'badgerui'
 
     // @TODO - Let user add jssPresets through parameters
     muiJSS = create({
