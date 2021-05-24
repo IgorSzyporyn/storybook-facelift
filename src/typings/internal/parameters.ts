@@ -116,7 +116,7 @@ export type ParamTheme = {
   // Note: Only supported for Material UI themes for now
   previewOnly?: boolean
   // Which theme provider to use if autoThemeStory is true
-  themeProvider?: ThemeProviderType
+  provider?: ThemeProviderType
   // This is for typography - use responsive font sizes or not
   resposiveFontSizes?: boolean
 }

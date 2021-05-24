@@ -4,7 +4,7 @@ import type {
   Theme as StorybookTheme,
 } from '@storybook/theming'
 import { Theme as BadgerTheme } from 'badger-ui'
-import type { ThemeOptions, ThemeType } from './parameters'
+import type { ThemeOptions, ThemeProviderType, ThemeType } from './parameters'
 
 export type ThemeInstanciatedType = StorybookTheme | MuiTheme | BadgerTheme<never>
 
@@ -21,6 +21,7 @@ export type ConfigThemeInstanciated = {
 export type ConfigTheme = {
   key: string
   type: ThemeType
+  provider?: ThemeProviderType
   light?: StorybookThemeOptions
   dark?: StorybookThemeOptions
   original: {

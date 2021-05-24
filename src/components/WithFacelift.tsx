@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-use-before-define
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { create } from 'jss'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components'
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@material-ui/core'
-import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
   createMuiTheme,
   jssPreset,
@@ -9,11 +11,8 @@ import {
   StylesProvider as MuiStylesProvider,
   Theme,
 } from '@material-ui/core/styles'
-import { create, Jss } from 'jss'
 import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
-
-import type { ThemeOptions } from '../typings/internal/parameters'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -34,96 +33,98 @@ function hideDocsRoot() {
 }
 
 type WithThemedPreviewProps = {
-  children: ReactNode
+  children: React.ReactNode
 }
 
 export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
+  hideDocsRoot()
+
   const settings = useFaceliftSettings()
   const [showChildren, setShowChildren] = useState(false)
-
-  hideDocsRoot()
 
   useEffect(() => {
     setShowChildren(true)
     setTimeout(showDocsRoot, 0)
   }, [settings])
 
-  let theme: Theme | false = false
-  let themeOriginal: false | ThemeOptions = false
-  let themeInstanciated: false | Record<string, any> = false
-  let autoThemeStory = false
-
-  let isStyledTheme = false
-
-  let isMuiTheme = false
-  let isMuiValid = false
-  let muiJSS: Jss | null = null
+  let Facelifted = (
+    <>
+      <PreviewStyles />
+      {showChildren && children}
+    </>
+  )
 
   if (settings) {
-    const { state, parameters } = settings
-    themeOriginal = state.themeOriginal ? state.themeOriginal : false
-    themeInstanciated = state.themeInstanciated ? state.themeInstanciated : false
-    isMuiTheme = state.themeType === 'mui'
-    isMuiValid = themeOriginal && isMuiTheme
-    autoThemeStory = parameters.autoThemeStory === true
+    const {
+      state: { themeOriginal, themeProvider, themeInstanciated },
+      parameters: { autoThemeStory, defaultProvider },
+    } = settings
 
-    isStyledTheme = state.themeType === 'badgerui'
+    const provider = themeProvider || defaultProvider
 
-    // @TODO - Let user add jssPresets through parameters
-    muiJSS = create({
-      plugins: [...jssPreset().plugins],
-    })
-  }
-
-  if (isMuiTheme) {
-    if (isMuiValid) {
-      theme = themeOriginal as Theme
-    }
-
-    return (
-      <>
-        <PreviewStyles />
-        {showChildren && (
+    switch (provider) {
+      case 'mui':
+        Facelifted = (
           <>
-            {theme && autoThemeStory && muiJSS !== null ? (
+            <PreviewStyles />
+            {showChildren && themeOriginal && autoThemeStory ? (
               <MuiThemeProvider
-                theme={createMuiTheme(theme)}
+                theme={createMuiTheme(themeOriginal as Theme)}
                 key="storybook-facelift-mui-theme-provider"
               >
                 <CssBaseline />
-                <MuiStylesProvider jss={muiJSS}>{children}</MuiStylesProvider>
+                <MuiStylesProvider
+                  jss={create({
+                    plugins: [...jssPreset().plugins],
+                  })}
+                >
+                  {children}
+                </MuiStylesProvider>
               </MuiThemeProvider>
             ) : (
-              children
+              showChildren && children
             )}
           </>
-        )}
-      </>
-    )
+        )
+        break
+      case 'styled':
+        Facelifted = (
+          <>
+            <PreviewStyles />
+            {showChildren && themeInstanciated && autoThemeStory ? (
+              <StyledThemeProvider
+                theme={themeInstanciated}
+                key="storybook-facelift-styled-theme-provider"
+              >
+                {children}
+              </StyledThemeProvider>
+            ) : (
+              showChildren && children
+            )}
+          </>
+        )
+        break
+      case 'emotion':
+        Facelifted = (
+          <>
+            <PreviewStyles />
+            {showChildren && themeInstanciated && autoThemeStory ? (
+              <EmotionThemeProvider
+                theme={themeInstanciated}
+                key="storybook-facelift-emotion-theme-provider"
+              >
+                {children}
+              </EmotionThemeProvider>
+            ) : (
+              showChildren && children
+            )}
+          </>
+        )
+        break
+      default:
+        break
+    }
   }
 
-  if (isStyledTheme) {
-    return (
-      <>
-        <PreviewStyles />
-        {themeInstanciated && autoThemeStory ? (
-          <StyledComponentsThemeProvider
-            theme={themeInstanciated}
-            key="storybook-facelift-styled-theme-provider"
-          >
-            {children}
-          </StyledComponentsThemeProvider>
-        ) : (
-          children
-        )}
-      </>
-    )
-  }
-
-  return (
-    <>
-      <PreviewStyles />
-      {children}
-    </>
-  )
+  return Facelifted
 }

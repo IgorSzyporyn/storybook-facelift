@@ -90,6 +90,23 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
 
     const themeType = themeItem.type
     const themeKey = themeItem.key
+    let themeProvider = themeItem.provider
+
+    // If no provider is supplied BUT the themeType is "mui" or "badgerui" - we override
+    // to their chosen theme provider
+    if (themeProvider === undefined) {
+      switch (themeType) {
+        case 'mui':
+          themeProvider = themeType
+          break
+        case 'badgerui':
+          themeProvider = 'styled'
+          break
+        default:
+          break
+      }
+      themeProvider = 'mui'
+    }
 
     const themeConverter = parameters.themeConverters[themeType]
 
@@ -140,6 +157,7 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
         const returnTheme: ConfigTheme = (returnThemes[themeKey] = {
           key: themeKey,
           type: themeType,
+          provider: themeProvider,
           original: {},
           instanciated: {},
         })
