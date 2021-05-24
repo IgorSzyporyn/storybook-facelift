@@ -22,6 +22,7 @@ type SetThemeProps = {
   themeName?: string
   themeVariant?: ThemeVariantType
   themeProvider?: ThemeProviderType
+  providerTheme?: string
   settings: AddonSettings
 }
 
@@ -35,14 +36,21 @@ export function Facelift({ api }: FaceliftProps) {
   const [settings, setSettings] = useState<AddonSettings | null>(null)
 
   const setTheme = useCallback(
-    ({ themeName, themeVariant, themeProvider, settings: __settings }: SetThemeProps) => {
+    ({
+      themeName,
+      themeVariant,
+      themeProvider,
+      providerTheme,
+      settings: __settings,
+    }: SetThemeProps) => {
       const addonState = createAddonState({
         parameters: __settings.parameters,
         config: __settings.config,
         options: {
           themeName: themeName || __settings.state.themeName,
           themeVariant: themeVariant || __settings.state.themeVariant,
-          themeProvider: themeProvider || __settings.state.themeProvider,
+          provider: themeProvider || __settings.state.provider,
+          providerTheme: providerTheme || __settings.state.providerTheme,
         },
       })
 
@@ -130,7 +138,7 @@ export function Facelift({ api }: FaceliftProps) {
             options: {
               themeName: newSettings.parameters.defaultTheme,
               themeVariant: newSettings.parameters.defaultVariant,
-              themeProvider: newSettings.parameters.defaultProvider,
+              provider: newSettings.parameters.provider,
             },
           })
 

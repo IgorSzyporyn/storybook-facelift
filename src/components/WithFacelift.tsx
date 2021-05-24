@@ -56,18 +56,38 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
 
   if (settings) {
     const {
-      state: { themeOriginal, themeProvider, themeInstanciated },
-      parameters: { addThemeProvider },
+      state: {
+        themeVariant,
+        themeOriginal,
+        provider: stateProvider,
+        providerTheme: stateProviderTheme,
+      },
+      config: { themes },
+      parameters: {
+        addProvider,
+        provider: paramProvider,
+        providerTheme: paramProviderTheme,
+        isStoryParam,
+      },
     } = settings
 
-    switch (themeProvider) {
+    const provider = isStoryParam ? paramProviderTheme : stateProviderTheme
+    const providerThemeKey = isStoryParam ? stateProvider : paramProvider
+
+    if (!provider || !providerThemeKey) {
+      return Facelifted
+    }
+
+    const providerTheme = themes[providerThemeKey]
+
+    switch (provider) {
       case 'mui':
         Facelifted = (
           <>
             <PreviewStyles />
-            {showChildren && themeOriginal && addThemeProvider ? (
+            {showChildren && themeOriginal && addProvider ? (
               <MuiThemeProvider
-                theme={createMuiTheme(themeOriginal as Theme)}
+                theme={createMuiTheme(providerTheme?.original[themeVariant] as Theme)}
                 key="storybook-facelift-mui-theme-provider"
               >
                 <CssBaseline />
@@ -89,9 +109,9 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         Facelifted = (
           <>
             <PreviewStyles />
-            {showChildren && themeInstanciated && addThemeProvider ? (
+            {showChildren && providerTheme?.instanciated && addProvider ? (
               <StyledThemeProvider
-                theme={themeInstanciated}
+                theme={providerTheme?.instanciated}
                 key="storybook-facelift-styled-theme-provider"
               >
                 {children}
@@ -106,9 +126,9 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         Facelifted = (
           <>
             <PreviewStyles />
-            {showChildren && themeInstanciated && addThemeProvider ? (
+            {showChildren && providerTheme?.instanciated && addProvider ? (
               <EmotionThemeProvider
-                theme={themeInstanciated}
+                theme={providerTheme?.instanciated}
                 key="storybook-facelift-emotion-theme-provider"
               >
                 {children}

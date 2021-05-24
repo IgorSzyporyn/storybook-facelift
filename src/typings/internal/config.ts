@@ -22,6 +22,8 @@ export type ConfigTheme = {
   key: string
   type: ThemeType
   provider?: ThemeProviderType
+  providerTheme?: string
+  providerOnly?: boolean
   light?: StorybookThemeOptions
   dark?: StorybookThemeOptions
   original: {

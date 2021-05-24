@@ -9,5 +9,6 @@ export type AddonState = {
   themeName: string
   themeVariant: ThemeVariantType
   themeInstanciated?: ThemeInstanciatedType
-  themeProvider?: ThemeProviderType
+  provider?: ThemeProviderType
+  providerTheme?: string
 }

@@ -14,7 +14,7 @@ import type { AddonSettings } from '../typings/internal/settings'
 
 export const defaultParameters: DefaultParameters = {
   defaultTheme: 'native',
-  addThemeProvider: false,
+  addProvider: false,
   includeNative: false,
   themeConverters: {
     mui: createStorybookThemeOptionsFromMui,
@@ -56,25 +56,41 @@ export function updateAddonParameters({ apiParameters, settings }: updateAddonPa
   // Initialized means we are being given custom parameters from a story most likely
   // Only allow certain parameters to be merged on to addon parameters
   if (settings.initialized && settings.initialAddonParameters) {
-    const { ui = {}, docs = {}, override = {}, enhanceUi, addThemeProvider } = apiParameters
+    const {
+      ui = {},
+      docs = {},
+      override = {},
+      enhanceUi,
+      autoThemeStory,
+      addProvider,
+      provider,
+      providerTheme,
+    } = apiParameters
 
     const customParameters: StoryParameters = {
+      isStoryParam: true,
       ui,
       docs,
       override,
       enhanceUi,
-      addThemeProvider,
+      addProvider,
+      provider,
+      providerTheme,
+    }
+
+    // @TODO deprecated autoThemeStory should be removed later
+    if (autoThemeStory === true && addProvider) {
+      customParameters.addProvider = true
     }
 
     returnParameters = deepmerge(settings.initialAddonParameters, customParameters)
   } else {
     returnParameters = deepmerge(addonParameters, apiParameters)
-  }
 
-  // autoThemeStory is deprecated and addThemeProvider takes over
-  // @TODO remove this after some time
-  if (returnParameters.autoThemeStory === true && returnParameters.addThemeProvider === undefined) {
-    returnParameters.addThemeProvider = returnParameters.autoThemeStory
+    // @TODO deprecated autoThemeStory should be removed later
+    if (apiParameters.autoThemeStory === true && returnParameters.addProvider === undefined) {
+      returnParameters.addProvider = true
+    }
   }
 
   return returnParameters

@@ -90,7 +90,12 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
 
     const themeType = themeItem.type
     const themeKey = themeItem.key
+
     let themeProvider = themeItem.provider
+    // eslint-disable-next-line prefer-destructuring
+    const providerOnly = themeItem.providerOnly
+    // eslint-disable-next-line prefer-destructuring
+    let providerTheme = themeItem.providerTheme
 
     // If no provider is supplied BUT the themeType is "mui" or "badgerui" - we override
     // to their chosen theme provider
@@ -108,9 +113,14 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
       themeProvider = 'mui'
     }
 
+    // If no providerTheme is supplied, but a provider is - then use own theme as providerTheme
+    if (themeProvider !== undefined && providerTheme !== undefined) {
+      providerTheme = themeKey
+    }
+
     const themeConverter = parameters.themeConverters[themeType]
 
-    if (themeConverter) {
+    if (!providerOnly && themeConverter) {
       const container: {
         light: ConfigTheme | null
         dark: ConfigTheme | null
@@ -158,6 +168,8 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
           key: themeKey,
           type: themeType,
           provider: themeProvider,
+          providerTheme,
+          providerOnly,
           original: {},
           instanciated: {},
         })
@@ -174,7 +186,7 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
           returnTheme.instanciated.dark = dark.theme
         }
 
-        if (!themeItem.previewOnly) {
+        if (!themeItem.providerOnly) {
           returnTitles[themeKey] = themeItem.title
         }
       }

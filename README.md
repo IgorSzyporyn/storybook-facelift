@@ -4,7 +4,7 @@
   </p>
 </div>
 
-### Multiple themes integration with light/dark mode and Theme Providers for stories
+### Multiple light/dark themes and multiple theme providers for stories
 
 - [Installation](#installation)
 - [Configure Addon](#configure-addon)
@@ -19,48 +19,22 @@
   - [Storybook Theming](https://storybook.js.org/docs/react/configure/theming)
   - [Material UI Theming](https://material-ui.com/customization/theming/)
   - Custom themes (custom theme converter required)
-- Embedded support for
-  - [Material UI Theme Provider](https://material-ui.com/customization/theming/#theme-provider)
-  - [Styled Components Theme Provider](https://styled-components.com/docs/advanced) (custom themes via `styled` type)
+- Embedded theme provider support for your stories with
+  - [Material UI](https://material-ui.com/customization/theming/#theme-provider)
+  - [Styled Components](https://styled-components.com/docs/advanced)
+  - [Emotion](https://emotion.sh/docs/theming#themeprovider-reactcomponenttype)
 
 #### Easy to use
 
 Storybook Facelift is zero-config - which will just return a light/dark mode button for the native theme
 
-#### Customize Storybook features
+Theme Storybook using the built-in theme converters for Storybook & Material UI - or provide your custom theme
 
-Easily unlock more control over Storybook such as control which columns to show with [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) (description, defaults and control) and more.
+Decorate your stories in theme providers from Material UI, Styled Components or Emotion globally/per story with minimum effort
 
-#### Enhanced UI for Storybook
+#### Enhance and customize Storybook features
 
-Unlock better UI for Storybook via the parameter `enhanceUi`
-
-Most notably dark mode works for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs)
-
-Later versions of Storybook does not require much changes to the CSS and this part will probably be deprecated
-
-#### Automatic Theme Providers with Material UI and Styled Components
-
-Use the parameter `autoThemeStory` to automatically add a React Theme Provider for your stories
-
-- Material UI themes uses own provider
-- Custom themes uses Styled Components via custom theme converter
-
-Provide a custom theme converter named `styled` under the parameter `themeConverters`, and use same type for your custom theme to use Styled Components
-
-```
-{
-  themeConverters: {
-    styled: () => ...
-  },
-  themes: [
-    {
-      type: 'styled',
-      ...
-    }
-  ]
-}
-```
+Unlock dark mode and column control for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) and more...
 
 ## <a name="installation"></a>Installation
 
@@ -72,11 +46,7 @@ Add the addon to your storybook `main.js` file (or `main.ts` - will just assume 
 
 ```js
 module.exports = {
-  ...
-  addons: [
-    ...
-    'storybook-facelift'
-  ]
+  addons: ['storybook-facelift'],
 }
 ```
 
@@ -96,7 +66,7 @@ export const parameters = {
 
 Which will produce an UI wise enhanced version of Storybook with a dark/light toggler.
 
-### TypeScript support example
+#### TypeScript support example
 
 Storybook Facelift supplies a GlobalParameters type to help you get typesafety - it takes one generic to let you add more parameter types from other addons
 
@@ -114,7 +84,7 @@ export const parameters: GlobalParameters<{ someAddon: SomeAddonParamType }> = {
 
 ## <a name="configure-story"></a>Configure Story
 
-You can also configure Storybook Facelift on story level to enable auto theming with a theme provider on a story level instead of on a global level
+You can also configure Storybook Facelift on story level, for instance to enable auto theming with a theme provider on a story level instead of on a global level, and maybe even add a special theme provider for this story
 
 ```js
 import React from 'react'
@@ -125,7 +95,9 @@ export default {
   component: Tag,
   parameters: {
     facelift: {
-      autoThemeStory: true,
+      addProvider: true,
+      themeProvider: 'mui',
+      providerTheme: 'mui-2',
     },
   },
 }
@@ -167,10 +139,6 @@ type StoryMeta<
     facelift: StoryParameters
   } & T
 }
-```
-
-```ts
-import { StoryMeta } from 'storybook-facelift'
 ```
 
 ```ts

@@ -4,7 +4,10 @@ import type { AddonStateParameters } from '../typings/internal/parameters'
 import type { AddonConfig } from '../typings/internal/config'
 import type { AddonState } from '../typings/internal/state'
 
-type CreateAddonPropsStateOptions = Pick<AddonState, 'themeName' | 'themeVariant' | 'themeProvider'>
+type CreateAddonPropsStateOptions = Pick<
+  AddonState,
+  'themeName' | 'themeVariant' | 'provider' | 'providerTheme'
+>
 
 type CreateAddonStateProps = {
   parameters: AddonStateParameters
@@ -20,7 +23,8 @@ export function createAddonState({
   const { themes } = addonConfig
   const _themeName = (options && options.themeName) || addonParameters.defaultTheme
   const _themeVariant = (options && options.themeVariant) || addonParameters.defaultVariant
-  const _themeProvider = (options && options.themeProvider) || addonParameters.defaultProvider
+  const _themeProvider = (options && options.provider) || addonParameters.provider
+  const _providerTheme = (options && options.providerTheme) || addonParameters.provider
 
   const root = themes[_themeName]
   const original = root && root.original
@@ -33,6 +37,7 @@ export function createAddonState({
   const themeType = root && root.type
   const themeName = _themeName
   const themeProvider = (root && root.provider) || _themeProvider
+  const providerTheme = (root && root.providerTheme) || _providerTheme
 
   let theme = root && root[_themeVariant]
   let themeVariant = _themeVariant
@@ -62,7 +67,8 @@ export function createAddonState({
     themeType,
     themeVariant,
     themeInstanciated,
-    themeProvider,
+    provider: themeProvider,
+    providerTheme,
   }
 
   return addonState
