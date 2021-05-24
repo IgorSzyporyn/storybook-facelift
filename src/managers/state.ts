@@ -6,7 +6,7 @@ import type { AddonState } from '../typings/internal/state'
 
 type CreateAddonPropsStateOptions = Pick<
   AddonState,
-  'themeName' | 'themeVariant' | 'provider' | 'providerTheme'
+  'name' | 'variant' | 'provider' | 'providerTheme'
 >
 
 type CreateAddonStateProps = {
@@ -21,12 +21,13 @@ export function createAddonState({
   options,
 }: CreateAddonStateProps) {
   const { themes } = addonConfig
-  const _themeName = (options && options.themeName) || addonParameters.defaultTheme
-  const _themeVariant = (options && options.themeVariant) || addonParameters.defaultVariant
-  const _themeProvider = (options && options.provider) || addonParameters.provider
+  const _themeName = (options && options.name) || addonParameters.defaultTheme
+  const _themeVariant = (options && options.variant) || addonParameters.defaultVariant
+  const _provider = (options && options.provider) || addonParameters.provider
   const _providerTheme = (options && options.providerTheme) || addonParameters.provider
 
   const root = themes[_themeName]
+  const themeType = root && root.type
   const original = root && root.original
   const instanciated = root && root.instanciated
 
@@ -34,10 +35,9 @@ export function createAddonState({
     output(`Trying to set invalid theme "${_themeName}" (theme does not exist)`, 'error')
   }
 
-  const themeType = root && root.type
   const themeName = _themeName
-  const themeProvider = (root && root.provider) || _themeProvider
-  const providerTheme = (root && root.providerTheme) || _providerTheme
+  const provider = (root && root.provider) || _provider
+  const providerTheme = (root && root.providerThemeKey) || _providerTheme
 
   let theme = root && root[_themeVariant]
   let themeVariant = _themeVariant
@@ -62,12 +62,12 @@ export function createAddonState({
 
   const addonState: AddonState = {
     theme,
-    themeName,
-    themeOriginal,
-    themeType,
-    themeVariant,
-    themeInstanciated,
-    provider: themeProvider,
+    name: themeName,
+    original: themeOriginal,
+    type: themeType,
+    variant: themeVariant,
+    intanciated: themeInstanciated,
+    provider,
     providerTheme,
   }
 

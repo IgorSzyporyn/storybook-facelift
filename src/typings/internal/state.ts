@@ -4,11 +4,11 @@ import type { ThemeInstanciatedType } from './config'
 
 export type AddonState = {
   theme?: StorybookThemeOptions
-  themeOriginal?: ThemeOptions
-  themeType?: ThemeType
-  themeName: string
-  themeVariant: ThemeVariantType
-  themeInstanciated?: ThemeInstanciatedType
+  original?: ThemeOptions
+  type?: ThemeType
+  name: string
+  variant: ThemeVariantType
+  intanciated?: ThemeInstanciatedType
   provider?: ThemeProviderType
   providerTheme?: string
 }

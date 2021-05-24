@@ -17,7 +17,7 @@ export const VariantSelector = ({ onClick }: VariantSelectorProps) => {
   }
 
   const { config, state } = settings
-  const { themeName, themeVariant } = state
+  const { name: themeName, variant: themeVariant } = state
 
   const { themes } = config
   const themeConfig = themes[themeName]

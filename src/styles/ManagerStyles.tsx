@@ -13,7 +13,7 @@ export const ManagerStyles = () => {
 
   const {
     parameters,
-    state: { themeVariant, theme },
+    state: { variant: themeVariant, theme },
   } = settings
 
   const { ui, enhanceUi, docs } = parameters

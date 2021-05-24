@@ -47,8 +47,8 @@ export function Facelift({ api }: FaceliftProps) {
         parameters: __settings.parameters,
         config: __settings.config,
         options: {
-          themeName: themeName || __settings.state.themeName,
-          themeVariant: themeVariant || __settings.state.themeVariant,
+          name: themeName || __settings.state.name,
+          variant: themeVariant || __settings.state.variant,
           provider: themeProvider || __settings.state.provider,
           providerTheme: providerTheme || __settings.state.providerTheme,
         },
@@ -76,7 +76,7 @@ export function Facelift({ api }: FaceliftProps) {
   const toggleVariant = () => {
     if (settings) {
       setTheme({
-        themeVariant: settings.state.themeVariant === 'dark' ? 'light' : 'dark',
+        themeVariant: settings.state.variant === 'dark' ? 'light' : 'dark',
         settings,
       })
     }
@@ -136,9 +136,10 @@ export function Facelift({ api }: FaceliftProps) {
             parameters: newSettings.parameters,
             config: newSettings.config,
             options: {
-              themeName: newSettings.parameters.defaultTheme,
-              themeVariant: newSettings.parameters.defaultVariant,
+              name: newSettings.parameters.defaultTheme,
+              variant: newSettings.parameters.defaultVariant,
               provider: newSettings.parameters.provider,
+              providerTheme: newSettings.parameters.providerTheme,
             },
           })
 

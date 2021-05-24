@@ -13,7 +13,7 @@ export const PreviewStyles = () => {
 
   const {
     parameters,
-    state: { themeVariant, theme },
+    state: { variant: themeVariant, theme },
   } = settings
 
   const { docs, ui, enhanceUi } = parameters

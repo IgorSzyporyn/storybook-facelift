@@ -82,7 +82,7 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
 
   const { titles } = settings.config
   const hasMultipleThemes = Object.keys(settings.config.themes).length > 1
-  const currentTheme = settings.state.themeName
+  const currentTheme = settings.state.name
 
   return currentTheme ? (
     <div hidden={!hasMultipleThemes}>

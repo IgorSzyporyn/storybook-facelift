@@ -102,7 +102,7 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
     if (themeProvider === undefined) {
       switch (themeType) {
         case 'mui':
-          themeProvider = themeType
+          themeProvider = 'mui'
           break
         case 'badgerui':
           themeProvider = 'styled'
@@ -110,7 +110,6 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
         default:
           break
       }
-      themeProvider = 'mui'
     }
 
     // If no providerTheme is supplied, but a provider is - then use own theme as providerTheme
@@ -168,7 +167,7 @@ export function createConfigDefaults(sourceParameters: AddonStateParameters) {
           key: themeKey,
           type: themeType,
           provider: themeProvider,
-          providerTheme,
+          providerThemeKey: providerTheme,
           providerOnly,
           original: {},
           instanciated: {},

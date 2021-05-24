@@ -57,8 +57,8 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   if (settings) {
     const {
       state: {
-        themeVariant,
-        themeOriginal,
+        variant: themeVariant,
+        original: themeOriginal,
         provider: stateProvider,
         providerTheme: stateProviderTheme,
       },
