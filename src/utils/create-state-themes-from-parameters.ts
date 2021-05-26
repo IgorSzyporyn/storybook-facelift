@@ -189,7 +189,7 @@ export const createStateThemesFromParameters = (parameters: AddonParameters) => 
   const hasCustomTheme =
     parameters.themes && parameters.themes.length > 0
       ? parameters.themes.some((theme) => {
-          return !theme.providerOnly
+          return !(theme.providerOnly === true)
         })
       : false
 
