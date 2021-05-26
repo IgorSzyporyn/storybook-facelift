@@ -44,7 +44,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   const [showChildren, setShowChildren] = useState(false)
 
   useEffect(() => {
-    if (addonState !== null) {
+    if (addonState) {
       setShowChildren(true)
       setTimeout(showDocsRoot, 0)
     }
@@ -59,6 +59,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
 
   if (addonState) {
     const {
+      themeKey,
       provider: stateProvider,
       providerTheme: stateProviderTheme,
       themeVariant = 'light',
@@ -67,10 +68,20 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     } = addonState
     const { addProvider, provider: paramProvider, providerTheme: paramProviderTheme } = parameters
 
-    const provider = stateProvider || paramProvider
-    const providerThemeKey = stateProviderTheme || paramProviderTheme
+    let providerKey = stateProvider || paramProvider
+    let providerThemeKey = stateProviderTheme || paramProviderTheme
 
-    if (!provider || !providerThemeKey) {
+    if (!providerKey && themeKey) {
+      const currentTheme = themes[themeKey]
+      providerKey = currentTheme.provider
+    }
+
+    if (!providerThemeKey && themeKey) {
+      const currentTheme = themes[themeKey]
+      providerThemeKey = currentTheme.providerTheme
+    }
+
+    if (!providerKey || !providerThemeKey) {
       return Facelifted
     }
 
@@ -80,7 +91,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     const providerThemeOptions = options[themeVariant]
     const providerThemeInstanciated = instanciated[themeVariant]
 
-    switch (provider) {
+    switch (providerKey) {
       case 'mui':
         Facelifted = (
           <>

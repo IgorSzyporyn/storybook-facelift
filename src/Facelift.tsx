@@ -68,40 +68,51 @@ export const Facelift = ({ api }: FaceliftProps) => {
   )
 
   const toggleVariant = () => {
-    updateAddonState({
-      ...(addonState || defaultAddonState),
-      themeVariant: addonState?.themeVariant === 'dark' ? 'light' : 'dark',
-    })
+    if (addonState?.initialized) {
+      updateAddonState({
+        ...addonState,
+        themeVariant: addonState?.themeVariant === 'dark' ? 'light' : 'dark',
+      })
+    }
   }
 
   const toggleTheme = (themeKey: string) => {
-    updateAddonState({ ...(addonState || defaultAddonState), themeKey })
+    if (addonState?.initialized) {
+      updateAddonState({ ...addonState, themeKey })
+    }
   }
 
   const renderTheme = () => {
-    updateAddonState({ ...(addonState || defaultAddonState) })
+    if (addonState?.initialized) {
+      updateAddonState(addonState)
+    }
   }
 
   useEffect(() => {
-    if (_parameters && (!addonState || !addonState?.initialized)) {
-      // Create the "themes", "converters" & "themeTitles" for the addon state
-      const configuredAddonState = createStateFromParameters(parameters)
+    if (_parameters) {
+      if (addonState?.initialized) {
+        updateAddonState({ ...addonState, parameters: _parameters })
+      } else {
+        // Create the "themes", "converters" & "themeTitles" for the addon state
+        const configuredAddonState = createStateFromParameters(parameters)
 
-      // Get the initial addonState values for chosen theme
-      const { themeKey, themeVariant } = getDefaultActiveThemeValues({
-        parameters,
-        themes: configuredAddonState.themes,
-      })
+        // Get the initial addonState values for chosen theme
+        const { themeKey, themeVariant } = getDefaultActiveThemeValues({
+          parameters,
+          themes: configuredAddonState.themes,
+        })
 
-      updateAddonState({
-        ...defaultAddonState,
-        ...configuredAddonState,
-        initialized: true,
-        themeKey,
-        themeVariant,
-      })
+        updateAddonState({
+          ...defaultAddonState,
+          ...configuredAddonState,
+          parameters: _parameters,
+          initialized: true,
+          themeKey,
+          themeVariant,
+        })
+      }
     }
-  }, [addonState, _parameters, parameters, updateAddonState])
+  }, [_parameters])
 
   useEffect(() => {
     const channel = api.getChannel()

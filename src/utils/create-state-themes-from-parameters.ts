@@ -80,9 +80,9 @@ const createTheme = ({ theme: themeConfig, parameters }: CreateThemeProps) => {
 
   let theme: AddonStateTheme = {
     ...paramTheme,
-    instanciated: variants as AddonStateInstanciatedThemes,
-    storybook: variants as AddonStateStorybookThemeOptions,
-    options: variants,
+    instanciated: { ...variants } as AddonStateInstanciatedThemes,
+    storybook: { ...variants } as AddonStateStorybookThemeOptions,
+    options: { ...variants },
   }
 
   const { converter: _converter, provider: _provider, providerTheme: _providerTheme } = themeConfig
@@ -173,7 +173,12 @@ const createTheme = ({ theme: themeConfig, parameters }: CreateThemeProps) => {
     }
   }
 
-  return theme
+  return {
+    ...theme,
+    converter,
+    provider,
+    providerTheme,
+  }
 }
 
 export const createStateThemesFromParameters = (parameters: AddonParameters) => {
