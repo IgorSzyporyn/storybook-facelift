@@ -83,7 +83,7 @@ export const ThemeSelector = ({ onChange, addonState }: ThemeSelectorProps) => {
   }
 
   const titles = addonState.themeTitles
-  const hasMultipleThemes = Object.keys(addonState.themes).length > 1
+  const hasMultipleThemes = Object.keys(addonState.themeTitles).length > 1
   const currentKey = addonState.themeKey
 
   return currentKey ? (
