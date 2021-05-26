@@ -13,7 +13,11 @@ export type ThemeProviderType = 'mui' | 'styled' | 'emotion'
 
 export type ThemeOptionsOverride = Omit<StorybookThemeOptions, 'base'>
 
-export type ThemeOptions = MuiThemeOptions | ThemeOptionsOverride | BadgerThemeOptions
+export type ThemeOptions =
+  | MuiThemeOptions
+  | ThemeOptionsOverride
+  | BadgerThemeOptions
+  | Record<string, unknown>
 
 export type ThemeInstanciated = StorybookTheme | MuiTheme | BadgerTheme<never>
 
