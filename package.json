@@ -1,16 +1,17 @@
 {
   "name": "storybook-facelift",
-  "description": "Theme control and UI enhancement for Storybook v6",
+  "description": "Themes, Theme Providers & true dark mode for Storybook",
   "version": "6.8.0",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
     "addon",
-    "theming",
+    "appearance",
+    "darkmode",
     "react",
     "storybook",
-    "storybook-addon",
-    "appearance"
+    "storybook-addons",
+    "theming"
   ],
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",

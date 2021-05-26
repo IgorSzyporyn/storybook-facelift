@@ -4,7 +4,13 @@
   </p>
 </div>
 
-# Themes, Theme Providers & true dark mode
+<div>
+  <p align="center">
+    <img width="600px" src="https://raw.githubusercontent.com/IgorSzyporyn/storybook-facelift/master/assets/storybook-facelift-preview.gif" />
+  </p>
+</div>
+
+### Themes, Theme Providers & true dark mode for Storybook
 
 - [Installation](#installation)
 - [Configure Addon](#configure-addon)
