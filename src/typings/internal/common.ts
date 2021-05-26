@@ -7,7 +7,7 @@ import type {
 
 export type ThemeVariantType = 'light' | 'dark'
 
-export type ThemeType = 'native' | 'mui' | 'badgerui'
+export type ThemeType = 'native' | 'mui' | 'badgerui' | 'custom'
 
 export type ThemeProviderType = 'mui' | 'styled' | 'emotion'
 

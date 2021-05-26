@@ -74,15 +74,34 @@ export type ParamTheme = {
 export type ParamThemeConverters = Record<string, ThemeConverterFn>
 
 /**
- * Main parameters type
- *
+ * ### Storybook Facelift
+ * Parameters for Storybook Facelift
  */
-
 export type AddonParameters = {
+  /**
+   * @deprecated use addProvider
+   */
+  autoThemeStory?: boolean
+  /**
+   * Automatically wrap your stories in a theme provider from Material UI,
+   * Styled Components or Emotion
+   */
   addProvider?: boolean
+  /**
+   * The default provider to wrap your stories with (mui, styled or emotion)
+   */
   provider?: ThemeProviderType
+  /**
+   * Key for your default theme used for theme provider
+   */
   providerTheme?: string
+  /**
+   * Key for your default theme for Storybook
+   */
   defaultTheme?: string
+  /**
+   * Default variant to show (light or dark)
+   */
   defaultVariant?: ThemeVariantType
   docs?: ParamDocs
   enhanceUi?: boolean

@@ -1,19 +1,19 @@
-import type { Meta, Parameters } from '@storybook/react'
+import type { Meta as StorybookMeta, Parameters as StorybookParameters } from '@storybook/react'
 import type { Args as DefaultArgs } from '@storybook/addons'
 import type { AddonParameters } from './parameters'
 
-export type FaceliftMeta<
+export type Meta<
   T extends Record<string, unknown> = Record<string, unknown>,
   ArgTypes = DefaultArgs
-> = Meta<ArgTypes> & {
-  parameters?: Parameters & {
+> = StorybookMeta<ArgTypes> & {
+  parameters?: StorybookParameters & {
     facelift: AddonParameters
   } & T
 }
 
-export type FaceliftParameters<T extends Record<string, unknown> = Record<string, unknown>> = {
+export type Parameters<T extends Record<string, unknown> = Record<string, unknown>> = {
   facelift: AddonParameters
-} & Parameters &
+} & StorybookParameters &
   T
 
 export type { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
