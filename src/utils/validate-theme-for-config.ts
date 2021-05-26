@@ -11,7 +11,7 @@ export const validateThemeForConfig = (theme: ParamTheme, params: AddonParameter
     return valid
   }
 
-  if (!theme.title) {
+  if (!theme.title && !theme.providerOnly) {
     valid = false
     output(
       `No title given to theme "${theme.key}" - will not show up properly in the menu`,
@@ -23,7 +23,7 @@ export const validateThemeForConfig = (theme: ParamTheme, params: AddonParameter
 
   if (!theme.type) {
     output(`No type given for theme "${theme.key}" - falling back to Storybook`, 'warning')
-  } else if (theme.type && !themeConverters[theme.type]) {
+  } else if (theme.type && !themeConverters[theme.type] && !theme.provider) {
     output(`No matching converter for theme "${theme.key}"`, 'error')
     return valid
   }
