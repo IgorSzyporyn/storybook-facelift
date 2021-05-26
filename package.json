@@ -1,7 +1,7 @@
 {
   "name": "storybook-facelift",
   "description": "Themes, Theme Providers & true dark mode for Storybook",
-  "version": "6.8.0",
+  "version": "6.8.1",
   "license": "MIT",
   "type": "commonjs",
   "keywords": [
