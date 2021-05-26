@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 
 import type { ThemeOptions } from '@material-ui/core'
-import type { ThemeConverterFnProps } from '../typings/internal/parameters'
+import type { ThemeConverterFnProps } from '../typings/internal/common'
 
 export function createMuiTheme(
   themeOptions: ThemeOptions,

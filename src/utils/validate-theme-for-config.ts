@@ -1,8 +1,8 @@
 import { output } from './output'
 
-import type { AddonStateParameters, ParamTheme } from '../typings/internal/parameters'
+import type { AddonParameters, ParamTheme } from '../typings/internal/parameters'
 
-export const validateThemeForConfig = (theme: ParamTheme, params: AddonStateParameters) => {
+export const validateThemeForConfig = (theme: ParamTheme, params: AddonParameters) => {
   let valid = true
 
   if (!theme.key) {
@@ -19,11 +19,12 @@ export const validateThemeForConfig = (theme: ParamTheme, params: AddonStatePara
     )
   }
 
+  const themeConverters = params.themeConverters || {}
+
   if (!theme.type) {
     output(`No type given for theme "${theme.key}" - falling back to Storybook`, 'warning')
-  } else if (theme.type && !params.themeConverters[theme.type]) {
+  } else if (theme.type && !themeConverters[theme.type]) {
     output(`No matching converter for theme "${theme.key}"`, 'error')
-    output(`hellloooo"`, 'error')
     return valid
   }
 
@@ -31,8 +32,6 @@ export const validateThemeForConfig = (theme: ParamTheme, params: AddonStatePara
     output(`No variants provided for theme "${theme.key}"`)
     return valid
   }
-
-  // @TODO - variants have changed - need to check for valid theme if extended variants parameter
 
   return valid
 }

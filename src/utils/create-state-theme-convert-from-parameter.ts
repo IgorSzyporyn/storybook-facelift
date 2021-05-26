@@ -1,29 +1,31 @@
-import {
-  AddonStateParameters,
-  ThemeConverterFn,
-  ParamTheme,
-  ThemeVariantType,
+import type {
   ThemeOptions,
   ThemeOptionsOverride,
-} from '../typings/internal/parameters'
+  ThemeConverterFn,
+  ThemeConverterFnResult,
+  ThemeVariantType,
+} from '../typings/internal/common'
+import type { AddonParameters, ParamTheme } from '../typings/internal/parameters'
 
 export type ConvertParameterThemeToConfigThemeProps = {
-  parameters: AddonStateParameters
+  parameters: AddonParameters
   themeConfig: ParamTheme
   themeVariant: ThemeOptions
-  converter: ThemeConverterFn
+  converter?: ThemeConverterFn
   themeVariantName: ThemeVariantType
 }
 
-export function convertParameterThemeToConfigTheme({
+export function createStateThemeConvertFromParameters({
   parameters,
   themeConfig,
   themeVariant,
   converter,
   themeVariantName: variant,
 }: ConvertParameterThemeToConfigThemeProps) {
+  let converted: ThemeConverterFnResult | undefined
+
   if (themeVariant === undefined) {
-    return null
+    return converted
   }
 
   const variantOverride: Record<string, unknown> = {
@@ -35,12 +37,14 @@ export function convertParameterThemeToConfigTheme({
   const _override = Object.keys(variantOverride).length === 0 ? undefined : variantOverride
   const override = _override as ThemeOptionsOverride | undefined
 
-  const converted = converter({
-    theme: themeVariant,
-    override,
-    variant,
-    background: themeConfig.background,
-  })
+  if (converter) {
+    converted = converter({
+      theme: themeVariant,
+      override,
+      variant,
+      background: themeConfig.background,
+    })
+  }
 
   return converted
 }

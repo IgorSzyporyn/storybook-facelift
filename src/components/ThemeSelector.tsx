@@ -1,14 +1,13 @@
 // eslint-disable-next-line no-use-before-define
 import React, { ReactNode } from 'react'
+import memoize from 'memoizerific'
 import AdjustSharpIcon from '@material-ui/icons/AdjustSharp'
 import PaletteSharpIcon from '@material-ui/icons/PaletteSharp'
 import RadioButtonUncheckedSharpIcon from '@material-ui/icons/RadioButtonUncheckedSharp'
 import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components'
 import { styled } from '@storybook/theming'
-import memoize from 'memoizerific'
-import { useFaceliftSettings } from '../index'
 
-import type { ConfigTitles } from '../typings/internal/config'
+import type { AddonState, AddonStateThemeTitles } from '../typings/internal/state'
 
 const CheckedIcon = styled(AdjustSharpIcon)(({ theme }) => ({
   color: theme.color.secondary,
@@ -54,37 +53,40 @@ const createThemeSelectorItem = memoize(1000)(
   })
 )
 
-const createThemeList = memoize(10)(
-  (titles: ConfigTitles, currentKey: string, change: (key: string) => void) => {
-    const themeSelectorItems: ThemeSelectorItem[] = []
+type CreateThemeListProps = {
+  titles: AddonStateThemeTitles
+  currentKey: string
+  change: (key: string) => void
+}
 
-    Object.keys(titles).forEach((key) => {
-      const title = titles[key]
-      const themeSelectorItem = createThemeSelectorItem(null, title, key, currentKey, change)
+const createThemeList = memoize(10)(({ titles, currentKey, change }: CreateThemeListProps) => {
+  const themeSelectorItems: ThemeSelectorItem[] = []
 
-      themeSelectorItems.push(themeSelectorItem)
-    })
+  Object.keys(titles).forEach((key) => {
+    const title = titles[key]
+    const themeSelectorItem = createThemeSelectorItem(null, title, key, currentKey, change)
 
-    return themeSelectorItems
-  }
-)
+    themeSelectorItems.push(themeSelectorItem)
+  })
+
+  return themeSelectorItems
+})
 
 type ThemeSelectorProps = {
   onChange: (key: string) => void
+  addonState: AddonState | undefined
 }
 
-export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
-  const settings = useFaceliftSettings()
-
-  if (!settings) {
+export const ThemeSelector = ({ onChange, addonState }: ThemeSelectorProps) => {
+  if (!addonState) {
     return null
   }
 
-  const { titles } = settings.config
-  const hasMultipleThemes = Object.keys(settings.config.themes).length > 1
-  const currentTheme = settings.state.name
+  const titles = addonState.themeTitles
+  const hasMultipleThemes = Object.keys(addonState.themes).length > 1
+  const currentKey = addonState.themeKey
 
-  return currentTheme ? (
+  return currentKey ? (
     <div hidden={!hasMultipleThemes}>
       <WithTooltip
         placement="top"
@@ -93,9 +95,13 @@ export const ThemeSelector = ({ onChange }: ThemeSelectorProps) => {
         // eslint-disable-next-line react/no-unused-prop-types
         tooltip={({ onHide }: { onHide: () => void }) => (
           <TooltipLinkList
-            links={createThemeList(titles, currentTheme, (key) => {
-              onChange(key)
-              onHide()
+            links={createThemeList({
+              titles,
+              currentKey,
+              change: (key) => {
+                onChange(key)
+                onHide()
+              },
             })}
           />
         )}

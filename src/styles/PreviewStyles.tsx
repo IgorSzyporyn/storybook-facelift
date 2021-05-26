@@ -1,28 +1,35 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react'
-import { Global, themes, Theme as StorybookTheme } from '@storybook/theming'
-import { useFaceliftSettings } from '../index'
+import { Global, Theme as StorybookTheme } from '@storybook/theming'
 import { enhancePreviewStyles } from './manager/previewStyles'
 
-export const PreviewStyles = () => {
-  const settings = useFaceliftSettings()
+import type { AddonState } from '../typings/internal/state'
 
-  if (!settings) {
+type PreviewStylesProps = {
+  addonState: AddonState | null
+}
+
+export const PreviewStyles = ({ addonState }: PreviewStylesProps) => {
+  if (!addonState) {
     return null
   }
 
-  const {
-    parameters,
-    state: { variant: themeVariant, theme },
-  } = settings
-
+  const { parameters, themeVariant = 'light', themeKey, themes } = addonState
   const { docs, ui, enhanceUi } = parameters
 
-  const themeVars = theme || { ...themes[themeVariant] }
+  const theme = themes[themeKey || '']
   let styles = {}
 
-  if (enhanceUi) {
-    styles = enhancePreviewStyles(styles, themeVars, themeVariant, ui, docs)
+  if (theme && theme.storybook && enhanceUi) {
+    const themeVars = theme.storybook[themeVariant]
+
+    styles = enhancePreviewStyles({
+      docsParams: docs,
+      styles,
+      themeVariant,
+      themeVars,
+      uiParams: ui,
+    })
   }
 
   return enhanceUi ? <Global<StorybookTheme> styles={styles} /> : null

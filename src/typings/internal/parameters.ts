@@ -1,36 +1,12 @@
-import { ThemeOptions as MuiThemeOptions } from '@material-ui/core'
-import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import { ThemeOptions as BadgerThemeConfig } from 'badger-ui'
-
-import { Meta, Parameters } from '@storybook/react'
-import { Args as DefaultArgs } from '@storybook/addons'
-import type { ThemeInstanciatedType } from './config'
-
-// Utility type for storybook theme overrides in various parameter types
-export type ThemeOptionsOverride = Omit<StorybookThemeOptions, 'base'>
-export type StorybookFaceliftThemeOptionsOverride = ThemeOptionsOverride
-
-export type ThemeOptions =
-  | MuiThemeOptions
-  | StorybookFaceliftThemeOptionsOverride
-  | BadgerThemeConfig
-export type StorybookFaceliftThemeOptions = ThemeOptions
-
-export type ThemeVariantType = 'light' | 'dark'
-export type ThemeType = 'native' | 'mui' | 'badgerui'
-export type ThemeProviderType = 'mui' | 'styled' | 'emotion'
-
-export type ThemeVariants = { [key in ThemeVariantType]: ThemeOptions }
-export type ThemeBackgroundsTypes =
-  | 'normal'
-  | 'reverse'
-  | 'equal'
-  | 'equal-reverse'
-  | 'equal-app'
-  | 'equal-content'
-
-export type StorybookFaceliftTheme = ThemeInstanciatedType
-export type { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
+import type {
+  ThemeOptionsOverride,
+  ThemeBackgroundsTypes,
+  ThemeConverterFn,
+  ThemeProviderType,
+  ThemeType,
+  ThemeVariants,
+  ThemeVariantType,
+} from './common'
 
 /**
  * Types used for parameter "docs"
@@ -77,16 +53,17 @@ export type ParamNative = {
  */
 
 export type ParamTheme = {
-  background?: ThemeBackgroundsTypes
   key: string
+  title: string
+  variants: ThemeVariants
+  type: ThemeType
+  background?: ThemeBackgroundsTypes
   override?: ThemeOptionsOverride
   provider?: ThemeProviderType
   providerTheme?: string
   providerOnly?: boolean
   resposiveFontSizes?: boolean
-  title: string
-  type: ThemeType
-  variants: ThemeVariants
+  converter?: string
 }
 
 /**
@@ -94,31 +71,14 @@ export type ParamTheme = {
  *
  */
 
-export type ThemeConverterFnProps = {
-  background?: ThemeBackgroundsTypes
-  override?: ThemeOptionsOverride
-  responsiveFontSizes?: boolean
-  theme: ThemeOptions
-  variant: ThemeVariantType
-}
-
-export type ThemeConverterFnResult = {
-  storybookThemeOptions: StorybookThemeOptions
-  theme: ThemeInstanciatedType
-  themeOptions: ThemeOptions
-} | null
-
-export type ThemeConverterFn = (props: ThemeConverterFnProps) => ThemeConverterFnResult
-export type ParamThemeConverters = Record<string, ThemeConverterFn | undefined>
+export type ParamThemeConverters = Record<string, ThemeConverterFn>
 
 /**
- * Main & Exposed types
+ * Main parameters type
  *
  */
 
 export type AddonParameters = {
-  // @deprecated for addProvider
-  autoThemeStory?: boolean
   addProvider?: boolean
   provider?: ThemeProviderType
   providerTheme?: string
@@ -133,50 +93,3 @@ export type AddonParameters = {
   themes?: ParamTheme[]
   ui?: ParamUi
 }
-
-export type AddonStateParameters = {
-  defaultTheme: string
-  defaultVariant: ThemeVariantType
-  docs: ParamDocs
-  enhanceUi: boolean
-  includeNative: boolean
-  ui: ParamUi
-  addProvider?: boolean
-  native?: ParamNative
-  override?: ThemeOptionsOverride
-  provider?: ThemeProviderType
-  providerTheme?: string
-  themeConverters: ParamThemeConverters
-  themes?: ParamTheme[]
-  isStoryParam?: boolean
-}
-
-export type StoryParameters = Pick<
-  AddonParameters,
-  'addProvider' | 'provider' | 'providerTheme' | 'docs' | 'enhanceUi' | 'override' | 'ui'
-> &
-  Pick<AddonStateParameters, 'isStoryParam'>
-
-export type DefaultParameters = {
-  addProvider: boolean
-  defaultTheme: string
-  docs: ParamDocs
-  enhanceUi: boolean
-  includeNative: boolean
-  themeConverters: ParamThemeConverters
-  ui: ParamUi
-}
-
-export type StoryMeta<
-  T extends Record<string, unknown> = Record<string, unknown>,
-  ArgTypes = DefaultArgs
-> = Meta<ArgTypes> & {
-  parameters?: Parameters & {
-    facelift: StoryParameters
-  } & T
-}
-
-export type GlobalParameters<T extends Record<string, unknown> = Record<string, unknown>> = {
-  facelift: AddonParameters
-} & Parameters &
-  T

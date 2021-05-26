@@ -9,10 +9,11 @@ import {
   jssPreset,
   MuiThemeProvider,
   StylesProvider as MuiStylesProvider,
-  Theme,
 } from '@material-ui/core/styles'
-import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
+import { useFaceliftSettings } from '../index'
+
+import type { Theme } from '@material-ui/core/styles'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -33,61 +34,60 @@ function hideDocsRoot() {
 }
 
 type WithThemedPreviewProps = {
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   hideDocsRoot()
 
-  const settings = useFaceliftSettings()
+  const addonState = useFaceliftSettings()
   const [showChildren, setShowChildren] = useState(false)
 
   useEffect(() => {
-    setShowChildren(true)
-    setTimeout(showDocsRoot, 0)
-  }, [settings])
+    if (addonState !== null) {
+      setShowChildren(true)
+      setTimeout(showDocsRoot, 0)
+    }
+  }, [addonState])
 
   let Facelifted = (
     <>
-      <PreviewStyles />
+      <PreviewStyles addonState={addonState} />
       {showChildren && children}
     </>
   )
 
-  if (settings) {
+  if (addonState) {
     const {
-      state: {
-        variant: themeVariant,
-        original: themeOriginal,
-        provider: stateProvider,
-        providerTheme: stateProviderTheme,
-      },
-      config: { themes },
-      parameters: {
-        addProvider,
-        provider: paramProvider,
-        providerTheme: paramProviderTheme,
-        isStoryParam,
-      },
-    } = settings
+      provider: stateProvider,
+      providerTheme: stateProviderTheme,
+      themeVariant = 'light',
+      themes,
+      parameters,
+    } = addonState
+    const { addProvider, provider: paramProvider, providerTheme: paramProviderTheme } = parameters
 
-    const provider = isStoryParam ? paramProviderTheme : stateProviderTheme
-    const providerThemeKey = isStoryParam ? stateProvider : paramProvider
+    const provider = stateProvider || paramProvider
+    const providerThemeKey = stateProviderTheme || paramProviderTheme
 
     if (!provider || !providerThemeKey) {
       return Facelifted
     }
 
     const providerTheme = themes[providerThemeKey]
+    const { instanciated, options } = providerTheme
+
+    const providerThemeOptions = options[themeVariant]
+    const providerThemeInstanciated = instanciated[themeVariant]
 
     switch (provider) {
       case 'mui':
         Facelifted = (
           <>
-            <PreviewStyles />
-            {showChildren && themeOriginal && addProvider ? (
+            <PreviewStyles addonState={addonState} />
+            {showChildren && providerThemeOptions && addProvider ? (
               <MuiThemeProvider
-                theme={createMuiTheme(providerTheme?.original[themeVariant] as Theme)}
+                theme={createMuiTheme(providerThemeOptions as Theme)}
                 key="storybook-facelift-mui-theme-provider"
               >
                 <CssBaseline />
@@ -108,10 +108,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
       case 'styled':
         Facelifted = (
           <>
-            <PreviewStyles />
-            {showChildren && providerTheme?.instanciated && addProvider ? (
+            <PreviewStyles addonState={addonState} />
+            {showChildren && providerThemeInstanciated && addProvider ? (
               <StyledThemeProvider
-                theme={providerTheme?.instanciated}
+                theme={providerThemeInstanciated}
                 key="storybook-facelift-styled-theme-provider"
               >
                 {children}
@@ -125,10 +125,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
       case 'emotion':
         Facelifted = (
           <>
-            <PreviewStyles />
-            {showChildren && providerTheme?.instanciated && addProvider ? (
+            <PreviewStyles addonState={addonState} />
+            {showChildren && providerThemeInstanciated && addProvider ? (
               <EmotionThemeProvider
-                theme={providerTheme?.instanciated}
+                theme={providerThemeInstanciated}
                 key="storybook-facelift-emotion-theme-provider"
               >
                 {children}
@@ -140,6 +140,12 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
         )
         break
       default:
+        Facelifted = (
+          <>
+            <PreviewStyles addonState={addonState} />
+            {showChildren && children}
+          </>
+        )
         break
     }
   }

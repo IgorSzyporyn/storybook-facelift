@@ -3,7 +3,7 @@ import { createTheme } from 'badger-ui'
 
 import type { ThemeVars } from '@storybook/theming'
 import type { ThemeOptions as BadgerUiThemeConfig } from 'badger-ui'
-import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/parameters'
+import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/common'
 
 export function createStorybookThemeFromBadgerUi({
   theme,
@@ -14,8 +14,8 @@ export function createStorybookThemeFromBadgerUi({
     return null
   }
 
-  const themeConfig = { ...theme, type: variant } as BadgerUiThemeConfig
-  const instanciated = createTheme<unknown>(themeConfig)
+  const options = { ...theme, type: variant } as BadgerUiThemeConfig
+  const instanciated = createTheme<unknown>(options)
 
   const convertedThemeOptions: ThemeVars = {
     base: variant,
@@ -49,11 +49,7 @@ export function createStorybookThemeFromBadgerUi({
     base: variant,
   }
 
-  const storybookThemeConfig = create(themeVars)
+  const storybook = create(themeVars)
 
-  return {
-    storybookThemeOptions: storybookThemeConfig,
-    themeOptions: themeConfig,
-    theme: instanciated,
-  }
+  return { storybook, options, instanciated }
 }
