@@ -30,6 +30,7 @@ But you can also
   - [Material UI](https://material-ui.com/customization/theming/#theme-provider)
   - [Styled Components](https://styled-components.com/docs/advanced)
   - [Emotion](https://emotion.sh/docs/theming#themeprovider-reactcomponenttype)
+  - [@callstack/react-theme-provider](https://www.npmjs.com/package/@callstack/react-theme-provider)
 - True dark mode
 - Unlock dark mode and column control for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) and more UI controls
 
