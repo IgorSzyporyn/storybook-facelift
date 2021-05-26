@@ -4,15 +4,13 @@
   </p>
 </div>
 
-### Multiple light/dark themes and multiple theme providers for stories
+# Themes, Theme Providers & true dark mode
 
 - [Installation](#installation)
 - [Configure Addon](#configure-addon)
 - [Configure Story](#configure-story)
 - [Parameters](#addon-parameters)
 - [Examples](#examples)
-
-### Introduction
 
 Storybook Facelift is zero-config - which will just return a light/dark mode button for the native theme
 
@@ -26,6 +24,7 @@ But you can also
   - [Material UI](https://material-ui.com/customization/theming/#theme-provider)
   - [Styled Components](https://styled-components.com/docs/advanced)
   - [Emotion](https://emotion.sh/docs/theming#themeprovider-reactcomponenttype)
+- True dark mode
 - Unlock dark mode and column control for [@storybook/addon-docs](https://www.npmjs.com/package/@storybook/addon-docs) and more UI controls
 
 ## <a name="installation"></a>Installation
