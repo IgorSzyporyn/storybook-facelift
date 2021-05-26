@@ -184,8 +184,16 @@ const createTheme = ({ theme: themeConfig, parameters }: CreateThemeProps) => {
 export const createStateThemesFromParameters = (parameters: AddonParameters) => {
   const themes: AddonStateThemes = {}
 
-  // Only allow native theme if allowed by parameters, or no custom themes present
-  if (parameters.includeNative || !parameters.themes || parameters.themes.length === 0) {
+  // Only allow native theme if allowed by parameters, no custom themes present
+  // "providerOnly" themes are not custom themes
+  const hasCustomTheme =
+    parameters.themes && parameters.themes.length > 0
+      ? parameters.themes.some((theme) => {
+          return !theme.providerOnly
+        })
+      : false
+
+  if (parameters.includeNative || !hasCustomTheme) {
     themes.native = createNativeTheme(parameters)
   }
 
