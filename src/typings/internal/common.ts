@@ -17,7 +17,7 @@ export type ThemeOptions =
   | MuiThemeOptions
   | ThemeOptionsOverride
   | BadgerThemeOptions
-  | Record<string, unknown>
+  | { [key: string]: any }
 
 export type ThemeInstanciated = StorybookTheme | MuiTheme | BadgerTheme<never>
 

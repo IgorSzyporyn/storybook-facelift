@@ -13,7 +13,7 @@ import {
 import { PreviewStyles } from '../styles/PreviewStyles'
 import { useFaceliftSettings } from '../index'
 
-import type { Theme } from '@material-ui/core/styles'
+import type { ThemeOptions as MuiThemeOptions } from '@material-ui/core/styles'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -108,7 +108,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
             <PreviewStyles addonState={addonState} />
             {showChildren && providerThemeOptions && addProvider ? (
               <MuiThemeProvider
-                theme={createMuiTheme(providerThemeOptions as Theme)}
+                theme={createMuiTheme(providerThemeOptions as MuiThemeOptions)}
                 key="storybook-facelift-mui-theme-provider"
               >
                 <CssBaseline />

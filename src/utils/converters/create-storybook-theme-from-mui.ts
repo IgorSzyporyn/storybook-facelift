@@ -1,9 +1,9 @@
 import { ThemeOptions as MuiThemeConfig } from '@material-ui/core'
 import { create, themes } from '@storybook/theming'
-import { createMuiTheme } from './create-mui-theme'
-import { getMuiBackgroundKeys } from './get-mui-background-keys'
+import { createMuiTheme } from '../create-mui-theme'
+import { getMuiBackgroundKeys } from '../get-mui-background-keys'
 
-import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/common'
+import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../../typings/internal/common'
 
 export function createStorybookThemeOptionsFromMui(
   props: ThemeConverterFnProps

@@ -1,8 +1,8 @@
 import { convert, create } from '@storybook/theming'
-import { getNativeBackgroundColors } from './get-native-background-colors'
+import { getNativeBackgroundColors } from '../get-native-background-colors'
 
 import type { ThemeVars as StorybookThemeConfig } from '@storybook/theming'
-import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/common'
+import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../../typings/internal/common'
 
 export function createStorybookThemeFromNative({
   theme,
