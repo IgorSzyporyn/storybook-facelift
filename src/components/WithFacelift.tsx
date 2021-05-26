@@ -66,7 +66,17 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
       themes,
       parameters,
     } = addonState
-    const { addProvider, provider: paramProvider, providerTheme: paramProviderTheme } = parameters
+    const {
+      addProvider: _addProvider,
+      autoThemeStory,
+      provider: paramProvider,
+      providerTheme: paramProviderTheme,
+    } = parameters
+    let addProvider = _addProvider
+
+    if (!_addProvider && autoThemeStory) {
+      addProvider = autoThemeStory
+    }
 
     let providerKey = stateProvider || paramProvider
     let providerThemeKey = stateProviderTheme || paramProviderTheme
