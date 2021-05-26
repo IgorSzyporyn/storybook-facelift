@@ -1,19 +1,19 @@
 // eslint-disable-next-line no-use-before-define
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { create } from 'jss'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components'
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@material-ui/core'
-import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
   createMuiTheme,
   jssPreset,
   MuiThemeProvider,
   StylesProvider as MuiStylesProvider,
-  Theme,
 } from '@material-ui/core/styles'
-import { create, Jss } from 'jss'
-import { useFaceliftSettings } from '../index'
 import { PreviewStyles } from '../styles/PreviewStyles'
+import { useFaceliftSettings } from '../index'
 
-import type { ThemeOptions } from '../typings/internal/parameters'
+import type { Theme } from '@material-ui/core/styles'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -34,98 +34,142 @@ function hideDocsRoot() {
 }
 
 type WithThemedPreviewProps = {
-  children: ReactNode
+  children?: React.ReactNode
 }
 
 export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
-  const settings = useFaceliftSettings()
-  const [showChildren, setShowChildren] = useState(false)
-
   hideDocsRoot()
 
+  const addonState = useFaceliftSettings()
+  const [showChildren, setShowChildren] = useState(false)
+
   useEffect(() => {
-    setShowChildren(true)
-    setTimeout(showDocsRoot, 0)
-  }, [settings])
+    if (addonState) {
+      setShowChildren(true)
+      setTimeout(showDocsRoot, 0)
+    }
+  }, [addonState])
 
-  let theme: Theme | false = false
-  let themeOriginal: false | ThemeOptions = false
-  let themeInstanciated: false | Record<string, any> = false
-  let autoThemeStory = false
+  let Facelifted = (
+    <>
+      <PreviewStyles addonState={addonState} />
+      {showChildren && children}
+    </>
+  )
 
-  let isStyledTheme = false
+  if (addonState) {
+    const {
+      themeKey,
+      provider: stateProvider,
+      providerTheme: stateProviderTheme,
+      themeVariant = 'light',
+      themes,
+      parameters,
+    } = addonState
+    const {
+      addProvider: _addProvider,
+      autoThemeStory,
+      provider: paramProvider,
+      providerTheme: paramProviderTheme,
+    } = parameters
+    let addProvider = _addProvider
 
-  let isMuiTheme = false
-  let isMuiValid = false
-  let muiJSS: Jss | null = null
-
-  if (settings) {
-    const { state, parameters } = settings
-    themeOriginal = state.themeOriginal ? state.themeOriginal : false
-    themeInstanciated = state.themeInstanciated ? state.themeInstanciated : false
-    isMuiTheme = state.themeType === 'mui'
-    isStyledTheme =
-      state.themeType === 'styled' ||
-      state.themeType === 'badgerui' ||
-      state.themeType === 'cylindo'
-    isMuiValid = themeOriginal && isMuiTheme
-    autoThemeStory = parameters.autoThemeStory === true
-
-    // @TODO - Let user add jssPresets through parameters
-    muiJSS = create({
-      plugins: [...jssPreset().plugins],
-    })
-  }
-
-  if (isMuiTheme) {
-    if (isMuiValid) {
-      theme = themeOriginal as Theme
+    if (!_addProvider && autoThemeStory) {
+      addProvider = autoThemeStory
     }
 
-    return (
-      <>
-        <PreviewStyles />
-        {showChildren && (
+    let providerKey = stateProvider || paramProvider
+    let providerThemeKey = stateProviderTheme || paramProviderTheme
+
+    if (!providerKey && themeKey) {
+      const currentTheme = themes[themeKey]
+      providerKey = currentTheme.provider
+    }
+
+    if (!providerThemeKey && themeKey) {
+      const currentTheme = themes[themeKey]
+      providerThemeKey = currentTheme.providerTheme
+    }
+
+    if (!providerKey || !providerThemeKey) {
+      return Facelifted
+    }
+
+    const providerTheme = themes[providerThemeKey]
+    const { instanciated, options } = providerTheme
+
+    const providerThemeOptions = options[themeVariant]
+    const providerThemeInstanciated = instanciated[themeVariant]
+
+    switch (providerKey) {
+      case 'mui':
+        Facelifted = (
           <>
-            {theme && autoThemeStory && muiJSS !== null ? (
+            <PreviewStyles addonState={addonState} />
+            {showChildren && providerThemeOptions && addProvider ? (
               <MuiThemeProvider
-                theme={createMuiTheme(theme)}
+                theme={createMuiTheme(providerThemeOptions as Theme)}
                 key="storybook-facelift-mui-theme-provider"
               >
                 <CssBaseline />
-                <MuiStylesProvider jss={muiJSS}>{children}</MuiStylesProvider>
+                <MuiStylesProvider
+                  jss={create({
+                    plugins: [...jssPreset().plugins],
+                  })}
+                >
+                  {children}
+                </MuiStylesProvider>
               </MuiThemeProvider>
             ) : (
-              children
+              showChildren && children
             )}
           </>
-        )}
-      </>
-    )
+        )
+        break
+      case 'styled':
+        Facelifted = (
+          <>
+            <PreviewStyles addonState={addonState} />
+            {showChildren && providerThemeInstanciated && addProvider ? (
+              <StyledThemeProvider
+                theme={providerThemeInstanciated}
+                key="storybook-facelift-styled-theme-provider"
+              >
+                {children}
+              </StyledThemeProvider>
+            ) : (
+              showChildren && children
+            )}
+          </>
+        )
+        break
+      case 'emotion':
+        Facelifted = (
+          <>
+            <PreviewStyles addonState={addonState} />
+            {showChildren && providerThemeInstanciated && addProvider ? (
+              <EmotionThemeProvider
+                theme={providerThemeInstanciated}
+                key="storybook-facelift-emotion-theme-provider"
+              >
+                {children}
+              </EmotionThemeProvider>
+            ) : (
+              showChildren && children
+            )}
+          </>
+        )
+        break
+      default:
+        Facelifted = (
+          <>
+            <PreviewStyles addonState={addonState} />
+            {showChildren && children}
+          </>
+        )
+        break
+    }
   }
 
-  if (isStyledTheme) {
-    return (
-      <>
-        <PreviewStyles />
-        {themeInstanciated && autoThemeStory ? (
-          <StyledComponentsThemeProvider
-            theme={themeInstanciated}
-            key="storybook-facelift-styled-theme-provider"
-          >
-            {children}
-          </StyledComponentsThemeProvider>
-        ) : (
-          children
-        )}
-      </>
-    )
-  }
-
-  return (
-    <>
-      <PreviewStyles />
-      {children}
-    </>
-  )
+  return Facelifted
 }

@@ -1,5 +1,5 @@
 import { ThemeVars as StorybookThemeOptions } from '@storybook/theming'
-import type { ThemeBackgroundsTypes } from '../typings/internal/parameters'
+import type { ThemeBackgroundsTypes } from '../typings/internal/common'
 
 export function getNativeBackgroundColors(
   theme: StorybookThemeOptions,

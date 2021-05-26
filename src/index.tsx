@@ -4,15 +4,19 @@ import addons, { makeDecorator } from '@storybook/addons'
 import { ADDON_EVENT_THEME_CHANGE, ADDON_PARAM_KEY } from './constants'
 import { WithFacelift } from './components/WithFacelift'
 
-import type { AddonSettings } from './typings/internal/settings'
+import type { AddonState } from './typings/internal/state'
 
 export const useFaceliftSettings = () => {
-  const [addonSettings, setAddonSettings] = useState<AddonSettings | null>(null)
+  const [addonSettings, setAddonSettings] = useState<AddonState | null>(null)
 
   useEffect(() => {
     const chan = addons.getChannel()
+
     chan.on(ADDON_EVENT_THEME_CHANGE, setAddonSettings)
-    return () => chan.off(ADDON_EVENT_THEME_CHANGE, setAddonSettings)
+
+    return () => {
+      chan.off(ADDON_EVENT_THEME_CHANGE, setAddonSettings)
+    }
   })
 
   return addonSettings
@@ -27,4 +31,4 @@ export const withFacelift = makeDecorator({
   },
 })
 
-export * from './typings/internal/parameters'
+export * from './typings/internal/exposed'

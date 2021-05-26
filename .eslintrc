@@ -56,6 +56,16 @@
     }
   ],
   "rules": {
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": true,
+        "object": true
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ],
     "import/order": 0,
     "react/react-in-jsx-scope": 0,
     "react/display-name": 0,
@@ -68,12 +78,8 @@
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": [
-      2,
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
     "no-console": [
       2,
       {

@@ -3,7 +3,7 @@ import { create, themes } from '@storybook/theming'
 import { createMuiTheme } from './create-mui-theme'
 import { getMuiBackgroundKeys } from './get-mui-background-keys'
 
-import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/parameters'
+import type { ThemeConverterFnProps, ThemeConverterFnResult } from '../typings/internal/common'
 
 export function createStorybookThemeOptionsFromMui(
   props: ThemeConverterFnProps
@@ -15,15 +15,15 @@ export function createStorybookThemeOptionsFromMui(
     return null
   }
 
-  const themeConfig = theme as MuiThemeConfig
+  const options = theme as MuiThemeConfig
 
-  if (!themeConfig.palette) {
-    themeConfig.palette = { type: variant }
-  } else if (!themeConfig.palette.type) {
-    themeConfig.palette.type = variant
+  if (!options.palette) {
+    options.palette = { type: variant }
+  } else if (!options.palette.type) {
+    options.palette.type = variant
   }
 
-  const instanciated = createMuiTheme(themeConfig, props)
+  const instanciated = createMuiTheme(options, props)
   const defaultThemeValues = themes[variant]
 
   const { appBg, appContentBg } = getMuiBackgroundKeys(background)
@@ -64,11 +64,7 @@ export function createStorybookThemeOptionsFromMui(
     base: variant,
   }
 
-  const storybookThemeConfig = create(themeValue)
+  const storybook = create(themeValue)
 
-  return {
-    storybookThemeOptions: storybookThemeConfig,
-    themeOptions: themeConfig,
-    theme: instanciated,
-  }
+  return { storybook, options, instanciated }
 }

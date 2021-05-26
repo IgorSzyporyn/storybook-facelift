@@ -39,6 +39,7 @@ function setRgbOpacity(_color: string, opacity: number) {
   let color = _color
 
   const rgb = _color.split(',')
+  // eslint-disable-next-line prefer-destructuring
   const blue = rgb[2].split(')')[0]
   rgb[2] = `${blue},${opacity})`
 

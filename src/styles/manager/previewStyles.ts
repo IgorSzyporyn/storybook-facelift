@@ -7,7 +7,7 @@ import { removeScrollStyles } from '../../utils/remove-scroll-styles'
 import { elevationMap } from '../elevation'
 
 import type { ParamDocs, ParamUi } from '../../typings/internal/parameters'
-import { ThemeVariantTypes } from '../../typings/internal/parameters'
+import { ThemeVariantType } from '../../typings/internal/common'
 
 const root = `.sb-show-main`
 const previewRoot = `.sb-show-main > #root`
@@ -30,13 +30,21 @@ const docsStoryCodeButton = `${docsStory} > div:last-of-type`
 const story = `${docsSubtitle}#stories ~ div`
 const storyPreview = `${story} > .sbdocs-preview`
 
-export function enhancePreviewStyles(
-  styles: { [key: string]: Record<string, any> },
-  themeVars: ThemeVars,
-  themeVariant: ThemeVariantTypes,
-  uiParams: ParamUi,
-  docsParams: ParamDocs
-) {
+type EnhancePreviewStylesProps = {
+  styles: { [key: string]: Record<string, any> }
+  themeVars?: ThemeVars
+  themeVariant?: ThemeVariantType
+  uiParams?: ParamUi
+  docsParams?: ParamDocs
+}
+
+export function enhancePreviewStyles({
+  styles,
+  themeVars,
+  themeVariant = 'light',
+  uiParams = {},
+  docsParams = {},
+}: EnhancePreviewStylesProps) {
   const theme = convert(themeVars)
   const isDark = themeVariant === 'dark'
 

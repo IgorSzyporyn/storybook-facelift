@@ -1,0 +1,8 @@
+{
+  "watch": ["src/**"],
+  "ignore": [".git", "dist/**", "node_modules/**/node_modules"],
+  "events": {
+    "start": "npm run build && rm -rf ~/Development/cylindo-ui/node_modules/storybook-facelift && mkdir ~/Development/cylindo-ui/node_modules/storybook-facelift && cp -r ~/MyGit/storybook-facelift/dist ~/Development/cylindo-ui/node_modules/storybook-facelift/dist && cp ~/MyGit/storybook-facelift/package.json ~/Development/cylindo-ui/node_modules/storybook-facelift/package.json",
+    "restart": "osascript -e 'display notification \"Copied package to Cylindo UI\" with title \"Storybook Facelift\"'"
+  }
+}

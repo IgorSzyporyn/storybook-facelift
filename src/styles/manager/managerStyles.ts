@@ -11,12 +11,8 @@ import { elevationMap } from '../elevation'
 // import { createButtonStyles } from '../../utils/create-button-styles'
 // import { createDocsTableStyles } from '../../utils/create-docs-table-styles'
 
-import type {
-  ParamDocs,
-  ParamUi,
-  ParamUiElevationTypes,
-  ThemeVariantTypes,
-} from '../../typings/internal/parameters'
+import type { ThemeVariantType } from '../../typings/internal/common'
+import type { ParamUi, ParamUiElevationTypes } from '../../typings/internal/parameters'
 
 export const rootId = `#root`
 
@@ -148,17 +144,23 @@ function getMenuIconColor(_color: string, theme: StorybookTheme) {
   return color
 }
 
-export function enhanceManagerStyles(
-  styles: { [key: string]: Record<string, any> },
-  themeVars: StorybookThemeOptions,
-  themeVariant: ThemeVariantTypes,
-  ui: ParamUi,
-  _docs: ParamDocs
-) {
+type EnhanceManagerStylesProps = {
+  styles: { [key: string]: Record<string, any> }
+  themeVars?: StorybookThemeOptions
+  themeVariant?: ThemeVariantType
+  uiParams?: ParamUi
+}
+
+export function enhanceManagerStyles({
+  styles,
+  themeVars,
+  themeVariant = 'light',
+  uiParams = {},
+}: EnhanceManagerStylesProps) {
   const isDark = themeVariant === 'dark'
   const theme = convert(themeVars)
 
-  const mainShadow = getMainShadow(ui)
+  const mainShadow = getMainShadow(uiParams)
 
   const menuHeaderColor = getMenuHeaderColor(theme, isDark)
   const menuIconColor = getMenuIconColor(theme.color.secondary, theme)
@@ -167,9 +169,6 @@ export function enhanceManagerStyles(
   const menuSubitemIconColor = getMenuSubitemIconColor(theme)
 
   const headerColors = getHeaderColors(theme, isDark)
-
-  // const buttonStyles = createButtonStyles(theme)
-  // const docsTableStyles = createDocsTableStyles(theme, { params: _docs, isDark, isToolPanel: true })
 
   styles[`${sidebarHeading}`] = {
     display: 'flex',
