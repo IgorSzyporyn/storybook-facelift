@@ -9,7 +9,7 @@ export type ThemeVariantType = 'light' | 'dark'
 
 export type ThemeType = 'native' | 'mui' | 'badgerui' | 'custom'
 
-export type ThemeProviderType = 'mui' | 'styled' | 'emotion'
+export type ThemeProviderType = 'mui' | 'styled' | 'emotion' | 'callstack'
 
 export type ThemeOptionsOverride = Omit<StorybookThemeOptions, 'base'>
 

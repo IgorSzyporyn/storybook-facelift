@@ -1,5 +1,5 @@
-import type { AddonStateThemeTitles } from '../typings/internal/state'
-import type { AddonParameters } from '../typings/internal/parameters'
+import type { AddonStateThemeTitles } from '../../typings/internal/state'
+import type { AddonParameters } from '../../typings/internal/parameters'
 
 export const createStateThemeTitlesFromParameters = (parameters: AddonParameters) => {
   const themeTitles: AddonStateThemeTitles = {}

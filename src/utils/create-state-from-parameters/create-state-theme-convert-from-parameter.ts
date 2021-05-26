@@ -4,8 +4,10 @@ import type {
   ThemeConverterFn,
   ThemeConverterFnResult,
   ThemeVariantType,
-} from '../typings/internal/common'
-import type { AddonParameters, ParamTheme } from '../typings/internal/parameters'
+  ThemeInstanciated,
+} from '../../typings/internal/common'
+import type { StorybookThemeOptions } from '../../typings/internal/exposed'
+import type { AddonParameters, ParamTheme } from '../../typings/internal/parameters'
 
 export type ConvertParameterThemeToConfigThemeProps = {
   parameters: AddonParameters
@@ -44,6 +46,12 @@ export function createStateThemeConvertFromParameters({
       variant,
       background: themeConfig.background,
     })
+  } else {
+    converted = {
+      storybook: themeVariant as StorybookThemeOptions,
+      options: themeVariant as ThemeOptions,
+      instanciated: themeVariant as ThemeInstanciated,
+    }
   }
 
   return converted
