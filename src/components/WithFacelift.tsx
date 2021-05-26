@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { create } from 'jss'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
-import { createTheming as createCallstackTheming } from '@callstack/react-theme-provider'
 import { CssBaseline } from '@material-ui/core'
 import {
   createMuiTheme,
@@ -15,7 +14,6 @@ import { PreviewStyles } from '../styles/PreviewStyles'
 import { useFaceliftSettings } from '../index'
 
 import type { ThemeOptions as MuiThemeOptions } from '@material-ui/core/styles'
-import type { ThemeInstanciated } from '../typings/internal/common'
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -156,28 +154,6 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
               >
                 {children}
               </EmotionThemeProvider>
-            ) : (
-              showChildren && children
-            )}
-          </>
-        )
-        break
-      case 'callstack':
-        // eslint-disable-next-line no-case-declarations
-        const { ThemeProvider: CallstackThemeProvider } = createCallstackTheming<
-          ThemeInstanciated | undefined
-        >(providerThemeInstanciated)
-
-        Facelifted = (
-          <>
-            <PreviewStyles addonState={addonState} />
-            {showChildren && providerThemeInstanciated && addProvider ? (
-              <CallstackThemeProvider
-                theme={providerThemeInstanciated}
-                key="storybook-facelift-callstack-theme-provider"
-              >
-                {children}
-              </CallstackThemeProvider>
             ) : (
               showChildren && children
             )}
