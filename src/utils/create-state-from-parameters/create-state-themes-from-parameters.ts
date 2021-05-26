@@ -70,6 +70,56 @@ const createNativeTheme = (parameters: AddonParameters) => {
   return nativeTheme
 }
 
+const enrichTheme = (
+  theme: ParamTheme
+): Pick<AddonStateTheme, 'provider' | 'providerTheme' | 'converter'> => {
+  const { converter: _converter, provider: _provider, providerTheme: _providerTheme } = theme
+
+  let converter = _converter
+  let provider = _provider
+  let providerTheme = _providerTheme
+
+  // If no provider is supplied BUT the themeType is "mui" or "badgerui" - we override
+  // to their chosen theme provider
+  if (provider === undefined) {
+    switch (theme.type) {
+      case 'mui':
+        provider = 'mui'
+        break
+      case 'badgerui':
+        provider = 'styled'
+        break
+      default:
+        break
+    }
+  }
+
+  // If no converter is supplied BUT the themeType is "native", "mui" or "badgerui" - we override
+  // to their chosen theme provider
+  if (converter === undefined) {
+    switch (theme.type) {
+      case 'native':
+        converter = 'native'
+        break
+      case 'mui':
+        converter = 'mui'
+        break
+      case 'badgerui':
+        converter = 'badgerui'
+        break
+      default:
+        break
+    }
+  }
+
+  // If no providerTheme is supplied, but a provider is - then use own theme as providerTheme
+  if (provider !== undefined && providerTheme === undefined) {
+    providerTheme = theme.key
+  }
+
+  return { converter, providerTheme, provider }
+}
+
 type CreateThemeProps = {
   theme: ParamTheme
   parameters: AddonParameters
@@ -199,10 +249,12 @@ export const createStateThemesFromParameters = (parameters: AddonParameters) => 
 
   if (parameters.themes) {
     parameters.themes.forEach((theme) => {
-      const validTheme = validateThemeForState(theme, parameters)
+      const enrichedThemeValues = enrichTheme(theme)
+      const enrichedTheme = { ...theme, ...enrichedThemeValues }
+      const validTheme = validateThemeForState(enrichedTheme, parameters)
 
       if (validTheme) {
-        themes[theme.key] = createTheme({ theme, parameters })
+        themes[theme.key] = createTheme({ theme: enrichedTheme, parameters })
       }
     })
   }
