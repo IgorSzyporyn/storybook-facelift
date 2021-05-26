@@ -12,7 +12,7 @@ export type Meta<
 }
 
 export type Parameters<T extends Record<string, unknown> = Record<string, unknown>> = {
-  facelift: AddonParameters
+  facelift?: AddonParameters
 } & StorybookParameters &
   T
 
