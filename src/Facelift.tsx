@@ -64,7 +64,7 @@ export const Facelift = ({ api }: FaceliftProps) => {
         api.setOptions({ theme })
       }
     },
-    [api, setAddonState, addonState]
+    [api, setAddonState]
   )
 
   const toggleVariant = () => {
