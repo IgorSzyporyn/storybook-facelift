@@ -1,3 +1,4 @@
+import type { ThemeVars } from '@storybook/theming'
 import type {
   ThemeInstanciated,
   ThemeOptions,
@@ -5,16 +6,13 @@ import type {
   ThemeProviderType,
   ThemeVariantType,
 } from './common'
-import type { StorybookThemeOptions } from './exposed'
 import type { AddonParameters, ParamTheme } from './parameters'
 
 export type AddonStateOptionThemes = Partial<Record<ThemeVariantType, ThemeOptions>>
 
 export type AddonStateInstanciatedThemes = Partial<Record<ThemeVariantType, ThemeInstanciated>>
 
-export type AddonStateStorybookThemeOptions = Partial<
-  Record<ThemeVariantType, StorybookThemeOptions>
->
+export type AddonStateStorybookThemeOptions = Partial<Record<ThemeVariantType, ThemeVars>>
 
 export type AddonStateThemeTitles = Record<string, string>
 
