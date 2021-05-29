@@ -26,4 +26,4 @@ export const withFacelift: DecoratorFn = (storyFn) => {
   return <WithFacelift>{storyFn()}</WithFacelift>
 }
 
-export * from './typings/internal/exposed'
+export type { AddonParameters as FaceliftParameters } from './typings/internal/parameters'
