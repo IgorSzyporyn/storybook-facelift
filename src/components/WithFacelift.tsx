@@ -11,9 +11,24 @@ import {
   StylesProvider as MuiStylesProvider,
 } from '@material-ui/core/styles'
 import { PreviewStyles } from '../styles/PreviewStyles'
-import { useFaceliftSettings } from '../index'
+import { useFaceliftState } from '../index'
 
 import type { ThemeOptions as MuiThemeOptions } from '@material-ui/core/styles'
+
+/** @TODO
+  api.addNotification({
+    id: 'update',
+    link: '/settings/about',
+    content: {
+      headline: `Storybook Y is available!`,
+      subHeadline: `Your current version is: X`,
+    },
+    icon: { name: 'book' },
+    onClear() {
+      store.setState({ dismissedVersionNotification: latestVersion }, { persistence: 'permanent' });
+    },
+  });
+ */
 
 function showDocsRoot() {
   const docsRoot = document.getElementById('docs-root')
@@ -40,11 +55,11 @@ type WithThemedPreviewProps = {
 export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
   hideDocsRoot()
 
-  const addonState = useFaceliftSettings()
   const [showChildren, setShowChildren] = useState(false)
+  const addonState = useFaceliftState()
 
   useEffect(() => {
-    if (addonState) {
+    if (addonState.initialized) {
       setShowChildren(true)
       setTimeout(showDocsRoot, 0)
     }
@@ -80,6 +95,10 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     // Fallback for deprecated autoThemeStory
     if (!_addProvider && autoThemeStory) {
       addProvider = autoThemeStory
+    }
+
+    if (!addProvider) {
+      return Facelifted
     }
 
     // Prepare provider values
