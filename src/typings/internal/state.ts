@@ -26,7 +26,9 @@ export type AddonStateTheme = Omit<ParamTheme, 'variants'> & {
   storybook: AddonStateStorybookThemeOptions
 }
 
-export type AddonStateThemes = Record<string, AddonStateTheme>
+export type AddonStateThemes = {
+  [key: string]: AddonStateTheme
+}
 
 export type AddonState = {
   parameters: AddonParameters
@@ -34,8 +36,8 @@ export type AddonState = {
   themes: AddonStateThemes
   converters: AddonStateConverters
   themeTitles: AddonStateThemeTitles
-  providerTheme?: string
-  provider?: ThemeProviderType
+  providerThemeKey?: string
+  providerKey?: ThemeProviderType
   themeKey?: string
   themeVariant?: ThemeVariantType
 }

@@ -185,7 +185,7 @@ const createTheme = ({ theme: themeConfig, parameters }: CreateThemeProps) => {
   const themeConverters = parameters.themeConverters || {}
   const themeConverter = themeConverters[converter]
 
-  if (variants.light) {
+  if (variants.light && themeConfig.variants.light) {
     const light = createStateThemeConvertFromParameters({
       converter: themeConverter,
       parameters,
@@ -204,7 +204,7 @@ const createTheme = ({ theme: themeConfig, parameters }: CreateThemeProps) => {
     }
   }
 
-  if (variants.dark) {
+  if (variants.dark && themeConfig.variants.dark) {
     const dark = createStateThemeConvertFromParameters({
       parameters,
       themeConfig,
@@ -234,18 +234,7 @@ const createTheme = ({ theme: themeConfig, parameters }: CreateThemeProps) => {
 export const createStateThemesFromParameters = (parameters: AddonParameters) => {
   const themes: AddonStateThemes = {}
 
-  // Only allow native theme if allowed by parameters, no custom themes present
-  // "providerOnly" themes are not custom themes
-  const hasCustomTheme =
-    parameters.themes && parameters.themes.length > 0
-      ? parameters.themes.some((theme) => {
-          return !(theme.providerOnly === true)
-        })
-      : false
-
-  if (parameters.includeNative || !hasCustomTheme) {
-    themes.native = createNativeTheme(parameters)
-  }
+  themes.native = createNativeTheme(parameters)
 
   if (parameters.themes) {
     parameters.themes.forEach((theme) => {

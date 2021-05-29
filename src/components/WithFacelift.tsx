@@ -50,18 +50,13 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     }
   }, [addonState])
 
-  let Facelifted = (
-    <>
-      <PreviewStyles addonState={addonState} />
-      {showChildren && children}
-    </>
-  )
+  let Facelifted = <>{showChildren && children}</>
 
   if (addonState) {
     const {
       themeKey,
-      provider: stateProvider,
-      providerTheme: stateProviderTheme,
+      providerKey: stateProvider,
+      providerThemeKey: stateProviderTheme,
       themeVariant = 'light',
       themes,
       parameters,
@@ -69,43 +64,67 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
     const {
       addProvider: _addProvider,
       autoThemeStory,
+      enhanceUi,
       provider: paramProvider,
       providerTheme: paramProviderTheme,
     } = parameters
+    Facelifted = (
+      <>
+        {enhanceUi && <PreviewStyles addonState={addonState} />}
+        {showChildren && children}
+      </>
+    )
+
     let addProvider = _addProvider
 
+    // Fallback for deprecated autoThemeStory
     if (!_addProvider && autoThemeStory) {
       addProvider = autoThemeStory
     }
 
+    // Prepare provider values
     let providerKey = stateProvider || paramProvider
     let providerThemeKey = stateProviderTheme || paramProviderTheme
 
+    // If no provider is available - try the current themes provider if any
     if (!providerKey && themeKey) {
       const currentTheme = themes[themeKey]
       providerKey = currentTheme.provider
     }
 
+    // If no provider theme is available - try current themes provider theme if any
     if (!providerThemeKey && themeKey) {
       const currentTheme = themes[themeKey]
       providerThemeKey = currentTheme.providerTheme
     }
 
+    // If no providerTheme or providerThemeKey - no reason to continue
     if (!providerKey || !providerThemeKey) {
       return Facelifted
     }
 
-    const providerTheme = themes[providerThemeKey]
+    // Now check if provider theme is available
+    const providerTheme = themes[providerThemeKey] || {}
     const { instanciated, options } = providerTheme
+
+    // If no providerThemes intanciated or options are found - then no reason to continue
+    if (!instanciated || !options) {
+      return Facelifted
+    }
 
     const providerThemeOptions = options[themeVariant]
     const providerThemeInstanciated = instanciated[themeVariant]
+
+    // If no instanciated and options found of the variants - then no reason to continue
+    if (!providerThemeOptions || !providerThemeInstanciated) {
+      return Facelifted
+    }
 
     switch (providerKey) {
       case 'mui':
         Facelifted = (
           <>
-            <PreviewStyles addonState={addonState} />
+            {enhanceUi && <PreviewStyles addonState={addonState} />}
             {showChildren && providerThemeOptions && addProvider ? (
               <MuiThemeProvider
                 theme={createMuiTheme(providerThemeOptions as MuiThemeOptions)}
@@ -146,7 +165,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
       case 'emotion':
         Facelifted = (
           <>
-            <PreviewStyles addonState={addonState} />
+            {enhanceUi && <PreviewStyles addonState={addonState} />}
             {showChildren && providerThemeInstanciated && addProvider ? (
               <EmotionThemeProvider
                 theme={providerThemeInstanciated}
@@ -163,7 +182,7 @@ export const WithFacelift = ({ children }: WithThemedPreviewProps) => {
       default:
         Facelifted = (
           <>
-            <PreviewStyles addonState={addonState} />
+            {enhanceUi && <PreviewStyles addonState={addonState} />}
             {showChildren && children}
           </>
         )
