@@ -25,7 +25,7 @@ export function createStorybookThemeFromBadgerUi({
     barTextColor: instanciated.color.grey.darker,
     appBg: instanciated.background.body.normal,
     appContentBg: instanciated.background.surface.normal,
-    appBorderColor: instanciated.color.border.light,
+    appBorderColor: instanciated.color.border.lightest,
     appBorderRadius: Number(instanciated.metrics.borderRadius.replace('px', '')),
     textColor: instanciated.typography.textColor,
     textInverseColor: instanciated.typography.textInverseColor,
