@@ -112,3 +112,15 @@ export type AddonParameters = {
   themes?: ParamTheme[]
   ui?: ParamUi
 }
+
+export type StoryParameters = Pick<
+  AddonParameters,
+  | 'addProvider'
+  | 'autoThemeStory'
+  | 'provider'
+  | 'providerTheme'
+  | 'docs'
+  | 'enhanceUi'
+  | 'override'
+  | 'ui'
+>

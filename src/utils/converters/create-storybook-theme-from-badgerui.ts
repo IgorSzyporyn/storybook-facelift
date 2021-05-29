@@ -25,18 +25,14 @@ export function createStorybookThemeFromBadgerUi({
     barTextColor: instanciated.color.grey.darker,
     appBg: instanciated.background.body.normal,
     appContentBg: instanciated.background.surface.normal,
-    appBorderColor:
-      variant === 'dark' ? instanciated.color.border.muted : instanciated.color.border.dark,
+    appBorderColor: instanciated.color.border.lightest,
     appBorderRadius: Number(instanciated.metrics.borderRadius.replace('px', '')),
     textColor: instanciated.typography.textColor,
     textInverseColor: instanciated.typography.textInverseColor,
-    textMutedColor: instanciated.typography.textColorMuted,
+    textMutedColor: instanciated.typography.textColorDimmed,
     inputBg: instanciated.background.surface.lightest,
     barSelectedColor: instanciated.color.secondary.normal,
-    inputBorder:
-      variant === 'dark'
-        ? instanciated.background.surface.darkest
-        : instanciated.color.border.normal,
+    inputBorder: instanciated.color.border.normal,
     inputTextColor: instanciated.typography.textColor,
     ...override,
   }

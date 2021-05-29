@@ -21,7 +21,7 @@ export type ThemeOptions =
 
 export type ThemeInstanciated = StorybookTheme | MuiTheme | BadgerTheme<never>
 
-export type ThemeVariants = { [key in ThemeVariantType]: ThemeOptions }
+export type ThemeVariants = { [key in ThemeVariantType]?: ThemeOptions }
 
 export type ThemeBackgroundsTypes =
   | 'normal'
@@ -40,9 +40,9 @@ export type ThemeConverterFnProps = {
 }
 
 export type ThemeConverterFnResult = {
-  storybook: StorybookThemeOptions
-  instanciated: ThemeInstanciated
-  options: ThemeOptions
+  storybook?: StorybookThemeOptions
+  instanciated?: ThemeInstanciated
+  options?: ThemeOptions
 } | null
 
 export type ThemeConverterFn = (props: ThemeConverterFnProps) => ThemeConverterFnResult

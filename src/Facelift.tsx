@@ -1,136 +1,170 @@
 // eslint-disable-next-line no-use-before-define
-import React, { useCallback, useEffect } from 'react'
-import { API, useAddonState } from '@storybook/api'
-import { DOCS_RENDERED, STORY_CHANGED } from '@storybook/core-events'
+import React, { memo, useEffect } from 'react'
 import deepmerge from 'ts-deepmerge'
+import { useAddonState, useStorybookApi } from '@storybook/api'
+import { defaultAddonState, defaultParameters } from './defaults'
+import { ADDON_EVENT_STATE_CHANGE, ADDON_ID, ADDON_PARAM_KEY } from './constants'
+import { DOCS_RENDERED, STORY_CHANGED } from '@storybook/core-events'
+import { createStateFromParameters } from './utils/create-state-from-parameters/create-state-from-parameters'
+import { getDefaultActiveProviderValues } from './utils/get-default-active-provider-values'
+import { getDefaultActiveThemeValues } from './utils/get-default-active-theme-values'
+import { ManagerStyles } from './styles/ManagerStyles'
 import { ThemeSelector } from './components/ThemeSelector'
 import { VariantSelector } from './components/VariantSelector'
-import { ADDON_EVENT_THEME_CHANGE, ADDON_ID, ADDON_PARAM_KEY } from './constants'
-import { ManagerStyles } from './styles/ManagerStyles'
-import { createStorybookThemeOptionsFromMui } from './utils/converters/create-storybook-theme-from-mui'
-import { createStorybookThemeFromNative } from './utils/converters/create-storybook-theme-from-native'
-import { createStorybookThemeFromBadgerUi } from './utils/converters/create-storybook-theme-from-badgerui'
-import { createStateFromParameters } from './utils/create-state-from-parameters/create-state-from-parameters'
-import { getDefaultActiveThemeValues } from './utils/get-default-active-theme-values'
 
-import type { AddonState } from './typings/internal/state'
 import type { AddonParameters } from './typings/internal/parameters'
+import { AddonState } from './typings/internal/state'
 
-const defaultParameters: AddonParameters = {
-  defaultTheme: 'native',
-  addProvider: false,
-  includeNative: false,
-  themeConverters: {
-    mui: createStorybookThemeOptionsFromMui,
-    native: createStorybookThemeFromNative,
-    badgerui: createStorybookThemeFromBadgerUi,
-    styled: createStorybookThemeFromBadgerUi,
-  },
-  docs: {
-    type: 'full',
-  },
-  enhanceUi: false,
-  ui: {
-    elevation: 2,
-  },
-}
+export const Facelift = memo(() => {
+  const api = useStorybookApi()
+  const channel = api.getChannel()
+  const parameters = api.getCurrentParameter<AddonParameters>(ADDON_PARAM_KEY)
+  const [state, setState] = useAddonState(ADDON_ID, defaultAddonState)
 
-const defaultAddonState: AddonState = {
-  initialized: false,
-  converters: {},
-  themes: {},
-  themeTitles: {},
-  parameters: { ...defaultParameters },
-}
+  const setTheme = ({ themes, themeKey, themeVariant, parameters: _parameters }: AddonState) => {
+    if (
+      themes &&
+      themeKey &&
+      themeVariant &&
+      themes[themeKey] &&
+      themes[themeKey].storybook &&
+      themes[themeKey].storybook[themeVariant]
+    ) {
+      let theme = themes[themeKey].storybook[themeVariant]
 
-type FaceliftProps = {
-  api: API
-}
-
-export const Facelift = ({ api }: FaceliftProps) => {
-  const _parameters = api.getCurrentParameter<AddonParameters | undefined>(ADDON_PARAM_KEY)
-  const [addonState, setAddonState] = useAddonState<AddonState | undefined>(ADDON_ID)
-  const parameters = deepmerge({}, defaultParameters, _parameters || {}, {
-    themeConverters: defaultParameters.themeConverters,
-  })
-
-  const updateAddonState = useCallback(
-    (state: AddonState) => {
-      setAddonState(state)
-      api.getChannel().emit(ADDON_EVENT_THEME_CHANGE, state)
-
-      if (state.themeKey) {
-        const theme = state.themes[state.themeKey].storybook[state.themeVariant || 'light']
-        api.setOptions({ theme })
+      // Handle overrides on run time
+      if (_parameters.override) {
+        theme = {
+          base: themeVariant || 'light',
+          ...theme,
+          ..._parameters.override,
+        }
       }
-    },
-    [api, setAddonState]
-  )
+
+      api.setOptions({ theme })
+    }
+  }
+
+  /**
+   * HANDLE INITIAL RUN WITH NO PARAMETERS OR ANYTHING - SET DEFAULT SECURE FALLBACK VALUES
+   */
+  useEffect(() => {
+    const initialParameters = deepmerge({}, defaultParameters, parameters || {})
+    const createdState = createStateFromParameters(initialParameters)
+
+    const defaultThemeValues = getDefaultActiveThemeValues({
+      parameters: initialParameters,
+      themes: createdState.themes,
+    })
+
+    const newState = {
+      ...state,
+      parameters: initialParameters,
+      themeKey: defaultThemeValues.themeKey,
+      themeVariant: defaultThemeValues.themeVariant,
+      converters: createdState.converters,
+      themes: createdState.themes,
+      themeTitles: createdState.themeTitles,
+    }
+
+    setState(newState)
+    setTheme(newState)
+    channel.emit(ADDON_EVENT_STATE_CHANGE, newState)
+  }, [])
+
+  /**
+   * HANDLE STATE INITIALIZATION WITH PARAMETERS AND ALL SUBSEQUENT PARAMETER CHANGES
+   */
+  useEffect(() => {
+    if (!state.initialized && parameters) {
+      const initialParameters = deepmerge({}, state.parameters, parameters)
+      // Create the "themes", "converters" & "themeTitles" for the addon state
+      const createdState = createStateFromParameters(initialParameters)
+
+      // Get the initial addonState values for chosen theme
+      const defaultThemeValues = getDefaultActiveThemeValues({
+        parameters: initialParameters,
+        themes: createdState.themes,
+      })
+
+      // Get the initial addonState values for chosen provider
+      const defaultProviderValues = getDefaultActiveProviderValues({
+        parameters: initialParameters,
+        themes: createdState.themes,
+      })
+
+      const newState = {
+        ...state,
+        ...defaultAddonState,
+        parameters: initialParameters,
+        themeKey: defaultThemeValues.themeKey,
+        themeVariant: defaultThemeValues.themeVariant,
+        providerKey: defaultProviderValues.providerKey,
+        providerThemeKey: defaultProviderValues.providerThemeKey,
+        converters: createdState.converters,
+        themes: createdState.themes,
+        themeTitles: createdState.themeTitles,
+        initialized: true,
+      }
+
+      setState(newState)
+      setTheme(newState)
+      channel.emit(ADDON_EVENT_STATE_CHANGE, newState)
+    } else if (parameters && JSON.stringify(parameters) !== JSON.stringify(state.parameters)) {
+      const newState = { ...state, parameters }
+      setState(newState)
+      setTheme(newState)
+      channel.emit(ADDON_EVENT_STATE_CHANGE, newState)
+    }
+  }, [parameters, state, setState, setTheme])
+
+  const handleStoryChanged = () => {
+    // setState({ ...state, trigger: state.trigger + 1 })
+    channel.emit(ADDON_EVENT_STATE_CHANGE, state)
+  }
+
+  const handleDocsChanged = () => {
+    channel.emit(ADDON_EVENT_STATE_CHANGE, state)
+  }
+
+  useEffect(() => {
+    channel.on(STORY_CHANGED, handleStoryChanged)
+    channel.on(DOCS_RENDERED, handleDocsChanged)
+
+    return () => {
+      channel.removeListener(STORY_CHANGED, handleStoryChanged)
+      channel.removeListener(DOCS_RENDERED, handleDocsChanged)
+    }
+  }, [api, state])
 
   const toggleVariant = () => {
-    if (addonState?.initialized) {
-      updateAddonState({
-        ...addonState,
-        themeVariant: addonState?.themeVariant === 'dark' ? 'light' : 'dark',
-      })
+    const newState: AddonState = {
+      ...state,
+      themeVariant: state?.themeVariant === 'dark' ? 'light' : 'dark',
     }
+
+    setState(newState)
+    setTheme(newState)
+    channel.emit(ADDON_EVENT_STATE_CHANGE, newState)
   }
 
   const toggleTheme = (themeKey: string) => {
-    if (addonState?.initialized) {
-      updateAddonState({ ...addonState, themeKey })
-    }
+    const newState = { ...state, themeKey }
+
+    setState(newState)
+    setTheme(newState)
+    channel.emit(ADDON_EVENT_STATE_CHANGE, newState)
   }
-
-  const renderTheme = () => {
-    if (addonState?.initialized) {
-      updateAddonState(addonState)
-    }
-  }
-
-  useEffect(() => {
-    if (_parameters) {
-      if (addonState?.initialized) {
-        updateAddonState({ ...addonState, parameters: _parameters })
-      } else {
-        // Create the "themes", "converters" & "themeTitles" for the addon state
-        const configuredAddonState = createStateFromParameters(parameters)
-
-        // Get the initial addonState values for chosen theme
-        const { themeKey, themeVariant } = getDefaultActiveThemeValues({
-          parameters,
-          themes: configuredAddonState.themes,
-        })
-
-        updateAddonState({
-          ...defaultAddonState,
-          ...configuredAddonState,
-          parameters: _parameters,
-          initialized: true,
-          themeKey,
-          themeVariant,
-        })
-      }
-    }
-  }, [_parameters])
-
-  useEffect(() => {
-    const channel = api.getChannel()
-
-    channel.on(STORY_CHANGED, renderTheme)
-    channel.on(DOCS_RENDERED, renderTheme)
-
-    return () => {
-      channel.removeListener(STORY_CHANGED, renderTheme)
-      channel.removeListener(DOCS_RENDERED, renderTheme)
-    }
-  }, [api, renderTheme])
 
   return (
     <>
-      <ManagerStyles addonState={addonState} />
-      <ThemeSelector addonState={addonState} onChange={toggleTheme} />
-      <VariantSelector addonState={addonState} onClick={toggleVariant} />
+      {state?.parameters.enhanceUi && <ManagerStyles addonState={state} />}
+      {state.initialized && (
+        <>
+          <ThemeSelector addonState={state} onChange={toggleTheme} />
+          <VariantSelector addonState={state} onClick={toggleVariant} />
+        </>
+      )}
     </>
   )
-}
+})
