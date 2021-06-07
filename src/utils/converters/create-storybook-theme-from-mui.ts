@@ -59,7 +59,7 @@ export function createStorybookThemeOptionsFromMui(
     // inputTextColor: instanciated.palette.text.primary,
     inputBorderRadius: instanciated.shape.borderRadius,
 
-    ...(override || {}),
+    ...override,
 
     base: variant,
   }

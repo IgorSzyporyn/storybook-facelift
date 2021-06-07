@@ -21,15 +21,19 @@ export function createStorybookThemeFromBadgerUi({
     base: variant,
     colorPrimary: instanciated.color.primary.normal,
     colorSecondary: instanciated.color.secondary.normal,
+
     barBg: instanciated.background.surface.normal,
     barTextColor: instanciated.color.grey.darker,
     appBg: instanciated.background.body.normal,
     appContentBg: instanciated.background.surface.normal,
     appBorderColor: instanciated.color.border.lightest,
     appBorderRadius: Number(instanciated.metrics.borderRadius.replace('px', '')),
+    // Typography
+    fontBase: instanciated.typography.fontFamily,
     textColor: instanciated.typography.textColor,
     textInverseColor: instanciated.typography.textInverseColor,
     textMutedColor: instanciated.typography.textColorDimmed,
+
     inputBg: instanciated.background.surface.lightest,
     barSelectedColor: instanciated.color.secondary.normal,
     inputBorder: instanciated.color.border.normal,
