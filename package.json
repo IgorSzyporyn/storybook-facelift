@@ -85,7 +85,7 @@
     "react-dom": "16.13.1",
     "react-json-view": "1.21.3",
     "styled-components": "5.3.0",
-    "ts-deepmerge": "1.0.5",
+    "ts-deepmerge": "2.0.2",
     "uuid": "8.3.0"
   },
   "devDependencies": {
